@@ -1,0 +1,356 @@
+/* Reset */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* GLOBALS */
+:root {
+  /* COLOURS */
+  color-scheme: light dark;
+  --background: light-dark(oklch(100% 0.00011 271.152), oklch(16.842% 0.00002 271.152));
+  --foreground: light-dark(var(--white), var(--secondary));
+  --text-color: light-dark(var(--black), var(--white));
+  --heading-color: light-dark(var(--primary), var(--contrast));
+
+  --logo: light-dark(var(--primary), var(--white));
+
+  --primary: #9F00FF;
+  --secondary: #6F00B3;
+  --contrast: #FF9500;
+  --black: #1c1c1c;
+  --white: #e7e7e7;
+
+  --status-success-color: #15a46e;
+  --status-error-color: #ea3829;
+  --status-warning-color: #f68511;
+  --status-active-color: #147af3;
+  --status-inactive-color: #cacaca;
+
+  /* STYLES */
+  --border-radius: 1em;
+  --global-margin: .5em;
+  --global-padding: 1em;
+  --max-width: 1400px;
+
+  --transition-ease: ease-in-out 400ms;
+
+  --shadow-elevation-high: 0px -1px 35px -6px rgba(0, 0, 0, 1);
+}
+
+/* FONTS */
+
+/* Webfont: Nohemi-Medium */
+@font-face {
+  font-family: 'NohemiMed';
+  src: url('../fonts/Nohemi/Nohemi-Medium.woff2') format('woff2'),
+    /* Modern Browsers */
+    url('../fonts/Nohemi/Nohemi-Medium.otf') format('opentype');
+  /* Safari, Android, iOS */
+  font-style: normal;
+  font-weight: normal;
+  text-rendering: optimizeLegibility;
+}
+
+/* Webfont: NebulaSans-Book */
+@font-face {
+  font-family: 'NebulaSans-Book';
+  src: url('../fonts/NebulaSans/NebulaSans-Book.woff2') format('woff2'),
+    /* Modern Browsers */
+    url('../fonts/NebulaSans/NebulaSans-Book.otf') format('opentype');
+  /* Safari, Android, iOS */
+  font-style: normal;
+  font-weight: normal;
+  text-rendering: optimizeLegibility;
+}
+
+
+body {
+  font-family: 'NebulaSans-Book', Arial;
+  background: var(--background);
+  min-height: 100vh;
+  width: 100%;
+  color: var(--text-color);
+  display: grid;
+  grid-template-areas:
+    "header"
+    "main";
+  grid-template-rows: auto 1fr;
+  gap: 0;
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+
+header {
+  grid-area: header;
+  background: var(--foreground);
+  border-radius: var(--border-radius);
+  padding: var(--global-padding);
+  margin: var(--global-margin);
+  display: grid;
+  grid-template-areas: "logo search nav";
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 1em;
+}
+
+.desktop-nav {
+  display: block;
+}
+
+.mobile-nav {
+  display: none;
+}
+
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: 100%;
+  background-color: white;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  min-width: 160px;
+  z-index: 1;
+  overflow: hidden;
+  border-radius: var(--border-radius);
+}
+
+.dropdown-menu.show {
+  display: block;
+}
+
+.dropdown-menu a {
+  transition: var(--transition-ease);
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-menu a.active {
+  background-color: var(--primary);
+  color: var(--white);
+}
+
+.dropdown-menu a:hover {
+  background-color: var(--contrast);
+  color: var(--white);
+}
+
+@media (max-width: 768px) {
+  header {
+    grid-template-areas:
+      "logo nav"
+      "search search";
+    grid-template-columns: 1fr auto;
+    grid-template-rows: auto auto;
+    gap: 0.5em;
+  }
+}
+
+header>div:first-child {
+  grid-area: logo;
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+}
+
+header img {
+  height: 4em;
+}
+
+.logo-svg {
+  height: 4em;
+  width: auto;
+}
+
+.logo-path {
+  height: 4em;
+  fill: var(--logo);
+}
+
+nav {
+  grid-area: nav;
+  display: grid;
+  grid-auto-flow: column;
+  gap: 0.5em;
+  align-items: center;
+}
+
+@media (max-width: 768px) {
+  nav {
+    grid-auto-flow: row;
+    justify-items: end;
+  }
+
+  .desktop-nav {
+    display: none;
+  }
+
+  .mobile-nav {
+    display: block;
+    position: relative;
+  }
+}
+
+nav a {
+  color: var(--text-color);
+  text-decoration: none;
+  padding: 0.5em 1em;
+  border-radius: var(--border-radius);
+  transition: var(--transition-ease);
+  white-space: nowrap;
+}
+
+nav a:hover {
+  background-color: var(--contrast);
+  color: var(--white);
+}
+
+nav a.active {
+  background-color: var(--primary);
+  color: var(--white);
+}
+
+main {
+  grid-area: main;
+  border-radius: var(--border-radius);
+  padding: var(--global-padding);
+  background: var(--background);
+  margin-top: var(--global-margin);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "NohemiMed", Georgia;
+  color: var(--heading-color);
+  margin-top: 0;
+}
+
+h1 {
+  font-size: 2.5em;
+  margin-bottom: .5em;
+}
+
+/* FORM STYLES */
+
+input,
+select,
+textarea {
+  font-family: 'NebulaSans-Book', Arial;
+  border: none;
+  border-radius: var(--border-radius);
+  padding: .5em 1em;
+  font-size: 1em;
+  width: 100%;
+  max-width: 400px;
+  background-color: white;
+  color: var(--black);
+  margin: .5em 0;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: 2px solid var(--primary);
+}
+
+/* SEARCH BAR */
+.search-bar {
+  grid-area: search;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 0.5em;
+  padding: 0.5em;
+}
+
+.search-bar input {
+  font-family: 'NebulaSans-Book', Arial;
+  border: none;
+  outline: none;
+  border-radius: var(--border-radius);
+  padding: 0.5em 1em;
+  font-size: 1em;
+  min-width: 0;
+  background-color: white;
+  color: var(--black);
+}
+
+.search-bar button {
+  font-family: 'NebulaSans-Book', Arial;
+  font-size: 1em;
+  background-color: var(--primary);
+  color: var(--white);
+  border: none;
+  border-radius: var(--border-radius);
+  padding: .5em 1em;
+  cursor: pointer;
+  transition: var(--transition-ease);
+}
+
+.search-bar button:hover {
+  background-color: var(--secondary);
+}
+
+/* LOGIN & REGISTER */
+
+.login-outter {
+  background-image: url('../images/background.png');
+  background-position: center center;
+  background-size: contain;
+  overflow: hidden;
+  border-radius: var(--border-radius);
+}
+
+.login-inner {
+  text-align: center;
+  align-content: center;
+  width: 50%;
+  min-width: 300px;
+  max-width: 600px;
+  padding: 2em;
+  min-height: 60vh;
+  background: var(--foreground);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-elevation-high);
+}
+
+.login-links {
+  margin-top: 1em;
+}
+
+.login-links a {
+  display: inline-block;
+  padding: .5em 1em;
+  text-decoration: none;
+  color: var(--text-color);
+  transition: var(--transition-ease);
+  border-radius: var(--border-radius);
+}
+
+.login-links a.active {
+  background-color: var(--primary);
+  color: var(--white);
+
+}
+
+.login-links a:hover {
+  background-color: var(--contrast);
+  color: var(--white);
+
+}
+
+
+
+#login,
+#register {
+  max-width: 300px;
+  margin: 1em auto;
+  min-height: 45vh;
+}
