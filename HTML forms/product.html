@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Agora</title>
     <link rel="stylesheet" href="static/styles/main.css">
+    <link rel="stylesheet" href="static/styles/forms.css">
+    <link rel="stylesheet" href="static/styles/wysiwyg.css">
+    <!-- Font Awesome for Editor Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 </head>
 
 <body>
@@ -55,39 +59,188 @@
     <main>
         <h1>Add or Edit a Product</h1>
 
-        <div id="edit-product">
-            add/edit an individual product
-            <form action="" method="post">
-                <div>
-                    <label for="First-Name">First Name</label>
-                    <input type="text" placeholder="Jane" name="First-Name" required>
+        <div class="product-layout">
+            <form action="" method="post" enctype="multipart/form-data">
+
+                <!-- Left Column - Main Content -->
+                <div class="main-column">
+                    <div class="form-section">
+                        <label for="product-name">Product Title</label>
+                        <input type="text" placeholder="Enter product name..." name="product-name" class="title-input"
+                            required>
+                        <br /><br />
+                        <label for="description">Product Description</label>
+                        <div class="wysiwyg-container">
+                            <div class="wysiwyg-toolbar">
+                                <button type="button" class="toolbar-btn" onclick="execCmd('bold')" title="Bold">
+                                    <i class="fas fa-bold"></i>
+                                </button>
+                                <button type="button" class="toolbar-btn" onclick="execCmd('italic')" title="Italic">
+                                    <i class="fas fa-italic"></i>
+                                </button>
+                                <button type="button" class="toolbar-btn" onclick="execCmd('underline')"
+                                    title="Underline">
+                                    <i class="fas fa-underline"></i>
+                                </button>
+                                <button type="button" class="toolbar-btn" onclick="execCmd('insertUnorderedList')"
+                                    title="Bullet List">
+                                    <i class="fas fa-list-ul"></i>
+                                </button>
+                                <button type="button" class="toolbar-btn" onclick="execCmd('insertOrderedList')"
+                                    title="Numbered List">
+                                    <i class="fas fa-list-ol"></i>
+                                </button>
+                                <button type="button" class="toolbar-btn" onclick="execCmd('justifyLeft')"
+                                    title="Align Left">
+                                    <i class="fas fa-align-left"></i>
+                                </button>
+                                <button type="button" class="toolbar-btn" onclick="execCmd('justifyCenter')"
+                                    title="Center">
+                                    <i class="fas fa-align-center"></i>
+                                </button>
+                                <button type="button" class="toolbar-btn" onclick="execCmd('justifyRight')"
+                                    title="Align Right">
+                                    <i class="fas fa-align-right"></i>
+                                </button>
+                            </div>
+                            <div class="wysiwyg-editor description" contenteditable="true" id="description-editor"
+                                data-placeholder="Describe your product in detail..."></div>
+                            <textarea name="description" id="description-hidden" style="display: none;"></textarea>
+                        </div>
+                        <br /><br />
+                        <label for="additional-info">Additional Information</label>
+                        <div class="wysiwyg-container">
+                            <div class="wysiwyg-toolbar">
+                                <button type="button" class="toolbar-btn" onclick="execCmd('bold')" title="Bold">
+                                    <i class="fas fa-bold"></i>
+                                </button>
+                                <button type="button" class="toolbar-btn" onclick="execCmd('italic')" title="Italic">
+                                    <i class="fas fa-italic"></i>
+                                </button>
+                                <button type="button" class="toolbar-btn" onclick="execCmd('underline')"
+                                    title="Underline">
+                                    <i class="fas fa-underline"></i>
+                                </button>
+                                <button type="button" class="toolbar-btn" onclick="execCmd('insertUnorderedList')"
+                                    title="Bullet List">
+                                    <i class="fas fa-list-ul"></i>
+                                </button>
+                                <button type="button" class="toolbar-btn" onclick="execCmd('insertOrderedList')"
+                                    title="Numbered List">
+                                    <i class="fas fa-list-ol"></i>
+                                </button>
+                                <button type="button" class="toolbar-btn" onclick="execCmd('justifyLeft')"
+                                    title="Align Left">
+                                    <i class="fas fa-align-left"></i>
+                                </button>
+                                <button type="button" class="toolbar-btn" onclick="execCmd('justifyCenter')"
+                                    title="Center">
+                                    <i class="fas fa-align-center"></i>
+                                </button>
+                                <button type="button" class="toolbar-btn" onclick="execCmd('justifyRight')"
+                                    title="Align Right">
+                                    <i class="fas fa-align-right"></i>
+                                </button>
+                            </div>
+                            <div class="wysiwyg-editor additional-info" contenteditable="true"
+                                id="additional-info-editor"
+                                data-placeholder="Care instructions, dimensions, materials, etc..."></div>
+                            <textarea name="additional-info" id="additional-info-hidden"
+                                style="display: none;"></textarea>
+                        </div>
+                    </div>
                 </div>
-                <div>
-                    <label for="Last-Name">Last Name</label>
-                    <input type="text" placeholder="Doe" name="Last-Name" required>
-                </div>
-                <div>
-                    <label for="email">Email</label>
-                    <input type="text" placeholder="hello@myemail.com" name="email" required>
-                </div>
-                <div>
-                    <label for="username">Username</label>
-                    <input type="text" placeholder="jane.doe" name="username" required>
-                </div>
-                <div>
-                    <label for="password">Password</label>
-                    <input type="password" placeholder="********" name="password" required>
-                </div>
-                <div>
-                    <label for="password-conf">Confirm Password</label>
-                    <input type="password" placeholder="********" name="password-conf" required>
-                </div>
-                <div>
-                    <input type="submit" value="Resigster">
+
+                <!-- Right Column - Sidebar -->
+                <div class="sidebar-column">
+
+                    <div class="sidebar-section">
+                        <h3>Publish</h3>
+                        <div class="form-group">
+                            <label for="is-available">Status</label>
+                            <select name="is-available" required>
+                                <option value="True">Published</option>
+                                <option value="False">Draft</option>
+                            </select>
+                        </div>
+                        <div class="publish-actions">
+                            <button type="submit" name="action" value="save" class="btn-secondary">Save Draft</button>
+                            <button type="submit" name="action" value="publish" class="btn-primary">Publish
+                                Product</button>
+                        </div>
+                    </div>
+
+                    <div class="sidebar-section">
+                        <h3>Pricing & Inventory</h3>
+                        <div class="form-group">
+                            <label for="price">Price ($)</label>
+                            <input type="number" step="0.01" placeholder="0.00" name="price" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="quantity">Quantity in Stock</label>
+                            <input type="number" placeholder="0" name="quantity" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="is-available">Status</label>
+                            <select name="is-available" required>
+                                <option value="True">Available</option>
+                                <option value="False">unavailable</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="sidebar-section">
+                        <h3>Featured Image</h3>
+                        <div class="image-upload-area">
+                            <input type="file" name="featured-image" accept="image/*" id="featured-image"
+                                class="file-input">
+                            <label for="featured-image" class="file-upload-label">
+                                <div class="upload-placeholder">
+                                    <p>Click to upload featured image</p>
+                                    <small>Recommended: 800x600px</small>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="sidebar-section">
+                        <h3>Additional Images</h3>
+                        <div class="image-upload-area">
+                            <input type="file" name="product-images[]" accept="image/*" multiple id="additional-images"
+                                class="file-input">
+                            <label for="additional-images" class="file-upload-label">
+                                <div class="upload-placeholder">
+                                    <p>Upload gallery images</p>
+                                    <small>Select multiple images</small>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="sidebar-section">
+                        <h3>Tags</h3>
+                        <div class="scrollable-checkbox-list">
+                            <label><input type="checkbox" name="tags[]" value="plants"> Plants</label>
+                            <label><input type="checkbox" name="tags[]" value="ceramic"> Ceramic</label>
+                            <label><input type="checkbox" name="tags[]" value="indoor"> Indoor</label>
+                            <label><input type="checkbox" name="tags[]" value="outdoor"> Outdoor</label>
+                            <label><input type="checkbox" name="tags[]" value="decorative"> Decorative</label>
+                            <label><input type="checkbox" name="tags[]" value="functional"> Functional</label>
+                            <label><input type="checkbox" name="tags[]" value="modern"> Modern</label>
+                            <label><input type="checkbox" name="tags[]" value="vintage"> Vintage</label>
+                            <label><input type="checkbox" name="tags[]" value="handmade"> Handmade</label>
+                            <label><input type="checkbox" name="tags[]" value="eco-friendly"> Eco-Friendly</label>
+                        </div>
+                    </div>
+
                 </div>
             </form>
         </div>
     </main>
+
+
+
+    <script src="static/js/wysiwyg.js"></script>
 </body>
 
 </html>

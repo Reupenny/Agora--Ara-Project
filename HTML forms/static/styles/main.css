@@ -237,28 +237,6 @@ h1 {
   margin-bottom: .5em;
 }
 
-/* FORM STYLES */
-
-input,
-select,
-textarea {
-  font-family: 'NebulaSans-Book', Arial;
-  border: none;
-  border-radius: var(--border-radius);
-  padding: .5em 1em;
-  font-size: 1em;
-  width: 100%;
-  max-width: 400px;
-  background-color: white;
-  color: var(--black);
-  margin: .5em 0;
-}
-
-input:focus,
-select:focus,
-textarea:focus {
-  outline: 2px solid var(--primary);
-}
 
 /* SEARCH BAR */
 .search-bar {
@@ -298,59 +276,208 @@ textarea:focus {
   background-color: var(--secondary);
 }
 
-/* LOGIN & REGISTER */
+/* ==============================================
+   LOGIN & REGISTER PAGES
+   ============================================== */
 
 .login-outter {
-  background-image: url('../images/background.png');
+  background-image: url('../images/tile.png');
   background-position: center center;
   background-size: contain;
   overflow: hidden;
   border-radius: var(--border-radius);
+  border: 1px solid #e1e5e9;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .login-inner {
-  text-align: center;
-  align-content: center;
-  width: 50%;
-  min-width: 300px;
-  max-width: 600px;
-  padding: 2em;
-  min-height: 60vh;
-  background: var(--foreground);
+  background: white;
+  padding: 40px;
   border-radius: var(--border-radius);
   box-shadow: var(--shadow-elevation-high);
+  width: 100%;
+  max-width: 400px;
+  padding: 2em;
+  min-height: 60vh;
+}
+
+.login-inner h1 {
+  text-align: center;
+  margin: 0 0 24px 0;
+  font-size: 28px;
+  font-weight: 600;
+  color: var(--heading-color);
 }
 
 .login-links {
-  margin-top: 1em;
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 32px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #e1e5e9;
 }
 
 .login-links a {
-  display: inline-block;
-  padding: .5em 1em;
+  padding: 8px 16px;
   text-decoration: none;
   color: var(--text-color);
-  transition: var(--transition-ease);
   border-radius: var(--border-radius);
+  transition: var(--transition-ease);
+  font-weight: 500;
+}
+
+.login-links a:hover {
+  background-color: var(--background);
 }
 
 .login-links a.active {
   background-color: var(--primary);
   color: var(--white);
-
 }
 
-.login-links a:hover {
-  background-color: var(--contrast);
-  color: var(--white);
-
+/* Login/Register form styling */
+#login form,
+#register form {
+  display: flex;
+  flex-direction: column;
 }
 
+/* Override form-group styling for login/register */
+.login-inner .form-group {
+  margin-bottom: 20px;
+}
 
+.login-inner .form-group:last-child {
+  margin-bottom: 0;
+}
 
-#login,
-#register {
-  max-width: 300px;
-  margin: 1em auto;
-  min-height: 45vh;
+.login-inner .form-group label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: var(--heading-color);
+  font-size: 14px;
+}
+
+.login-inner .form-group input {
+  width: 100%;
+  padding: 12px 16px;
+  border: 2px solid #e1e5e9;
+  border-radius: 6px;
+  font-size: 14px;
+  font-family: 'NebulaSans-Book', Arial;
+  background: white;
+  color: #374151;
+  transition: border-color 0.2s ease;
+}
+
+.login-inner .form-group input:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+
+.login-inner .form-group input::placeholder {
+  color: #9ca3af;
+}
+
+/* Login/Register button styling */
+.login-inner .publish-actions {
+  margin-top: 8px;
+}
+
+.login-inner .btn-primary {
+  width: 100%;
+  padding: 14px;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+/* Radio button styling for account type selection */
+.radio-group {
+  display: flex;
+  gap: 16px;
+  margin-top: 8px;
+}
+
+.radio-option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  padding: 12px 16px;
+  border: 2px solid #e1e5e9;
+  border-radius: var(--border-radius);
+  background: white;
+  transition: all 0.2s ease;
+  flex: 1;
+  justify-content: center;
+}
+
+.radio-option:hover {
+  border-color: var(--primary);
+  background-color: #f8f9ff;
+}
+
+.radio-option input[type="radio"] {
+  display: none;
+}
+
+.radio-option input[type="radio"]:checked+.radio-label {
+  color: var(--primary);
+  font-weight: 600;
+}
+
+.radio-option:has(input[type="radio"]:checked) {
+  border-color: var(--primary);
+  background-color: #f0f0ff;
+}
+
+.radio-label {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-color);
+  margin: 0;
+  transition: all 0.2s ease;
+}
+
+/* ==============================================
+   RESPONSIVE DESIGN
+   ============================================== */
+
+@media (max-width: 768px) {
+
+  /* Login/Register mobile adjustments */
+  .login-outter {
+    min-height: 60vh;
+    padding: 10px;
+  }
+
+  .login-inner {
+    padding: 24px;
+    max-width: 100%;
+  }
+
+  .login-inner h1 {
+    font-size: 24px;
+  }
+
+  .login-links {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .login-links a {
+    text-align: center;
+  }
+
+  /* Mobile radio button adjustments */
+  .radio-group {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .radio-option {
+    justify-content: flex-start;
+  }
 }

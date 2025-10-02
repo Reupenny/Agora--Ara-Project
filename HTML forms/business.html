@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Agora</title>
     <link rel="stylesheet" href="static/styles/main.css">
+    <link rel="stylesheet" href="static/styles/forms.css">
+    <link rel="stylesheet" href="static/styles/wysiwyg.css">
+    <!-- Font Awesome for Editor Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 </head>
 
 <body>
@@ -53,10 +57,207 @@
             </div>
     </header>
     <main>
-        <h1>Business</h1>
-        <form action=""></form>
+        <h1>Business Management</h1>
+
+        <div class="business-layout">
+            <form action="" method="post" enctype="multipart/form-data">
+
+                <!-- Left Column - Main Content -->
+                <div class="main-column">
+                    <div class="form-section">
+                        <label for="business-name">Business Name</label>
+                        <input type="text" placeholder="Enter your business name..." name="business-name"
+                            class="title-input" required>
+                        <br /><br />
+                        <label for="business-location">Business Location</label>
+                        <input type="text" placeholder="123 Main Street, City, State" name="business-location"
+                            class="location-input">
+                        <br /><br />
+                        <label for="details">Business Description</label>
+                        <div class="wysiwyg-container">
+                            <div class="wysiwyg-toolbar">
+                                <button type="button" class="toolbar-btn" onclick="execCmd('bold')" title="Bold">
+                                    <i class="fas fa-bold"></i>
+                                </button>
+                                <button type="button" class="toolbar-btn" onclick="execCmd('italic')" title="Italic">
+                                    <i class="fas fa-italic"></i>
+                                </button>
+                                <button type="button" class="toolbar-btn" onclick="execCmd('underline')"
+                                    title="Underline">
+                                    <i class="fas fa-underline"></i>
+                                </button>
+                                <button type="button" class="toolbar-btn" onclick="execCmd('insertUnorderedList')"
+                                    title="Bullet List">
+                                    <i class="fas fa-list-ul"></i>
+                                </button>
+                                <button type="button" class="toolbar-btn" onclick="execCmd('insertOrderedList')"
+                                    title="Numbered List">
+                                    <i class="fas fa-list-ol"></i>
+                                </button>
+                                <button type="button" class="toolbar-btn" onclick="execCmd('justifyLeft')"
+                                    title="Align Left">
+                                    <i class="fas fa-align-left"></i>
+                                </button>
+                                <button type="button" class="toolbar-btn" onclick="execCmd('justifyCenter')"
+                                    title="Center">
+                                    <i class="fas fa-align-center"></i>
+                                </button>
+                                <button type="button" class="toolbar-btn" onclick="execCmd('justifyRight')"
+                                    title="Align Right">
+                                    <i class="fas fa-align-right"></i>
+                                </button>
+                            </div>
+                            <div class="wysiwyg-editor description" contenteditable="true" id="details-editor"
+                                data-placeholder="Tell customers about your business, your story, what makes you special...">
+                            </div>
+                            <textarea name="details" id="details-hidden" style="display: none;"></textarea>
+                        </div>
+                        <br /><br />
+                        <label for="additional-details">Additional Information</label>
+                        <div class="wysiwyg-container">
+                            <div class="wysiwyg-toolbar">
+                                <button type="button" class="toolbar-btn" onclick="execCmd('bold')" title="Bold">
+                                    <i class="fas fa-bold"></i>
+                                </button>
+                                <button type="button" class="toolbar-btn" onclick="execCmd('italic')" title="Italic">
+                                    <i class="fas fa-italic"></i>
+                                </button>
+                                <button type="button" class="toolbar-btn" onclick="execCmd('underline')"
+                                    title="Underline">
+                                    <i class="fas fa-underline"></i>
+                                </button>
+                                <button type="button" class="toolbar-btn" onclick="execCmd('insertUnorderedList')"
+                                    title="Bullet List">
+                                    <i class="fas fa-list-ul"></i>
+                                </button>
+                                <button type="button" class="toolbar-btn" onclick="execCmd('insertOrderedList')"
+                                    title="Numbered List">
+                                    <i class="fas fa-list-ol"></i>
+                                </button>
+                                <button type="button" class="toolbar-btn" onclick="execCmd('justifyLeft')"
+                                    title="Align Left">
+                                    <i class="fas fa-align-left"></i>
+                                </button>
+                                <button type="button" class="toolbar-btn" onclick="execCmd('justifyCenter')"
+                                    title="Center">
+                                    <i class="fas fa-align-center"></i>
+                                </button>
+                                <button type="button" class="toolbar-btn" onclick="execCmd('justifyRight')"
+                                    title="Align Right">
+                                    <i class="fas fa-align-right"></i>
+                                </button>
+                            </div>
+                            <div class="wysiwyg-editor additional-info" contenteditable="true"
+                                id="additional-details-editor"
+                                data-placeholder="Hours of operation, policies, special services..."></div>
+                            <textarea name="additional-details" id="additional-details-hidden"
+                                style="display: none;"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column - Sidebar -->
+                <div class="sidebar-column">
+
+                    <div class="sidebar-section">
+                        <h3>Business Stats</h3>
+                        <div class="stats-list">
+                            <div class="stat-item">
+                                <span class="stat-label">Account Age:</span>
+                                <span class="stat-value">Jan 2024</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Total Orders:</span>
+                                <span class="stat-value">12</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Total Products:</span>
+                                <span class="stat-value">8</span>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="form-group">
+                            <label for="business-status">Business Status</label>
+                            <select name="business-status">
+                                <option value="active">Active</option>
+                                <option value="inactive">Inactive</option>
+                                <option value="pending">Pending Approval</option>
+                            </select>
+                        </div>
+                        <div class="publish-actions">
+                            <button type="submit" name="action" value="publish" class="btn-primary">Update
+                                Business</button>
+                        </div>
+                    </div>
+
+                    <div class="sidebar-section">
+                        <h3>Business Logo</h3>
+                        <div class="image-upload-area">
+                            <input type="file" name="business-logo" accept="image/*" id="business-logo"
+                                class="file-input">
+                            <label for="business-logo" class="file-upload-label">
+                                <div class="upload-placeholder">
+                                    <p>Upload Business Logo</p>
+                                    <small>Recommended: Square, 300x300px</small>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="sidebar-section">
+                        <h3>Banner Image</h3>
+                        <div class="image-upload-area">
+                            <input type="file" name="business-banner" accept="image/*" id="business-banner"
+                                class="file-input">
+                            <label for="business-banner" class="file-upload-label">
+                                <div class="upload-placeholder">
+                                    <p>Upload Banner Image</p>
+                                    <small>Recommended: 1200x400px</small>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                </div>
+            </form>
+        </div>
+
+        <div class="business-roles-section">
+            <h2>Manage Business Roles</h2>
+            <div class="roles-form">
+                <form action="" method="post">
+                    <div class="roles-grid">
+                        <div class="form-group">
+                            <label for="username">Username</label>
+                            <input type="text" placeholder="jane.doe" name="username" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="role-name">Role</label>
+                            <select name="role-name" required>
+                                <option value="">Select role...</option>
+                                <option value="Administrator">Administrator</option>
+                                <option value="Seller">Seller</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="is-active">Status</label>
+                            <select name="is-active" required>
+                                <option value="True">Active</option>
+                                <option value="False">Inactive</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="role-actions">
+                        <button type="submit" class="btn-primary">Assign Role</button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </main>
 
+
+
+    <script src="static/js/wysiwyg.js"></script>
 </body>
 
 </html>

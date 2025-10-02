@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Agora</title>
     <link rel="stylesheet" href="static/styles/main.css">
+    <link rel="stylesheet" href="static/styles/forms.css">
 </head>
 
 <body>
@@ -62,34 +63,46 @@
                 </div>
 
                 <div id="register">
-                    Register as a seller or a buyer
                     <form action="" method="post">
-                        <div>
+                        <div class="form-group">
+                            <label>Register as a seller or a buyer</label>
+                            <div class="radio-group">
+                                <label class="radio-option">
+                                    <input type="radio" name="Account-Type" value="buyer" required checked>
+                                    <span class="radio-label">Buyer</span>
+                                </label>
+                                <label class="radio-option">
+                                    <input type="radio" name="Account-Type" value="seller" required>
+                                    <span class="radio-label">Seller</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
                             <label for="First-Name">First Name</label>
                             <input type="text" placeholder="Jane" name="First-Name" required>
                         </div>
-                        <div>
+                        <div class="form-group">
                             <label for="Last-Name">Last Name</label>
                             <input type="text" placeholder="Doe" name="Last-Name" required>
                         </div>
-                        <div>
+                        <div class="form-group">
                             <label for="email">Email</label>
                             <input type="text" placeholder="hello@myemail.com" name="email" required>
                         </div>
-                        <div>
+                        <div class="form-group">
                             <label for="username">Username</label>
                             <input type="text" placeholder="jane.doe" name="username" required>
                         </div>
-                        <div>
+                        <div class="form-group">
                             <label for="password">Password</label>
                             <input type="password" placeholder="********" name="password" required>
                         </div>
-                        <div>
+                        <div class="form-group">
                             <label for="password-conf">Confirm Password</label>
                             <input type="password" placeholder="********" name="password-conf" required>
                         </div>
-                        <div>
-                            <input type="submit" value="Resigster">
+                        <div class="publish-actions">
+                            <button type="submit" name="action" value="Register" class="btn-primary">Register</button>
                         </div>
                     </form>
                 </div>
