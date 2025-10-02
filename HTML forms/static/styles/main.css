@@ -10,7 +10,9 @@
   /* COLOURS */
   color-scheme: light dark;
   --background: light-dark(oklch(100% 0.00011 271.152), oklch(16.842% 0.00002 271.152));
-  --foreground: light-dark(var(--white), var(--secondary));
+  --header-background: light-dark(var(--white), var(--secondary));
+  --foreground: light-dark(white, var(--tertiary));
+  --login-background: light-dark(white, var(--black));
   --text-color: light-dark(var(--black), var(--white));
   --heading-color: light-dark(var(--primary), var(--contrast));
 
@@ -18,6 +20,8 @@
 
   --primary: #9F00FF;
   --secondary: #6F00B3;
+  --tertiary: #6e00b333;
+  --light: #f0f0ff;
   --contrast: #FF9500;
   --black: #1c1c1c;
   --white: #e7e7e7;
@@ -84,7 +88,7 @@ body {
 
 header {
   grid-area: header;
-  background: var(--foreground);
+  background: var(--header-background);
   border-radius: var(--border-radius);
   padding: var(--global-padding);
   margin: var(--global-margin);
@@ -99,8 +103,14 @@ header {
   display: block;
 }
 
+.nav {
+  display: flex;
+  align-items: center;
+}
+
 .mobile-nav {
-  display: none;
+  /* display: none; */
+  position: relative;
 }
 
 .dropdown-menu {
@@ -139,6 +149,20 @@ header {
 }
 
 @media (max-width: 768px) {
+  nav {
+    grid-auto-flow: row;
+    justify-items: end;
+  }
+
+  .desktop-nav {
+    display: none;
+  }
+
+  .mobile-nav {
+    display: block;
+    position: relative;
+  }
+
   header {
     grid-template-areas:
       "logo nav"
@@ -176,22 +200,6 @@ nav {
   grid-auto-flow: column;
   gap: 0.5em;
   align-items: center;
-}
-
-@media (max-width: 768px) {
-  nav {
-    grid-auto-flow: row;
-    justify-items: end;
-  }
-
-  .desktop-nav {
-    display: none;
-  }
-
-  .mobile-nav {
-    display: block;
-    position: relative;
-  }
 }
 
 nav a {
@@ -291,7 +299,7 @@ h1 {
 }
 
 .login-inner {
-  background: white;
+  background: var(--login-background);
   padding: 40px;
   border-radius: var(--border-radius);
   box-shadow: var(--shadow-elevation-high);
@@ -430,7 +438,7 @@ h1 {
 
 .radio-option:has(input[type="radio"]:checked) {
   border-color: var(--primary);
-  background-color: #f0f0ff;
+  background-color: var(--light);
 }
 
 .radio-label {
@@ -442,10 +450,512 @@ h1 {
 }
 
 /* ==============================================
+   BASE FORM LAYOUTS
+   ============================================== */
+
+/* Common layout container */
+.product-layout,
+.business-layout,
+.profile-layout {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Two-column grid layout */
+.product-layout form,
+.business-layout form,
+.profile-layout form {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: 30px;
+}
+
+/* Main column (left) */
+.main-column {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+/* Sidebar column (right) */
+.sidebar-column {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* ==============================================
+   FORM SECTIONS & CONTAINERS
+   ============================================== */
+
+.form-section {
+  background: var(--foreground);
+  padding: var(--global-padding);
+  border-radius: var(--border-radius);
+  border: 1px solid #e1e5e9;
+}
+
+.form-section h2 {
+  margin: 0 0 16px 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--heading-color);
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--white);
+}
+
+.form-section label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: var(--heading-color);
+}
+
+.sidebar-section {
+  background: var(--foreground);
+  padding: var(--global-padding);
+  border-radius: var(--border-radius);
+  border: 1px solid #e1e5e9;
+}
+
+.sidebar-section h3 {
+  margin: 0 0 12px 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--heading-color);
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--white);
+}
+
+/* ==============================================
+   FORM INPUTS & CONTROLS
+   ============================================== */
+
+/* Title and main inputs */
+.title-input,
+.location-input {
+  width: 100%;
+  padding: 12px 16px;
+  font-size: 18px;
+  font-weight: 600;
+  border: 2px solid #e1e5e9;
+  border-radius: 6px;
+  outline: none;
+  background: white;
+  color: #374151;
+  font-family: 'NebulaSans-Book', Arial;
+}
+
+.location-input {
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.title-input:focus,
+.location-input:focus {
+  outline: 2px solid var(--primary);
+  border-color: var(--primary);
+}
+
+/* Form groups */
+.form-group {
+  margin-bottom: 12px;
+}
+
+.form-group:last-child {
+  margin-bottom: 0;
+}
+
+.form-group label {
+  display: block;
+  font-size: 13px;
+  font-weight: 500;
+  margin-bottom: 4px;
+  color: var(--text-color);
+  text-align: left;
+}
+
+/* Profile page specific form group styling */
+.profile-layout .form-group {
+  margin-bottom: 16px;
+}
+
+.profile-layout .form-group label {
+  font-weight: 500;
+  color: var(--heading-color);
+  font-size: 14px;
+}
+
+/* Standard form inputs */
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  font-size: 14px;
+  background: white;
+  color: #374151;
+  font-family: 'NebulaSans-Book', Arial;
+}
+
+/* Profile page specific input styling */
+.profile-layout .form-group input,
+.profile-layout .form-group select,
+.profile-layout .form-group textarea {
+  padding: 10px 12px;
+  border-radius: 6px;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  outline: 2px solid var(--primary);
+  border-color: var(--primary);
+}
+
+.form-group input[readonly] {
+  background-color: #f9fafb;
+  color: #6b7280;
+  opacity: 0.8;
+}
+
+.form-group small {
+  display: block;
+  margin-top: 4px;
+  color: var(--text-color);
+  opacity: 0.7;
+  font-size: 12px;
+}
+
+/* ==============================================
+   WYSIWYG EDITOR LEGACY STYLES
+   ============================================== */
+
+.wysiwyg-placeholder {
+  position: relative;
+}
+
+.wysiwyg-textarea {
+  width: 100%;
+  padding: 12px 16px;
+  border: 2px solid #e1e5e9;
+  border-radius: 6px;
+  font-family: 'NebulaSans-Book', Arial;
+  font-size: 14px;
+  line-height: 1.5;
+  resize: vertical;
+  outline: none;
+  background: var(--foreground);
+  color: #374151;
+}
+
+.wysiwyg-textarea:focus {
+  outline: 2px solid var(--primary);
+  border-color: var(--primary);
+}
+
+.wysiwyg-placeholder small {
+  display: block;
+  margin-top: 5px;
+  color: var(--text-color);
+  opacity: 0.7;
+  font-style: italic;
+}
+
+/* ==============================================
+   GRID LAYOUTS
+   ============================================== */
+
+/* Profile page grids */
+.name-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.security-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+/* Business roles grid */
+.roles-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+/* Order history grid */
+.orders-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+/* ==============================================
+   BUTTONS & ACTIONS
+   ============================================== */
+
+.publish-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.btn-primary,
+.btn-secondary {
+  padding: var(--global-padding);
+  border-radius: var(--border-radius);
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+  font-size: 1em;
+  font-family: 'NebulaSans-Book', Arial;
+  transition: var(--transition-ease);
+}
+
+.btn-primary {
+  background-color: var(--primary);
+  color: var(--white);
+}
+
+.btn-primary:hover {
+  background-color: var(--contrast);
+}
+
+.btn-secondary {
+  background-color: var(--background);
+  color: var(--text-color);
+  border: 1px solid var(--white);
+}
+
+.btn-secondary:hover {
+  background-color: var(--contrast);
+  color: var(--white);
+}
+
+.role-actions {
+  border-top: 1px solid var(--white);
+  padding-top: 16px;
+}
+
+/* ==============================================
+   FILE UPLOAD AREAS
+   ============================================== */
+
+.image-upload-area {
+  position: relative;
+}
+
+.file-input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.file-upload-label {
+  display: block;
+  cursor: pointer;
+  border: 2px dashed var(--white);
+  border-radius: var(--border-radius);
+  padding: var(--global-padding);
+  text-align: center;
+  transition: var(--transition-ease);
+}
+
+.file-upload-label:hover {
+  border-color: var(--primary);
+  background-color: var(--light);
+}
+
+.upload-placeholder span {
+  font-size: 24px;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.upload-placeholder p {
+  margin: 0 0 4px 0;
+  font-weight: 500;
+  color: var(--heading-color);
+}
+
+.upload-placeholder small {
+  color: var(--text-color);
+  opacity: 0.7;
+}
+
+/* ==============================================
+   SCROLLABLE LISTS & CHECKBOXES
+   ============================================== */
+
+.scrollable-checkbox-list {
+  height: 120px;
+  overflow-y: auto;
+  width: 100%;
+}
+
+.scrollable-checkbox-list label {
+  display: block;
+  margin-bottom: 2px;
+  padding: 4px 6px;
+  cursor: pointer;
+  border-radius: var(--border-radius);
+  transition: var(--transition-ease);
+  font-size: 13px;
+  color: var(--text-color);
+}
+
+.scrollable-checkbox-list label:hover {
+  background-color: var(--primary);
+  color: var(--white);
+}
+
+.scrollable-checkbox-list input[type="checkbox"] {
+  margin-right: 6px;
+  width: 16px;
+  vertical-align: middle;
+}
+
+/* ==============================================
+   STATISTICS & CARDS
+   ============================================== */
+
+.stats-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.stat-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--white);
+}
+
+.stat-item:last-child {
+  border-bottom: none;
+}
+
+.stat-label {
+  font-size: 13px;
+  color: var(--text-color);
+  opacity: 0.7;
+}
+
+.stat-value {
+  font-weight: 600;
+  color: var(--heading-color);
+}
+
+/* ==============================================
+   ORDER HISTORY & CARDS
+   ============================================== */
+
+.order-history-section,
+.business-roles-section {
+  max-width: 1200px;
+  margin: 40px auto 0;
+  padding: 0 20px;
+}
+
+.order-history-section h2,
+.business-roles-section h2 {
+  margin-bottom: 20px;
+  color: var(--heading-color);
+}
+
+.order-card {
+  background: var(--foreground);
+  padding: var(--global-padding);
+  border-radius: var(--border-radius);
+  border: 1px solid #e1e5e9;
+}
+
+.order-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.order-header h3 {
+  margin: 0;
+  font-size: 16px;
+  color: var(--heading-color);
+}
+
+.order-status {
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.order-status.delivered {
+  background-color: var(--status-success-color);
+  color: var(--white);
+}
+
+.order-status.shipped {
+  background-color: var(--status-active-color);
+  color: var(--white);
+}
+
+.order-status.pending {
+  background-color: var(--status-warning-color);
+  color: var(--white);
+}
+
+.order-details p {
+  margin: 4px 0;
+  font-size: 14px;
+  color: var(--text-color);
+}
+
+.roles-form {
+  background: var(--foreground);
+  padding: var(--global-padding);
+  border-radius: var(--border-radius);
+  border: 1px solid #e1e5e9;
+}
+
+/* ==============================================
    RESPONSIVE DESIGN
    ============================================== */
 
 @media (max-width: 768px) {
+
+  /* Layout adjustments */
+  .product-layout form,
+  .business-layout form,
+  .profile-layout form {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .sidebar-column {
+    order: -1;
+  }
+
+  /* Grid adjustments */
+  .name-grid,
+  .roles-grid,
+  .orders-grid {
+    grid-template-columns: 1fr;
+  }
 
   /* Login/Register mobile adjustments */
   .login-outter {
