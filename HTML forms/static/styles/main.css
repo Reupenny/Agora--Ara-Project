@@ -1,11 +1,20 @@
-/* Reset */
+/* ==============================================
+   RESET STYLES
+   ============================================== */
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
-/* GLOBALS */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* ==============================================
+   GLOBALS
+   ============================================== */
 :root {
   /* COLOURS */
   color-scheme: light dark;
@@ -22,9 +31,11 @@
   --secondary: #6F00B3;
   --tertiary: #6e00b333;
   --light: #f0f0ff;
+  --light-2: #f0f0ff6f;
   --contrast: #FF9500;
   --black: #1c1c1c;
   --white: #e7e7e7;
+  --grey: #97849c;
 
   --status-success-color: #15a46e;
   --status-error-color: #ea3829;
@@ -37,13 +48,17 @@
   --global-margin: .5em;
   --global-padding: 1em;
   --max-width: 1400px;
+  --border: .1em solid var(--tertiary);
+  --border-solid: .1em solid var(--grey);
 
   --transition-ease: ease-in-out 400ms;
 
   --shadow-elevation-high: 0px -1px 35px -6px rgba(0, 0, 0, 1);
 }
 
-/* FONTS */
+/* ==============================================
+   FONTS
+   ============================================== */
 
 /* Webfont: Nohemi-Medium */
 @font-face {
@@ -69,7 +84,9 @@
   text-rendering: optimizeLegibility;
 }
 
-
+/* ==============================================
+   MAIN LAYOUT
+   ============================================== */
 body {
   font-family: 'NebulaSans-Book', Arial;
   background: var(--background);
@@ -148,30 +165,6 @@ header {
   color: var(--white);
 }
 
-@media (max-width: 768px) {
-  nav {
-    grid-auto-flow: row;
-    justify-items: end;
-  }
-
-  .desktop-nav {
-    display: none;
-  }
-
-  .mobile-nav {
-    display: block;
-    position: relative;
-  }
-
-  header {
-    grid-template-areas:
-      "logo nav"
-      "search search";
-    grid-template-columns: 1fr auto;
-    grid-template-rows: auto auto;
-    gap: 0.5em;
-  }
-}
 
 header>div:first-child {
   grid-area: logo;
@@ -256,6 +249,10 @@ h1 {
   padding: 0.5em;
 }
 
+.search-bar form {
+  display: contents;
+}
+
 .search-bar input {
   font-family: 'NebulaSans-Book', Arial;
   border: none;
@@ -294,14 +291,14 @@ h1 {
   background-size: contain;
   overflow: hidden;
   border-radius: var(--border-radius);
-  border: 1px solid #e1e5e9;
+  border: var(--border-solid);
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .login-inner {
   background: var(--login-background);
   padding: 40px;
-  border-radius: var(--border-radius);
+  border-radius: 0 1em 1em 0;
   box-shadow: var(--shadow-elevation-high);
   width: 100%;
   max-width: 400px;
@@ -324,24 +321,6 @@ h1 {
   margin-bottom: 32px;
   padding-bottom: 16px;
   border-bottom: 1px solid #e1e5e9;
-}
-
-.login-links a {
-  padding: 8px 16px;
-  text-decoration: none;
-  color: var(--text-color);
-  border-radius: var(--border-radius);
-  transition: var(--transition-ease);
-  font-weight: 500;
-}
-
-.login-links a:hover {
-  background-color: var(--background);
-}
-
-.login-links a.active {
-  background-color: var(--primary);
-  color: var(--white);
 }
 
 /* Login/Register form styling */
@@ -371,7 +350,7 @@ h1 {
 .login-inner .form-group input {
   width: 100%;
   padding: 12px 16px;
-  border: 2px solid #e1e5e9;
+  border: var(--border);
   border-radius: 6px;
   font-size: 14px;
   font-family: 'NebulaSans-Book', Arial;
@@ -414,7 +393,7 @@ h1 {
   gap: 8px;
   cursor: pointer;
   padding: 12px 16px;
-  border: 2px solid #e1e5e9;
+  border: var(--border);
   border-radius: var(--border-radius);
   background: white;
   transition: all 0.2s ease;
@@ -450,25 +429,32 @@ h1 {
 }
 
 /* ==============================================
-   BASE FORM LAYOUTS
+   BASE FORM & DETAIL PAGE LAYOUTS (Consolidated)
    ============================================== */
 
-/* Common layout container */
-.product-layout,
-.business-layout,
-.profile-layout {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px;
+
+
+.product-detail-layout,
+.business-content-layout {
+  max-width: 1400px;
+  margin: 2em auto;
+  padding: 0 var(--global-margin);
 }
 
 /* Two-column grid layout */
 .product-layout form,
 .business-layout form,
-.profile-layout form {
+.profile-layout form,
+.product-detail-layout,
+.business-content-layout {
   display: grid;
   grid-template-columns: 1fr 300px;
   gap: 30px;
+}
+
+.product-detail-layout {
+  grid-template-columns: 1fr 1fr;
+  gap: 3em;
 }
 
 /* Main column (left) */
@@ -479,30 +465,62 @@ h1 {
 }
 
 /* Sidebar column (right) */
-.sidebar-column {
+.sidebar-column,
+.business-sidebar {
   display: flex;
   flex-direction: column;
   gap: 20px;
 }
 
+.business-sidebar {
+  gap: 1.5em;
+}
+
 /* ==============================================
-   FORM SECTIONS & CONTAINERS
+   FORM SECTIONS & CONTAINERS (Consolidated)
    ============================================== */
 
-.form-section {
+/* All card-style sections across forms and detail pages */
+.form-section,
+.sidebar-card,
+.content-section {
   background: var(--foreground);
   padding: var(--global-padding);
   border-radius: var(--border-radius);
-  border: 1px solid #e1e5e9;
+  border: var(--border);
 }
 
-.form-section h2 {
+.sidebar-card,
+.content-section {
+  padding: 1.5em;
+}
+
+/* Section headings - h2 for main sections */
+.form-section h2,
+.content-section h2 {
   margin: 0 0 16px 0;
   font-size: 18px;
   font-weight: 600;
   color: var(--heading-color);
   padding-bottom: 8px;
   border-bottom: 1px solid var(--white);
+  font-family: 'NohemiMed', sans-serif;
+}
+
+.content-section h2 {
+  font-size: 1.8em;
+  margin-bottom: 1em;
+}
+
+/* Section headings - h3 for sidebar sections */
+.sidebar-card h3 {
+  margin: 0 0 12px 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--heading-color);
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--white);
+  font-family: 'NohemiMed', sans-serif;
 }
 
 .form-section label {
@@ -512,34 +530,21 @@ h1 {
   color: var(--heading-color);
 }
 
-.sidebar-section {
-  background: var(--foreground);
-  padding: var(--global-padding);
-  border-radius: var(--border-radius);
-  border: 1px solid #e1e5e9;
-}
-
-.sidebar-section h3 {
-  margin: 0 0 12px 0;
-  font-size: 16px;
-  font-weight: 600;
-  color: var(--heading-color);
-  padding-bottom: 8px;
-  border-bottom: 1px solid var(--white);
-}
-
 /* ==============================================
    FORM INPUTS & CONTROLS
    ============================================== */
 
 /* Title and main inputs */
 .title-input,
-.location-input {
+.location-input,
+.short-description-input,
+.phone-input,
+.email-input {
   width: 100%;
   padding: 12px 16px;
-  font-size: 18px;
-  font-weight: 600;
-  border: 2px solid #e1e5e9;
+  font-size: 16px;
+  font-weight: 400;
+  border: var(--border);
   border-radius: 6px;
   outline: none;
   background: white;
@@ -547,13 +552,12 @@ h1 {
   font-family: 'NebulaSans-Book', Arial;
 }
 
-.location-input {
-  font-size: 16px;
-  font-weight: 400;
-}
 
 .title-input:focus,
-.location-input:focus {
+.location-input:focus,
+.short-description-input:focus,
+.phone-input:focus,
+.email-input:focus {
   outline: 2px solid var(--primary);
   border-color: var(--primary);
 }
@@ -593,7 +597,7 @@ h1 {
 .form-group textarea {
   width: 100%;
   padding: 8px 12px;
-  border: 1px solid #d1d5db;
+  border: var(--border);
   border-radius: 4px;
   font-size: 14px;
   background: white;
@@ -641,7 +645,7 @@ h1 {
 .wysiwyg-textarea {
   width: 100%;
   padding: 12px 16px;
-  border: 2px solid #e1e5e9;
+  border: var(--border);
   border-radius: 6px;
   font-family: 'NebulaSans-Book', Arial;
   font-size: 14px;
@@ -729,21 +733,23 @@ h1 {
 
 .btn-primary:hover {
   background-color: var(--contrast);
+  transform: translateY(-2px);
 }
 
 .btn-secondary {
   background-color: var(--background);
   color: var(--text-color);
-  border: 1px solid var(--white);
+  border: var(--border);
 }
 
 .btn-secondary:hover {
   background-color: var(--contrast);
   color: var(--white);
+  transform: translateY(-2px);
 }
 
 .role-actions {
-  border-top: 1px solid var(--white);
+  border-top: var(--border);
   padding-top: 16px;
 }
 
@@ -774,7 +780,7 @@ h1 {
 
 .file-upload-label:hover {
   border-color: var(--primary);
-  background-color: var(--light);
+  background-color: var(--light-2);
 }
 
 .upload-placeholder span {
@@ -866,7 +872,7 @@ h1 {
 .order-history-section,
 .business-roles-section {
   max-width: 1200px;
-  margin: 40px auto 0;
+  margin: 20px auto 20px auto;
   padding: 0 20px;
 }
 
@@ -880,7 +886,7 @@ h1 {
   background: var(--foreground);
   padding: var(--global-padding);
   border-radius: var(--border-radius);
-  border: 1px solid #e1e5e9;
+  border: var(--border);
 }
 
 .order-header {
@@ -929,14 +935,1009 @@ h1 {
   background: var(--foreground);
   padding: var(--global-padding);
   border-radius: var(--border-radius);
-  border: 1px solid #e1e5e9;
+  border: var(--border);
 }
 
 /* ==============================================
-   RESPONSIVE DESIGN
+   HOMEPAGE STYLES - Index/Home Page
    ============================================== */
 
+/* Hero Section */
+.hero {
+  background: var(--foreground);
+  padding: 3em 2em;
+  border-radius: var(--border-radius);
+  margin: var(--global-margin);
+  text-align: center;
+}
+
+.hero h1 {
+  color: var(--heading-color);
+  font-family: 'NohemiMed', sans-serif;
+  font-size: 2.5em;
+  margin-bottom: 0.5em;
+}
+
+.hero p {
+  font-size: 1.1em;
+  line-height: 1.6;
+  max-width: 900px;
+  margin: 0 auto;
+  color: var(--text-color);
+}
+
+/* Featured Tags Section */
+.featured-tags {
+  padding: 2em var(--global-margin);
+  margin: var(--global-margin);
+}
+
+.featured-tags h2 {
+  color: var(--heading-color);
+  font-family: 'NohemiMed', sans-serif;
+  font-size: 2em;
+  margin-bottom: 1em;
+  text-align: center;
+}
+
+.tag-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75em;
+  justify-content: center;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.button {
+  display: inline-block;
+  padding: 0.6em 1.2em;
+  background: var(--foreground);
+  color: var(--text-color);
+  text-decoration: none;
+  border-radius: var(--border-radius);
+  border: var(--border);
+  transition: all var(--transition-ease);
+  font-size: 0.95em;
+}
+
+.active {
+  background-color: var(--primary);
+  color: var(--white);
+}
+
+.button:hover {
+  background: var(--contrast);
+  color: var(--white);
+  border-color: var(--contrast);
+  transform: translateY(-2px);
+}
+
+/* Products Section */
+.products-section {
+  padding: 2em var(--global-margin);
+  margin: var(--global-margin);
+}
+
+.products-section h2 {
+  color: var(--heading-color);
+  font-family: 'NohemiMed', sans-serif;
+  font-size: 2em;
+  margin-bottom: 1.5em;
+  text-align: center;
+}
+
+/* Products Grid */
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5em;
+  margin-bottom: 2em;
+}
+
+/* Product Card */
+.product-card {
+  background: var(--foreground);
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  transition: all var(--transition-ease);
+  border: var(--border);
+  display: flex;
+  flex-direction: column;
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+.product-image {
+  position: relative;
+  width: 100%;
+  height: 250px;
+  overflow: hidden;
+  background: var(--light-2);
+  border-radius: 0 0 1em 1em;
+}
+
+.product-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--transition-ease);
+}
+
+.product-card:hover .product-image img {
+  transform: scale(1.05);
+}
+
+.product-status {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  padding: 0.4em 0.8em;
+  border-radius: calc(var(--border-radius) / 2);
+  font-size: 0.75em;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.product-status.available {
+  background: var(--status-success-color);
+  color: var(--white);
+}
+
+.product-status.unavailable {
+  background: var(--status-inactive-color);
+  color: var(--text-color);
+}
+
+/* Product Info */
+.product-info {
+  padding: 1.25em;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.product-title {
+  font-family: 'NohemiMed', sans-serif;
+  font-size: 1.25em;
+  color: var(--heading-color);
+  margin-bottom: 0.5em;
+  line-height: 1.3;
+}
+
+.product-business {
+  color: var(--text-color);
+  font-size: 0.9em;
+  margin-bottom: 0.75em;
+  opacity: 0.8;
+}
+
+.product-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: auto;
+  padding-top: 0.75em;
+}
+
+.product-price {
+  font-size: 1.5em;
+  font-weight: bold;
+  color: var(--primary);
+  font-family: 'NohemiMed', sans-serif;
+}
+
+.btn-small {
+  padding: 0.5em 1em;
+  font-size: 0.9em;
+}
+
+/* Product Tags & Tags (Consolidated) */
+.product-tags,
+.product-tags-detail,
+.specialty-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5em;
+  margin-top: 0.75em;
+}
+
+.product-tags-detail {
+  gap: 0.75em;
+  margin-top: 0;
+}
+
+.product-tags .tag,
+.product-tags-detail .tag,
+.specialty-tags .tag,
+.tag {
+  display: inline-block;
+  padding: 0.3em 0.7em;
+  background: var(--tertiary);
+  color: var(--text-color);
+  border-radius: calc(var(--border-radius) / 2);
+  font-size: 0.8em;
+}
+
+.product-tags-detail .tag {
+  padding: 0.6em 1.2em;
+  font-size: 0.9em;
+  transition: all var(--transition-ease);
+}
+
+.product-tags-detail .tag:hover {
+  background: var(--primary);
+  color: var(--white);
+  transform: translateY(-2px);
+}
+
+/* Empty State */
+.empty-state {
+  text-align: center;
+  padding: 3em 1em;
+  background: var(--foreground);
+  border-radius: var(--border-radius);
+  grid-column: 1 / -1;
+}
+
+.empty-state p {
+  font-size: 1.2em;
+  color: var(--text-color);
+  opacity: 0.7;
+}
+
+/* Pagination */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5em;
+  padding: 2em var(--global-margin);
+  margin: var(--global-margin);
+}
+
+.page-link {
+  display: inline-block;
+  padding: 0.6em 1em;
+  background: var(--foreground);
+  color: var(--text-color);
+  text-decoration: none;
+  border-radius: calc(var(--border-radius) / 2);
+  border: var(--border);
+  transition: all var(--transition-ease);
+  min-width: 40px;
+  text-align: center;
+}
+
+.page-link:hover {
+  background: var(--primary);
+  color: var(--white);
+  border-color: var(--primary);
+}
+
+.page-link.active {
+  background: var(--primary);
+  color: var(--white);
+  border-color: var(--primary);
+  pointer-events: none;
+}
+
+.page-dots {
+  color: var(--text-color);
+  padding: 0 0.5em;
+}
+
+/* ==============================================
+   FOOTER STYLES
+   ============================================== */
+
+footer {
+  background: var(--foreground);
+  border-radius: var(--border-radius);
+  margin: var(--global-margin);
+  padding: 2em var(--global-padding);
+  margin-top: 3em;
+}
+
+.footer-content {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2em;
+  margin-bottom: 2em;
+  padding-bottom: 2em;
+  border-bottom: var(--border);
+}
+
+.footer-section h3 {
+  color: var(--heading-color);
+  font-family: 'NohemiMed', sans-serif;
+  font-size: 1.2em;
+  margin-bottom: 1em;
+}
+
+.footer-section p {
+  color: var(--text-color);
+  line-height: 1.6;
+  font-size: 0.95em;
+}
+
+.footer-section ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-section ul li {
+  margin-bottom: 0.75em;
+}
+
+.footer-section ul li a {
+  color: var(--text-color);
+  text-decoration: none;
+  transition: color var(--transition-ease);
+  font-size: 0.95em;
+}
+
+.footer-section ul li a:hover {
+  color: var(--primary);
+}
+
+.footer-section ul li:not(:has(a)) {
+  color: var(--text-color);
+  font-size: 0.95em;
+}
+
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1em;
+  padding-top: 1em;
+}
+
+.footer-bottom p {
+  color: var(--text-color);
+  font-size: 0.9em;
+  opacity: 0.8;
+  margin: 0;
+}
+
+.footer-links {
+  display: flex;
+  gap: 1.5em;
+  flex-wrap: wrap;
+}
+
+.footer-links a {
+  color: var(--text-color);
+  text-decoration: none;
+  font-size: 0.9em;
+  transition: color var(--transition-ease);
+}
+
+.footer-links a:hover {
+  color: var(--primary);
+}
+
+/* ==============================================
+   PRODUCT DETAIL PAGE STYLES
+   ============================================== */
+
+/* Product Gallery */
+.product-gallery {
+  position: sticky;
+  top: 2em;
+  height: fit-content;
+}
+
+.main-image {
+  position: relative;
+  width: 100%;
+  height: 500px;
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  background: var(--light-2);
+  margin-bottom: 1em;
+}
+
+.main-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.product-status-badge {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  padding: 0.6em 1.2em;
+  border-radius: calc(var(--border-radius) / 2);
+  font-size: 0.85em;
+  font-weight: bold;
+  text-transform: uppercase;
+  background: var(--status-success-color);
+  color: var(--white);
+}
+
+.product-status-badge.unavailable {
+  background: var(--status-inactive-color);
+  color: var(--text-color);
+}
+
+/* Thumbnail Gallery */
+.thumbnail-gallery {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.75em;
+}
+
+.thumbnail {
+  width: 100%;
+  height: 100px;
+  object-fit: cover;
+  border-radius: calc(var(--border-radius) / 2);
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: all var(--transition-ease);
+  background: var(--light-2);
+}
+
+.thumbnail:hover {
+  border-color: var(--primary);
+  transform: scale(1.05);
+}
+
+.thumbnail.active {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px var(--primary);
+}
+
+/* Product Details Column */
+.product-details {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5em;
+}
+
+.product-header {
+  border-bottom: var(--border);
+  padding-bottom: 1em;
+}
+
+.product-detail-title {
+  font-family: 'NohemiMed', sans-serif;
+  font-size: 2.5em;
+  color: var(--heading-color);
+  margin-bottom: 0.5em;
+  line-height: 1.2;
+}
+
+.product-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+}
+
+.seller-info {
+  font-size: 1.1em;
+  color: var(--text-color);
+}
+
+.seller-link {
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 600;
+  transition: color var(--transition-ease);
+}
+
+.seller-link:hover {
+  color: var(--secondary);
+  text-decoration: underline;
+}
+
+/* Product Pricing */
+.product-pricing {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5em;
+  background: var(--foreground);
+  border-radius: var(--border-radius);
+  border: var(--border);
+}
+
+.current-price {
+  font-size: 2.5em;
+  font-weight: bold;
+  color: var(--primary);
+  font-family: 'NohemiMed', sans-serif;
+}
+
+.stock-info {
+  font-size: 1em;
+  color: var(--text-color);
+}
+
+.stock-info strong {
+  color: var(--status-success-color);
+}
+
+/* Add to Cart Form */
+.add-to-cart-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5em;
+  padding: 1.5em;
+  background: var(--foreground);
+  border-radius: var(--border-radius);
+  border: var(--border);
+}
+
+.quantity-selector {
+  display: flex;
+  align-items: center;
+  gap: 1em;
+}
+
+.quantity-selector label {
+  font-size: 1.1em;
+  font-weight: 600;
+  color: var(--heading-color);
+}
+
+.quantity-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  background: var(--background);
+  border-radius: calc(var(--border-radius) / 2);
+  padding: 0.25em;
+}
+
+.quantity-controls button {
+  width: 36px;
+  height: 36px;
+  border: none;
+  background: var(--primary);
+  color: var(--white);
+  font-size: 1.2em;
+  border-radius: calc(var(--border-radius) / 2);
+  cursor: pointer;
+  transition: all var(--transition-ease);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.quantity-controls button:hover {
+  background: var(--secondary);
+  transform: scale(1.1);
+}
+
+.quantity-controls input {
+  width: 60px;
+  text-align: center;
+  border: none;
+  background: transparent;
+  font-size: 1.1em;
+  font-weight: 600;
+  color: var(--text-color);
+}
+
+.quantity-controls input:focus {
+  outline: none;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 1em;
+}
+
+.btn-large {
+  padding: 1em 2em;
+  font-size: 1.1em;
+  flex: 1;
+}
+
+/* Description & Business Content Paragraphs */
+.description-content p,
+.business-description p {
+  font-size: 1.05em;
+  line-height: 1.7;
+  color: var(--text-color);
+  margin-bottom: 1em;
+}
+
+.description-content p:last-child,
+.business-description p:last-child {
+  margin-bottom: 0;
+}
+
+/* Seller Card Details */
+.seller-card {
+  display: flex;
+  gap: 1.5em;
+}
+
+.seller-details h3 {
+  font-family: 'NohemiMed', sans-serif;
+  font-size: 1.5em;
+  color: var(--heading-color);
+  margin-bottom: 0.5em;
+}
+
+.seller-details p {
+  font-size: 1em;
+  line-height: 1.6;
+  color: var(--text-color);
+  margin-bottom: 1em;
+}
+
+/* Related Products Section */
+.related-products-section {
+  max-width: 1400px;
+  margin: 4em auto 2em;
+  padding: 0 var(--global-margin);
+}
+
+.related-products-section h2 {
+  font-family: 'NohemiMed', sans-serif;
+  font-size: 2em;
+  color: var(--heading-color);
+  margin-bottom: 1.5em;
+  text-align: center;
+}
+
+/* ==============================================
+   BUSINESS DETAIL PAGE STYLES
+   ============================================== */
+
+/* Business Banner */
+.business-banner {
+  position: relative;
+  width: 100%;
+  height: 300px;
+  overflow: hidden;
+  background: var(--light-2);
+  border-radius: var(--border-radius);
+}
+
+.banner-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.banner-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100px;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.3), transparent);
+}
+
+/* Business Profile Section */
+.business-profile-section {
+  background: var(--foreground);
+  border: var(--border);
+  border-radius: var(--border-radius);
+  border-top: 0;
+}
+
+.business-profile-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 var(--global-margin);
+  display: flex;
+  align-items: flex-end;
+  gap: 2em;
+  position: relative;
+  margin-top: -80px;
+}
+
+.business-logo-wrapper {
+  flex-shrink: 0;
+  margin: .5em;
+}
+
+.business-logo {
+  width: 160px;
+  height: 160px;
+  border-radius: var(--border-radius);
+  border: 4px solid var(--foreground);
+  object-fit: cover;
+  background: var(--background);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.business-info-header {
+  padding-bottom: .7em;
+}
+
+.business-name {
+  font-family: 'NohemiMed', sans-serif;
+  font-size: 2.5em;
+  color: var(--heading-color);
+  margin-bottom: 0.25em;
+}
+
+.business-location {
+  font-size: 1.1em;
+  color: var(--text-color);
+  margin-bottom: 1em;
+}
+
+.business-stats-bar {
+  display: flex;
+  gap: 2em;
+  flex-wrap: wrap;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25em;
+}
+
+.stat-icon {
+  font-size: 1.5em;
+}
+
+.stat-value {
+  font-family: 'NohemiMed', sans-serif;
+  font-size: 1.2em;
+  color: var(--heading-color);
+  font-weight: 600;
+}
+
+.stat-label {
+  font-size: 0.85em;
+  color: var(--text-color);
+  opacity: 0.8;
+}
+
+.business-main-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2em;
+}
+
+.view-all-products,
+.view-all-businesses {
+  text-align: center;
+  margin-top: 2em;
+}
+
+/* Contact Information */
+.contact-info {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
+.contact-item {
+  display: flex;
+  gap: 1em;
+  align-items: flex-start;
+}
+
+.contact-icon {
+  font-size: 1.5em;
+  flex-shrink: 0;
+}
+
+.contact-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25em;
+  flex: 1;
+}
+
+.contact-label {
+  font-size: 0.85em;
+  color: var(--text-color);
+  opacity: 0.7;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.contact-value {
+  font-size: 1em;
+  color: var(--text-color);
+  text-decoration: none;
+}
+
+.contact-value:hover {
+  color: var(--primary);
+}
+
+/* Policy List */
+.policy-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75em;
+}
+
+.policy-list li {
+  font-size: 0.95em;
+  color: var(--text-color);
+  line-height: 1.5;
+}
+
+/* ==============================================
+   BUSINESSES SECTION (Homepage)
+   ============================================== */
+
+.businesses-section {
+  padding: 3em var(--global-margin);
+  margin: 2em var(--global-margin) var(--global-margin);
+  background: var(--foreground);
+  border-radius: var(--border-radius);
+}
+
+.businesses-section h2 {
+  font-family: 'NohemiMed', sans-serif;
+  font-size: 2.5em;
+  color: var(--heading-color);
+  margin-bottom: 0.5em;
+  text-align: center;
+}
+
+.section-subtitle {
+  text-align: center;
+  font-size: 1.1em;
+  color: var(--text-color);
+  opacity: 0.8;
+  margin-bottom: 2em;
+}
+
+.businesses-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5em;
+  margin-bottom: 2em;
+}
+
+/* Business Card */
+.business-card {
+  background: var(--background);
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  border: var(--border);
+  transition: all var(--transition-ease);
+  display: flex;
+  flex-direction: column;
+}
+
+.business-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+.business-banner-small {
+  position: relative;
+  width: 100%;
+  height: 120px;
+  overflow: hidden;
+  background: var(--light-2);
+  border-radius: 0 0 1em 1em;
+}
+
+.business-banner-small img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.business-card-content {
+  padding: 1.5em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  margin-top: -40px;
+}
+
+.business-logo-small {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 3px solid var(--background);
+  background: var(--foreground);
+  margin-bottom: 1em;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.business-logo-small img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.business-card-title {
+  font-family: 'NohemiMed', sans-serif;
+  font-size: 1.3em;
+  color: var(--heading-color);
+  margin-bottom: 0.25em;
+}
+
+.business-card-location {
+  font-size: 0.9em;
+  color: var(--text-color);
+  opacity: 0.8;
+  margin-bottom: 0.75em;
+}
+
+.business-card-description {
+  font-size: 0.95em;
+  color: var(--text-color);
+  line-height: 1.5;
+  margin-bottom: 1em;
+  min-height: 3em;
+}
+
+.business-card-stats {
+  display: flex;
+  justify-content: center;
+  gap: 1em;
+  flex-wrap: wrap;
+  margin-bottom: 1.5em;
+  padding: 1em;
+  background: var(--foreground);
+  border-radius: calc(var(--border-radius) / 2);
+  width: 100%;
+}
+
+.business-card-stats .stat {
+  font-size: 0.85em;
+  color: var(--text-color);
+}
+
+.btn-block {
+  width: 100%;
+  text-align: center;
+}
+
+/* ==============================================
+   RESPONSIVE DESIGN - ALL MEDIA QUERIES
+   ============================================== */
+
+/* Tablet and smaller devices */
 @media (max-width: 768px) {
+
+  /* Header and Navigation */
+  nav {
+    grid-auto-flow: row;
+    justify-items: end;
+  }
+
+  .desktop-nav {
+    display: none;
+  }
+
+  .mobile-nav {
+    display: block;
+    position: relative;
+  }
+
+  header {
+    grid-template-areas:
+      "logo nav"
+      "search search";
+    grid-template-columns: 1fr auto;
+    grid-template-rows: auto auto;
+    gap: 0.5em;
+  }
 
   /* Layout adjustments */
   .product-layout form,
@@ -989,5 +1990,232 @@ h1 {
 
   .radio-option {
     justify-content: flex-start;
+  }
+
+  /* Homepage responsive adjustments */
+  .hero {
+    padding: 2em 1em;
+  }
+
+  .hero h1 {
+    font-size: 1.8em;
+  }
+
+  .hero p {
+    font-size: 1em;
+  }
+
+  .products-grid {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1em;
+  }
+
+  .product-image {
+    height: 200px;
+  }
+
+  .featured-tags h2,
+  .products-section h2 {
+    font-size: 1.5em;
+  }
+
+  .tag-buttons {
+    gap: 0.5em;
+  }
+
+  .tag-button {
+    font-size: 0.85em;
+    padding: 0.5em 1em;
+  }
+
+  /* Footer responsive adjustments */
+  .footer-content {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5em;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .footer-links {
+    justify-content: center;
+  }
+
+  /* Product Detail responsive adjustments */
+  .product-detail-layout {
+    grid-template-columns: 1fr;
+    gap: 2em;
+  }
+
+  .product-gallery {
+    position: static;
+  }
+
+  .main-image {
+    height: 400px;
+  }
+
+  .product-detail-title {
+    font-size: 2em;
+  }
+
+  .current-price {
+    font-size: 2em;
+  }
+
+  .action-buttons {
+    flex-direction: column;
+  }
+
+  .btn-large {
+    width: 100%;
+  }
+
+  /* Business Detail responsive adjustments */
+  .business-banner {
+    height: 200px;
+  }
+
+  .business-profile-container {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-top: -60px;
+  }
+
+  .business-logo {
+    width: 120px;
+    height: 120px;
+  }
+
+  .business-name {
+    font-size: 2em;
+  }
+
+  .business-stats-bar {
+    justify-content: center;
+  }
+
+  .business-content-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .business-sidebar {
+    order: 2;
+  }
+
+  /* Businesses Section responsive adjustments */
+  .businesses-section h2 {
+    font-size: 2em;
+  }
+
+  .businesses-grid {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1em;
+  }
+}
+
+/* Mobile devices */
+@media (max-width: 480px) {
+
+  /* Homepage mobile adjustments */
+  .products-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .product-footer {
+    flex-direction: column;
+    gap: 0.75em;
+    align-items: flex-start;
+  }
+
+  .btn-small {
+    width: 100%;
+    text-align: center;
+  }
+
+  /* Footer mobile adjustments */
+  .footer-content {
+    grid-template-columns: 1fr;
+    gap: 1.5em;
+  }
+
+  .footer-section {
+    text-align: center;
+  }
+
+  /* Product Detail mobile adjustments */
+  .main-image {
+    height: 300px;
+  }
+
+  .thumbnail-gallery {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .product-detail-title {
+    font-size: 1.5em;
+  }
+
+  .current-price {
+    font-size: 1.8em;
+  }
+
+  .product-pricing {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1em;
+  }
+
+
+  /* Business Detail mobile adjustments */
+  .business-banner {
+    height: 150px;
+  }
+
+  .business-profile-container {
+    margin-top: -50px;
+    padding-bottom: 1em;
+  }
+
+  .business-logo {
+    width: 100px;
+    height: 100px;
+  }
+
+  .business-name {
+    font-size: 1.5em;
+  }
+
+  .business-stats-bar {
+    gap: 1em;
+  }
+
+  .stat-item {
+    min-width: 80px;
+  }
+
+  .content-section {
+    padding: 1.5em;
+  }
+
+  /* Businesses Section mobile adjustments */
+  .businesses-section {
+    padding: 2em 1em;
+  }
+
+  .businesses-section h2 {
+    font-size: 1.8em;
+  }
+
+  .businesses-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .business-card-stats {
+    flex-direction: column;
+    gap: 0.5em;
   }
 }

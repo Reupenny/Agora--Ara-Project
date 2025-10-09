@@ -67,11 +67,22 @@
                         <input type="text" placeholder="Enter your business name..." name="business-name"
                             class="title-input" required>
                         <br /><br />
-                        <label for="business-location">Business Location</label>
+                        <label for="business-location">Location</label>
                         <input type="text" placeholder="123 Main Street, City, State" name="business-location"
                             class="location-input">
                         <br /><br />
-                        <label for="details">Business Description</label>
+                        <label for="business-email">Email</label>
+                        <input type="email" placeholder="Enter your business email..." name="business-email"
+                            class="email-input" required>
+                        <br /><br />
+                        <label for="business-phone">Phone</label>
+                        <input type="tel" placeholder="(123) 456-7890" name="business-phone" class="phone-input">
+                        <br /><br />
+                        <label for="business-short-description">Short Description</label>
+                        <input type="text" placeholder="Enter a short description..." name="business-short-description"
+                            class="short-description-input">
+                        <br /><br />
+                        <label for="details">Description</label>
                         <div class="wysiwyg-container">
                             <div class="wysiwyg-toolbar">
                                 <button type="button" class="toolbar-btn" onclick="execCmd('bold')" title="Bold">
@@ -110,54 +121,11 @@
                             </div>
                             <textarea name="details" id="details-hidden" style="display: none;"></textarea>
                         </div>
-                        <br /><br />
-                        <label for="additional-details">Additional Information</label>
-                        <div class="wysiwyg-container">
-                            <div class="wysiwyg-toolbar">
-                                <button type="button" class="toolbar-btn" onclick="execCmd('bold')" title="Bold">
-                                    <i class="fas fa-bold"></i>
-                                </button>
-                                <button type="button" class="toolbar-btn" onclick="execCmd('italic')" title="Italic">
-                                    <i class="fas fa-italic"></i>
-                                </button>
-                                <button type="button" class="toolbar-btn" onclick="execCmd('underline')"
-                                    title="Underline">
-                                    <i class="fas fa-underline"></i>
-                                </button>
-                                <button type="button" class="toolbar-btn" onclick="execCmd('insertUnorderedList')"
-                                    title="Bullet List">
-                                    <i class="fas fa-list-ul"></i>
-                                </button>
-                                <button type="button" class="toolbar-btn" onclick="execCmd('insertOrderedList')"
-                                    title="Numbered List">
-                                    <i class="fas fa-list-ol"></i>
-                                </button>
-                                <button type="button" class="toolbar-btn" onclick="execCmd('justifyLeft')"
-                                    title="Align Left">
-                                    <i class="fas fa-align-left"></i>
-                                </button>
-                                <button type="button" class="toolbar-btn" onclick="execCmd('justifyCenter')"
-                                    title="Center">
-                                    <i class="fas fa-align-center"></i>
-                                </button>
-                                <button type="button" class="toolbar-btn" onclick="execCmd('justifyRight')"
-                                    title="Align Right">
-                                    <i class="fas fa-align-right"></i>
-                                </button>
-                            </div>
-                            <div class="wysiwyg-editor additional-info" contenteditable="true"
-                                id="additional-details-editor"
-                                data-placeholder="Hours of operation, policies, special services..."></div>
-                            <textarea name="additional-details" id="additional-details-hidden"
-                                style="display: none;"></textarea>
-                        </div>
                     </div>
                 </div>
-
                 <!-- Right Column - Sidebar -->
                 <div class="sidebar-column">
-
-                    <div class="sidebar-section">
+                    <div class="sidebar-card">
                         <h3>Business Stats</h3>
                         <div class="stats-list">
                             <div class="stat-item">
@@ -183,12 +151,11 @@
                             </select>
                         </div>
                         <div class="publish-actions">
-                            <button type="submit" name="action" value="publish" class="btn-primary">Update
-                                Business</button>
+                            <button type="submit" name="action" value="publish"
+                                class="btn-primary">UpdateBusiness</button>
                         </div>
                     </div>
-
-                    <div class="sidebar-section">
+                    <div class="sidebar-card">
                         <h3>Business Logo</h3>
                         <div class="image-upload-area">
                             <input type="file" name="business-logo" accept="image/*" id="business-logo"
@@ -202,7 +169,7 @@
                         </div>
                     </div>
 
-                    <div class="sidebar-section">
+                    <div class="sidebar-card">
                         <h3>Banner Image</h3>
                         <div class="image-upload-area">
                             <input type="file" name="business-banner" accept="image/*" id="business-banner"
@@ -256,6 +223,54 @@
 
 
     <script src="static/js/wysiwyg.js"></script>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About Agora</h3>
+                <p>New Zealand's dedicated marketplace for quality homewares, plants, and unique finds. Connecting
+                    passionate sellers with discerning buyers.</p>
+            </div>
+
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="./index.html">Home</a></li>
+                    <li><a href="./register.html">Register</a></li>
+                    <li><a href="./login.html">Login</a></li>
+                    <li><a href="./business.html">Start Selling</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h3>Categories</h3>
+                <ul>
+                    <li><a href="./index.html">Plants</a></li>
+                    <li><a href="./index.html">Ceramic</a></li>
+                    <li><a href="./index.html">Modern</a></li>
+                    <li><a href="./index.html">Vintage</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <ul>
+                    <li>Email: hello@agora.co.nz</li>
+                    <li>Phone: +64 3 123 4567</li>
+                    <li>Support: Mon-Fri 9am-5pm NZST</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2025 Agora Marketplace. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+                <a href="#">Help Center</a>
+            </div>
+        </div>
+    </footer>
 </body>
 
 </html>

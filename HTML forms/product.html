@@ -106,45 +106,16 @@
                             <textarea name="description" id="description-hidden" style="display: none;"></textarea>
                         </div>
                         <br /><br />
-                        <label for="additional-info">Additional Information</label>
-                        <div class="wysiwyg-container">
-                            <div class="wysiwyg-toolbar">
-                                <button type="button" class="toolbar-btn" onclick="execCmd('bold')" title="Bold">
-                                    <i class="fas fa-bold"></i>
-                                </button>
-                                <button type="button" class="toolbar-btn" onclick="execCmd('italic')" title="Italic">
-                                    <i class="fas fa-italic"></i>
-                                </button>
-                                <button type="button" class="toolbar-btn" onclick="execCmd('underline')"
-                                    title="Underline">
-                                    <i class="fas fa-underline"></i>
-                                </button>
-                                <button type="button" class="toolbar-btn" onclick="execCmd('insertUnorderedList')"
-                                    title="Bullet List">
-                                    <i class="fas fa-list-ul"></i>
-                                </button>
-                                <button type="button" class="toolbar-btn" onclick="execCmd('insertOrderedList')"
-                                    title="Numbered List">
-                                    <i class="fas fa-list-ol"></i>
-                                </button>
-                                <button type="button" class="toolbar-btn" onclick="execCmd('justifyLeft')"
-                                    title="Align Left">
-                                    <i class="fas fa-align-left"></i>
-                                </button>
-                                <button type="button" class="toolbar-btn" onclick="execCmd('justifyCenter')"
-                                    title="Center">
-                                    <i class="fas fa-align-center"></i>
-                                </button>
-                                <button type="button" class="toolbar-btn" onclick="execCmd('justifyRight')"
-                                    title="Align Right">
-                                    <i class="fas fa-align-right"></i>
-                                </button>
-                            </div>
-                            <div class="wysiwyg-editor additional-info" contenteditable="true"
-                                id="additional-info-editor"
-                                data-placeholder="Care instructions, dimensions, materials, etc..."></div>
-                            <textarea name="additional-info" id="additional-info-hidden"
-                                style="display: none;"></textarea>
+                        <label for="description">Additional Images</label>
+                        <div class="image-upload-area">
+                            <input type="file" name="product-images[]" accept="image/*" multiple id="additional-images"
+                                class="file-input">
+                            <label for="additional-images" class="file-upload-label">
+                                <div class="upload-placeholder">
+                                    <p>Upload gallery images</p>
+                                    <small>Select multiple images</small>
+                                </div>
+                            </label>
                         </div>
                     </div>
                 </div>
@@ -152,7 +123,7 @@
                 <!-- Right Column - Sidebar -->
                 <div class="sidebar-column">
 
-                    <div class="sidebar-section">
+                    <div class="sidebar-card">
                         <h3>Publish</h3>
                         <div class="form-group">
                             <label for="is-available">Status</label>
@@ -168,7 +139,7 @@
                         </div>
                     </div>
 
-                    <div class="sidebar-section">
+                    <div class="sidebar-card">
                         <h3>Pricing & Inventory</h3>
                         <div class="form-group">
                             <label for="price">Price ($)</label>
@@ -187,7 +158,7 @@
                         </div>
                     </div>
 
-                    <div class="sidebar-section">
+                    <div class="sidebar-card">
                         <h3>Featured Image</h3>
                         <div class="image-upload-area">
                             <input type="file" name="featured-image" accept="image/*" id="featured-image"
@@ -200,22 +171,7 @@
                             </label>
                         </div>
                     </div>
-
-                    <div class="sidebar-section">
-                        <h3>Additional Images</h3>
-                        <div class="image-upload-area">
-                            <input type="file" name="product-images[]" accept="image/*" multiple id="additional-images"
-                                class="file-input">
-                            <label for="additional-images" class="file-upload-label">
-                                <div class="upload-placeholder">
-                                    <p>Upload gallery images</p>
-                                    <small>Select multiple images</small>
-                                </div>
-                            </label>
-                        </div>
-                    </div>
-
-                    <div class="sidebar-section">
+                    <div class="sidebar-card">
                         <h3>Tags</h3>
                         <div class="scrollable-checkbox-list">
                             <label><input type="checkbox" name="tags[]" value="plants"> Plants</label>
@@ -239,6 +195,54 @@
 
 
     <script src="static/js/wysiwyg.js"></script>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About Agora</h3>
+                <p>New Zealand's dedicated marketplace for quality homewares, plants, and unique finds. Connecting
+                    passionate sellers with discerning buyers.</p>
+            </div>
+
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="./index.html">Home</a></li>
+                    <li><a href="./register.html">Register</a></li>
+                    <li><a href="./login.html">Login</a></li>
+                    <li><a href="./business.html">Start Selling</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h3>Categories</h3>
+                <ul>
+                    <li><a href="./index.html">Plants</a></li>
+                    <li><a href="./index.html">Ceramic</a></li>
+                    <li><a href="./index.html">Modern</a></li>
+                    <li><a href="./index.html">Vintage</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <ul>
+                    <li>Email: hello@agora.co.nz</li>
+                    <li>Phone: +64 3 123 4567</li>
+                    <li>Support: Mon-Fri 9am-5pm NZST</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2025 Agora Marketplace. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+                <a href="#">Help Center</a>
+            </div>
+        </div>
+    </footer>
 </body>
 
 </html>
