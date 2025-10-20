@@ -46,10 +46,16 @@ class ProductsModel extends AbstractModel {
 		
 		// Add search filter if set
 		if ($this->searchQuery !== null) {
-			$sql .= " AND (p.product_name LIKE ? OR p.description LIKE ?)";
+			$sql .= " AND (p.product_name LIKE ? OR p.description LIKE ? OR b.business_name LIKE ? OR p.product_id IN (
+			            SELECT pc.product_id 
+			            FROM product_categories pc
+			            WHERE pc.category_name LIKE ?
+			          ))";
 			$searchTerm = '%' . $this->searchQuery . '%';
 			$params[] = $searchTerm;
 			$params[] = $searchTerm;
+			$params[] = $searchTerm;
+            $params[] = $searchTerm;
 		}
 		
 		$sql .= " ORDER BY p.product_id DESC";
