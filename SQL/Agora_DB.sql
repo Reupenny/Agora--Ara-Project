@@ -26,6 +26,7 @@ CREATE TABLE businesses
   business_name VARCHAR(255) NOT NULL,
   business_location VARCHAR(255) DEFAULT NULL,
   details TEXT DEFAULT NULL,
+  is_active ENUM('True', 'False') NOT NULL DEFAULT 'False',
   created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (business_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

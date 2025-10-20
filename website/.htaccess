@@ -1,0 +1,20 @@
+RewriteEngine on
+
+#	1) These files can be served directly by apache
+RewriteRule \.(gif|jpe?g|png|bmp|js|css|pdf|html|ico)$ - [NC,L]
+
+#	2) We begin by dealing with recursion. 
+#   ... if we are already in the right form, we're done!
+RewriteRule ^website.php/ - [L]	
+RewriteRule ^runtests.php - [L]	
+# also want to run test in development env
+
+
+#	3) Kick out any other php files [alternative - just say not found]
+# 	(This will force all access through the front end controller)
+RewriteRule \.php$ - [F,NC,L]
+
+#   	4) With that out of the way, we'll add our rule:
+RewriteRule ^(.*) website.php/$1 [L,NE]
+
+#	All done :-) and Well Done!!
