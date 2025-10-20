@@ -1,0 +1,94 @@
+/* WYSIWYG Editor Styles */
+.wysiwyg-container {
+    border: 1px solid var(--light-gray, #ddd);
+    border-radius: 4px;
+    background: white;
+}
+
+.wysiwyg-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    padding: 8px;
+    background: #f8f9fa;
+    border-bottom: 1px solid var(--light-gray, #ddd);
+    border-radius: 4px 4px 0 0;
+}
+
+.toolbar-btn {
+    background: white;
+    border: 1px solid var(--light-gray, #ddd);
+    border-radius: 3px;
+    padding: 6px 8px;
+    cursor: pointer;
+    font-size: 14px;
+    color: #333;
+    transition: all 0.2s ease;
+}
+
+.toolbar-btn:hover {
+    background: var(--light-gray, #e9ecef);
+}
+
+.toolbar-btn.active {
+    background: var(--primary, #9F00FF);
+    color: white;
+}
+
+.wysiwyg-editor {
+    min-height: 200px;
+    padding: 12px;
+    border: none;
+    outline: none;
+    font-family: inherit;
+    font-size: 14px;
+    line-height: 1.5;
+    background: white;
+    border-radius: 0 0 4px 4px;
+}
+
+.wysiwyg-editor:focus {
+    outline: none;
+}
+
+/* List styling to keep numbers/bullets inside the editor */
+.wysiwyg-editor ul,
+.wysiwyg-editor ol {
+    margin: 0.5em 0;
+    padding-left: 30px;
+}
+
+.wysiwyg-editor li {
+    margin: 0.2em 0;
+    list-style-position: inside;
+}
+
+.wysiwyg-editor ul {
+    list-style-type: disc;
+}
+
+.wysiwyg-editor ol {
+    list-style-type: decimal;
+}
+
+/* Different heights for different editors */
+.wysiwyg-editor.description {
+    min-height: 300px;
+}
+
+.wysiwyg-editor.additional-info {
+    min-height: 200px;
+}
+
+/* Mobile responsiveness for WYSIWYG */
+@media (max-width: 768px) {
+    .wysiwyg-toolbar {
+        flex-wrap: wrap;
+        gap: 2px;
+    }
+
+    .toolbar-btn {
+        padding: 4px 6px;
+        font-size: 12px;
+    }
+}
