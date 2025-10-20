@@ -23,12 +23,15 @@ The website is designed around a seller hierarchy to maintain a professional mar
 - **Central Data Integrity:** The database enforces that one Seller Account can only be associated with one Business at a time.
 - **Catalogue Optimisation:** Products feature Tags for detailed search and dedicated fields for image versions (thumb_url, blur_url) to ensure fast loading speeds.
 
+## Running the website
+
+`php -S localhost:8000`
+
 ## Technologies Used
 
 - **Frontend:** HTML5, CSS3, JavaScript
 - **Backend:** PHP, MYSQL
-- **Testing:** 
-
+- **Testing:**
 
 ## Screenshots
 
