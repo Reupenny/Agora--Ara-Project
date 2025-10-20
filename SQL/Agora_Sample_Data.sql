@@ -10,11 +10,11 @@ VALUES
 ('diana_admin', 'diana@example.com', 'Diana', 'Prince', 'hashed_pass_5', 'salt_5', 'Agora Admin');
 
 -- Insert Sample Businesses
-INSERT INTO businesses (business_name, business_location, details)
+INSERT INTO businesses (business_name, business_location, details, is_active)
 VALUES
-('The Vintage Emporium', 'Auckland, NZ', 'Legal LTD'),
-('Green Thumb Nursery', 'Christchurch, NZ', 'Gardens Trust'),
-('Canvas & Clay Gallery', 'Wellington, NZ', 'Arts Group Inc.');
+('The Vintage Emporium', 'Auckland, NZ', 'Legal LTD', 'True'),
+('Green Thumb Nursery', 'Christchurch, NZ', 'Gardens Trust', 'True'),
+('Canvas & Clay Gallery', 'Wellington, NZ', 'Arts Group Inc.', 'True');
 
 -- Insert Business Associations (linking sellers to businesses)
 -- Bob is an Administrator for The Vintage Emporium.
@@ -36,39 +36,54 @@ VALUES
 ((SELECT business_id FROM businesses WHERE business_name = 'Green Thumb Nursery'), 'Bonsai Tree', 'A small, meticulously cared for bonsai tree.', 85.00, 2, 'True'),
 ((SELECT business_id FROM businesses WHERE business_name = 'Canvas & Clay Gallery'), 'Abstract Oil Painting', 'A large original abstract painting on canvas.', 500.00, 1, 'True');
 
--- Insert Sample Tags
-INSERT INTO tags
+-- Insert Sample Categories
+INSERT INTO categories
 VALUES
 ('vintage'), ('mid-century'), ('teak'), ('art deco'), ('glassware'),
 ('plants'), ('rare'), ('bonsai'), ('art'), ('oil painting'), ('abstract');
 
--- Insert Product Tags (junction table)
+-- Insert Product Categories (junction table)
 -- Associate the Vintage Armchair with tags
-INSERT INTO product_tags
+INSERT INTO product_categories
 VALUES
 ((SELECT product_id FROM products WHERE product_name = 'Mid-Century Teak Armchair'), 'vintage'),
 ((SELECT product_id FROM products WHERE product_name = 'Mid-Century Teak Armchair'), 'mid-century'),
 ((SELECT product_id FROM products WHERE product_name = 'Mid-Century Teak Armchair'), 'teak');
 
 -- Associate the Art Deco Vase with tags
-INSERT INTO product_tags
+INSERT INTO product_categories
 VALUES
 ((SELECT product_id FROM products WHERE product_name = 'Art Deco Glass Vase'), 'vintage'),
 ((SELECT product_id FROM products WHERE product_name = 'Art Deco Glass Vase'), 'art deco'),
 ((SELECT product_id FROM products WHERE product_name = 'Art Deco Glass Vase'), 'glassware');
 
 -- Associate the Variegated Monstera with tags
-INSERT INTO product_tags
+INSERT INTO product_categories
 VALUES
 ((SELECT product_id FROM products WHERE product_name = 'Variegated Monstera'), 'plants'),
 ((SELECT product_id FROM products WHERE product_name = 'Variegated Monstera'), 'rare');
 
 -- Associate the Abstract Oil Painting with tags
-INSERT INTO product_tags
+INSERT INTO product_categories
 VALUES
 ((SELECT product_id FROM products WHERE product_name = 'Abstract Oil Painting'), 'art'),
 ((SELECT product_id FROM products WHERE product_name = 'Abstract Oil Painting'), 'oil painting'),
 ((SELECT product_id FROM products WHERE product_name = 'Abstract Oil Painting'), 'abstract');
+
+-- Insert Product Images
+INSERT INTO product_images (product_id, image_url, thumb_url, blur_url, sort_order)
+VALUES
+-- Images for Mid-Century Teak Armchair (product_id 1)
+((SELECT product_id FROM products WHERE product_name = 'Mid-Century Teak Armchair'), 'assets/images/products/1/feature.webp', 'assets/images/products/1/feature.webp', 'assets/images/products/1/feature.webp', 0),
+((SELECT product_id FROM products WHERE product_name = 'Mid-Century Teak Armchair'), 'assets/images/products/1/1.webp', 'assets/images/products/1/1.webp', 'assets/images/products/1/1.webp', 1),
+
+-- Images for Art Deco Glass Vase (product_id 2)
+((SELECT product_id FROM products WHERE product_name = 'Art Deco Glass Vase'), 'assets/images/products/2/feature.webp', 'assets/images/products/2/feature.webp', 'assets/images/products/2/feature.webp', 0),
+((SELECT product_id FROM products WHERE product_name = 'Art Deco Glass Vase'), 'assets/images/products/2/1.webp', 'assets/images/products/2/1.webp', 'assets/images/products/2/1.webp', 1),
+
+-- Images for Variegated Monstera (product_id 3)
+((SELECT product_id FROM products WHERE product_name = 'Variegated Monstera'), 'assets/images/products/3/feature.webp', 'assets/images/products/3/feature.webp', 'assets/images/products/3/feature.webp', 0),
+((SELECT product_id FROM products WHERE product_name = 'Variegated Monstera'), 'assets/images/products/3/1.webp', 'assets/images/products/3/1.webp', 'assets/images/products/3/1.webp', 1);
 
 -- Insert Sample Order and Order Items
 INSERT INTO orders (buyer_username, total_amount, status)

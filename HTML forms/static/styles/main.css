@@ -286,7 +286,7 @@ h1 {
    ============================================== */
 
 .login-outter {
-  background-image: url('../images/tile.png');
+  background-image: url('../images/tile.webp');
   background-position: center center;
   background-size: contain;
   overflow: hidden;
