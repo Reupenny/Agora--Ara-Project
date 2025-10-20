@@ -7,10 +7,14 @@
 */
 
 // Database connection settings
-$host = '127.0.0.1';
-$user = 'root';
-$password = 'yz0ZB5mhcSdyN35ACm5tNTSG2euVptNm';
-$database = 'agora_db';
+
+$configText = file_get_contents('config/website.conf');
+$config = json_decode($configText, true);
+
+$host = $config['db']['dbHost'];
+$user = $config['db']['dbUser'];
+$password = $config['db']['dbPassword'];
+$database = $config['db']['dbDatabase'];
 
 echo "<h1>Agora Database Setup</h1>";
 echo "<pre>";
