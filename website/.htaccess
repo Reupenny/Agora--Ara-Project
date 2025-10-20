@@ -10,11 +10,13 @@ RewriteRule ^runtests.php - [L]
 # also want to run test in development env
 
 
-#	3) Kick out any other php files [alternative - just say not found]
-# 	(This will force all access through the front end controller)
+#	3) Allow specific PHP files that should be accessible directly
+RewriteRule ^(setup_database|insert_sample_data|runtests)\.php$ - [L]
+
+#	4) Block other PHP files to force through front controller
 RewriteRule \.php$ - [F,NC,L]
 
-#   	4) With that out of the way, we'll add our rule:
+#   	5) With that out of the way, we'll add our rule:
 RewriteRule ^(.*) index.php/$1 [L,NE]
 
 #	All done :-) and Well Done!!

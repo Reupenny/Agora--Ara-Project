@@ -68,9 +68,29 @@ class URI implements IUri {
 		
 		$site=$scheme.$server.$script.'/';
 		
-		$path='';
-		if (isset($_SERVER['PATH_INFO'])) {
-			$path=substr($_SERVER['PATH_INFO'],1);
+		$path = '';
+		if (isset($_SERVER['PATH_INFO']) && !empty($_SERVER['PATH_INFO'])) {
+			// Standard way - PATH_INFO is set by Apache rewrite
+			$path = substr($_SERVER['PATH_INFO'], 1);
+		} elseif (isset($_SERVER['REQUEST_URI'])) {
+			// Fallback - extract path from REQUEST_URI
+			$requestUri = $_SERVER['REQUEST_URI'];
+			// Remove query string if present
+			if (($queryPos = strpos($requestUri, '?')) !== false) {
+				$requestUri = substr($requestUri, 0, $queryPos);
+			}
+			// Remove the script path to get the relative path
+			$scriptPath = dirname($_SERVER['SCRIPT_NAME']);
+			if ($scriptPath !== '/' && strpos($requestUri, $scriptPath) === 0) {
+				$path = substr($requestUri, strlen($scriptPath) + 1);
+			} else {
+				$path = ltrim($requestUri, '/');
+			}
+			// Remove the script name if it's at the beginning
+			$scriptName = basename($_SERVER['SCRIPT_NAME']);
+			if (strpos($path, $scriptName . '/') === 0) {
+				$path = substr($path, strlen($scriptName) + 1);
+			}
 		}
 		return new URI ($site,$path);
 	}
