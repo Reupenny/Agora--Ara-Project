@@ -16,7 +16,15 @@ class HomeModel extends AbstractModel {
 		               (SELECT pi.image_url FROM product_images pi 
 		                WHERE pi.product_id = p.product_id 
 		                ORDER BY pi.sort_order ASC, pi.image_id ASC 
-		                LIMIT 1) as first_image
+		                LIMIT 1) as first_image,
+		               (SELECT pi.thumb_url FROM product_images pi 
+		                WHERE pi.product_id = p.product_id 
+		                ORDER BY pi.sort_order ASC, pi.image_id ASC 
+		                LIMIT 1) as first_thumb,
+		               (SELECT pi.blur_url FROM product_images pi 
+		                WHERE pi.product_id = p.product_id 
+		                ORDER BY pi.sort_order ASC, pi.image_id ASC 
+		                LIMIT 1) as first_blur
 		        FROM products p
 		        INNER JOIN businesses b ON p.business_id = b.business_id
 		        WHERE p.is_available = 'True'
@@ -31,8 +39,8 @@ class HomeModel extends AbstractModel {
 			if (!empty($row['first_image'])) {
 				$images[] = [
 					'url' => $row['first_image'],
-					'thumb' => $row['first_image'],
-					'blur' => $row['first_image']
+					'thumb' => !empty($row['first_thumb']) ? $row['first_thumb'] : $row['first_image'],
+					'blur' => !empty($row['first_blur']) ? $row['first_blur'] : $row['first_image']
 				];
 			}
 			
@@ -52,7 +60,7 @@ class HomeModel extends AbstractModel {
 	}
 	
 	// Load featured businesses (random selection)
-	public function loadFeaturedBusinesses($limit = 3) {
+	public function loadFeaturedBusinesses($limit = 4) {
 		$sql = "SELECT business_id, business_name, business_location, details
 		        FROM businesses
 		        WHERE is_active = 'True'

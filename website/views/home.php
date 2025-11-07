@@ -41,15 +41,22 @@ class HomeView extends AbstractView {
 		foreach ($products as $product) {
 			$cardHtml = $cardTemplate;
 			
-			// Determine image
-			$imagePath = 'assets/images/tile.webp';
-			if (!empty($product['images']) && isset($product['images'][0]['url'])) {
-				$imagePath = $product['images'][0]['url'];
+			// Get image URLs or use defaults
+			$blurImage = '##site##assets/images/tile.webp';
+			$thumbImage = '##site##assets/images/tile.webp';
+			
+			if (!empty($product['images']) && isset($product['images'][0])) {
+				if (!empty($product['images'][0]['blur'])) {
+					$blurImage = '##site##' . $product['images'][0]['blur'];
+				}
+				if (!empty($product['images'][0]['thumb'])) {
+					$thumbImage = '##site##' . $product['images'][0]['thumb'];
+				}
 			}
 			
 			// Determine availability
-			$availabilityClass = ($product['isActive'] === 'True') ? 'available' : 'unavailable';
-			$availabilityText = ($product['isActive'] === 'True') ? 'Available' : 'Out of Stock';
+			$availabilityClass = ($product['stockQuantity'] > 0) ? 'available' : 'unavailable';
+			$availabilityText = ($product['stockQuantity'] > 0)  ? 'Available' : 'Out of Stock';
 			
 			// Replace tokens
 			$cardHtml = str_replace('##product_url##', $product['id'], $cardHtml);
@@ -59,9 +66,8 @@ class HomeView extends AbstractView {
 			$cardHtml = str_replace('##availability_class##', $availabilityClass, $cardHtml);
 			$cardHtml = str_replace('##product_availability##', htmlspecialchars($availabilityText), $cardHtml);
 			$cardHtml = str_replace('##product_categories##', '', $cardHtml); // No categories on home page
-			
-			// Replace image path
-			$cardHtml = str_replace('##site##assets/images/products/##product_url##/feature.webp', '##site##' . $imagePath, $cardHtml);
+			$cardHtml = str_replace('##blur_image##', $blurImage, $cardHtml);
+			$cardHtml = str_replace('##thumb_image##', $thumbImage, $cardHtml);
 			
 			$html .= $cardHtml . "\n";
 		}
@@ -87,7 +93,6 @@ class HomeView extends AbstractView {
 			$cardHtml = str_replace('##business_location##', htmlspecialchars($business['location'] ?? ''), $cardHtml);
 			$cardHtml = str_replace('##business_description##', htmlspecialchars($business['description'] ?? 'Visit this store to see their products.'), $cardHtml);
 			
-			// Note: ##site## token will be replaced by AbstractView when the full content is processed
 			
 			$html .= $cardHtml . "\n";
 		}

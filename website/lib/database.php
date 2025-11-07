@@ -153,5 +153,12 @@ class Database implements IDatabase
 				$this->conn->errno. ') is: '. 
 				$this->conn->error;
 	}
+	
+	public function getLastError() {
+		if ($this->conn && $this->conn->errno) {
+			return 'MySQL error ('.$this->conn->errno.'): '.$this->conn->error;
+		}
+		return '';
+	}
 }
 ?>

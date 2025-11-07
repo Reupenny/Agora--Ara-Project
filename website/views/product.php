@@ -6,6 +6,25 @@
 
 class ProductView extends AbstractView {
 	
+	private $user;
+	private $errorMessage = '';
+	private $canEdit = false;
+	
+	public function setUser($user)
+	{
+		$this->user = $user;
+	}
+	
+	public function setErrorMessage($message)
+	{
+		$this->errorMessage = $message;
+	}
+	
+	public function setCanEdit($canEdit)
+	{
+		$this->canEdit = $canEdit;
+	}
+	
 	public function prepare() {
 		$model = $this->getModel();
 		
@@ -14,6 +33,22 @@ class ProductView extends AbstractView {
 		
 		// Load the product detail template
 		$content = file_get_contents('html/product-detail.html');
+		
+		// Add edit button for sellers at the top
+		if ($this->canEdit) {
+			$editButton = '<div style="margin-bottom: 20px; text-align: right;">
+				<a href="##site##product-edit/' . $model->getProductId() . '" class="btn-primary" style="text-decoration: none; padding: 10px 20px; display: inline-block;">Edit Product</a>
+			</div>';
+			$content = $editButton . $content;
+		}
+		
+		// Add error message if present
+		if (!empty($this->errorMessage)) {
+			$errorHtml = '<div class="status-box status-inactive" style="margin-bottom: 20px;">
+				<strong>Error:</strong> ' . htmlspecialchars($this->errorMessage) . '
+			</div>';
+			$content = $errorHtml . $content;
+		}
 		
 		// Replace product information tokens
 		$content = str_replace('##product_name##', htmlspecialchars($model->getName()), $content);
@@ -96,15 +131,22 @@ class ProductView extends AbstractView {
 		foreach ($products as $product) {
 			$cardHtml = $cardTemplate;
 			
-			// Determine image
-			$imagePath = 'assets/images/tile.webp';
-			if (!empty($product['images']) && isset($product['images'][0]['url'])) {
-				$imagePath = $product['images'][0]['url'];
+			// Get image URLs or use defaults
+			$blurImage = '##site##assets/images/tile.webp';
+			$thumbImage = '##site##assets/images/tile.webp';
+			
+			if (!empty($product['images']) && isset($product['images'][0])) {
+				if (!empty($product['images'][0]['blur'])) {
+					$blurImage = '##site##' . $product['images'][0]['blur'];
+				}
+				if (!empty($product['images'][0]['thumb'])) {
+					$thumbImage = '##site##' . $product['images'][0]['thumb'];
+				}
 			}
 			
 			// Determine availability
-			$availabilityClass = ($product['isActive'] === 'True') ? 'available' : 'unavailable';
-			$availabilityText = ($product['isActive'] === 'True') ? 'Available' : 'Out of Stock';
+			$availabilityClass = ($product['stockQuantity'] > 0) ? 'available' : 'unavailable';
+			$availabilityText = ($product['stockQuantity'] > 0)  ? 'Available' : 'Out of Stock';
 			
 			// Replace tokens
 			$cardHtml = str_replace('##product_url##', $product['id'], $cardHtml);
@@ -114,9 +156,8 @@ class ProductView extends AbstractView {
 			$cardHtml = str_replace('##availability_class##', $availabilityClass, $cardHtml);
 			$cardHtml = str_replace('##product_availability##', htmlspecialchars($availabilityText), $cardHtml);
 			$cardHtml = str_replace('##product_categories##', '', $cardHtml); // No categories in related products
-			
-			// Replace image path
-			$cardHtml = str_replace('##site##assets/images/products/##product_url##/feature.webp', '##site##' . $imagePath, $cardHtml);
+			$cardHtml = str_replace('##blur_image##', $blurImage, $cardHtml);
+			$cardHtml = str_replace('##thumb_image##', $thumbImage, $cardHtml);
 			
 			$html .= $cardHtml . "\n";
 		}
@@ -130,25 +171,29 @@ class ProductView extends AbstractView {
 		
 		// If no images, use default
 		if (empty($images)) {
-			$mainImage = $defaultImage;
-			$thumbnails = '<img src="' . $defaultImage . '" alt="Product Image" class="thumbnail active" onclick="changeImage(this)">';
+			$mainImageBlur = $defaultImage;
+			$mainImageFull = $defaultImage;
+			$thumbnails = '<img src="' . $defaultImage . '" alt="Product Image" class="thumbnail active" onclick="changeImage(this)" data-full="' . $defaultImage . '">';
 		} else {
-			// First image as main image
-			$mainImage = '##site##' . htmlspecialchars($images[0]['url']);
+			// First image: blur as initial src, full as data-src
+			$mainImageBlur = '##site##' . htmlspecialchars($images[0]['blur'] ?? $images[0]['url']);
+			$mainImageFull = '##site##' . htmlspecialchars($images[0]['url']);
 			
 			// Generate thumbnails for all images
 			$thumbnails = '';
 			foreach ($images as $index => $image) {
 				$activeClass = ($index === 0) ? ' active' : '';
-				$imageUrl = '##site##' . htmlspecialchars($image['thumb'] ?? $image['url']);
-				$thumbnails .= '<img src="' . $imageUrl . '" alt="Thumbnail ' . ($index + 1) . '" class="thumbnail' . $activeClass . '" onclick="changeImage(this)">' . "\n            ";
+				$thumbUrl = '##site##' . htmlspecialchars($image['thumb'] ?? $image['url']);
+				$fullUrl = '##site##' . htmlspecialchars($image['url']);
+				$blurUrl = '##site##' . htmlspecialchars($image['blur'] ?? $image['url']);
+				$thumbnails .= '<img src="' . $thumbUrl . '" alt="Thumbnail ' . ($index + 1) . '" class="thumbnail' . $activeClass . '" onclick="changeImage(this)" data-full="' . $fullUrl . '" data-blur="' . $blurUrl . '">' . "\n            ";
 			}
 			$thumbnails = rtrim($thumbnails);
 		}
 		
-		// Build the gallery HTML
+		// Build the gallery HTML with lazy loading
 		$html = '<div class="main-image">' . "\n";
-		$html .= '            <img src="' . $mainImage . '" alt="Product Main Image" id="main-product-image">' . "\n";
+		$html .= '            <img src="' . $mainImageBlur . '" data-src="' . $mainImageFull . '" alt="Product Main Image" id="main-product-image" class="lazy-load product-main-image">' . "\n";
 		$html .= '            <span class="product-status-badge ' . $availabilityClass . '">' . htmlspecialchars($availabilityText) . '</span>' . "\n";
 		$html .= '        </div>' . "\n\n";
 		$html .= '        <div class="thumbnail-gallery">' . "\n";

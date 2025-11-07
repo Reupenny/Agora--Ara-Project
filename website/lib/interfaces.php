@@ -12,6 +12,7 @@ class InvalidRequestException extends Exception {}
 class ConfigurationException extends Exception {}
 class InvalidDataException extends Exception {}
 class UnauthorizedException extends Exception {}
+class AuthenticationException extends Exception {}
 
 interface IDatabase {
     function query($sql);

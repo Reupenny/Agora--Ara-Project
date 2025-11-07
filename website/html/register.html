@@ -6,36 +6,38 @@
             <a class="button active" href="##site##register">Register</a>
         </div>
 
+        ##error##
+
         <div id="register">
             <form action="" method="post">
                 <div class="form-group">
                     <label>Register as a seller or a buyer</label>
                     <div class="radio-group">
                         <label class="radio-option">
-                            <input type="radio" name="Account-Type" value="buyer" required checked>
+                            <input type="radio" name="Account-Type" value="buyer" required ##buyer_checked##>
                             <span class="radio-label">Buyer</span>
                         </label>
                         <label class="radio-option">
-                            <input type="radio" name="Account-Type" value="seller" required>
+                            <input type="radio" name="Account-Type" value="seller" required ##seller_checked##>
                             <span class="radio-label">Seller</span>
                         </label>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="First-Name">First Name</label>
-                    <input type="text" placeholder="Jane" name="First-Name" required>
+                    <input type="text" placeholder="Jane" name="First-Name" value="##first_name_value##" required>
                 </div>
                 <div class="form-group">
                     <label for="Last-Name">Last Name</label>
-                    <input type="text" placeholder="Doe" name="Last-Name" required>
+                    <input type="text" placeholder="Doe" name="Last-Name" value="##last_name_value##" required>
                 </div>
                 <div class="form-group">
                     <label for="email">Email</label>
-                    <input type="text" placeholder="hello@myemail.com" name="email" required>
+                    <input type="text" placeholder="hello@myemail.com" name="email" value="##email_value##" required>
                 </div>
                 <div class="form-group">
                     <label for="username">Username</label>
-                    <input type="text" placeholder="jane.doe" name="username" required>
+                    <input type="text" placeholder="jane.doe" name="username" value="##username_value##" required>
                 </div>
                 <div class="form-group">
                     <label for="password">Password</label>

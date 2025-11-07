@@ -52,11 +52,41 @@ function getController($uri) {
 		case 'product':
 			return 'Product';
 			
+		case 'product-add':
+			return 'ProductAdd';
+			
+		case 'product-edit':
+			return 'ProductAdd';  // Reuse ProductAddController for editing
+			
 		case 'business':
 			return 'Business';
 			
+		case 'businesses':
+			return 'Businesses';
+			
+		case 'business-manage':
+			return 'BusinessManage';
+			
 		case 'admin':
 			return 'Admin';
+			
+		case 'admin-panel':
+			return 'AdminPanel';
+			
+		case 'cart':
+			return 'Cart';
+			
+		case 'orders':
+			return 'Orders';
+			
+		case 'order':
+			return 'Order';
+			
+		case 'seller-orders':
+			return 'SellerOrders';
+			
+		case 'seller-order':
+			return 'SellerOrder';
 			
 		default:
 			throw new InvalidRequestException('Unknown page: ' . $part);
@@ -67,6 +97,11 @@ function getController($uri) {
 try {
 	// Create context from configuration
 	$context = Context::createFromConfigurationFile('website.conf');
+	
+	// Initialize user from session
+	include_once 'models/user.php';
+	$user = new User($context);
+	$context->setUser($user);
 	
 	// Determine which controller to use
 	$controllerName = getController($context->getURI());

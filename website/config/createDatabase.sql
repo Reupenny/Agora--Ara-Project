@@ -12,7 +12,6 @@ CREATE TABLE users
   first_name VARCHAR(255) NOT NULL,
   last_name VARCHAR(255) NOT NULL,
   password_hash VARCHAR(255) NOT NULL,
-  salt VARCHAR(255) NOT NULL,
   account_type ENUM('Buyer', 'Seller', 'Agora Admin') NOT NULL,
   created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (username),
@@ -25,6 +24,9 @@ CREATE TABLE businesses
   business_id INT NOT NULL AUTO_INCREMENT,
   business_name VARCHAR(255) NOT NULL,
   business_location VARCHAR(255) DEFAULT NULL,
+  business_email VARCHAR(255) DEFAULT NULL,
+  business_phone VARCHAR(50) DEFAULT NULL,
+  short_description VARCHAR(500) DEFAULT NULL,
   details TEXT DEFAULT NULL,
   is_active ENUM('True', 'False') NOT NULL DEFAULT 'False',
   created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -96,7 +98,7 @@ CREATE TABLE orders
   buyer_username VARCHAR(255) NOT NULL,
   order_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   total_amount DECIMAL(10,2) NOT NULL,
-  status ENUM('Pending', 'Shipped', 'Delivered') NOT NULL DEFAULT 'Pending',
+  status ENUM('Cart','Processing','Pending','Shipped','Delivered','Cancelled') NOT NULL DEFAULT 'Cart',
   PRIMARY KEY (order_id),
   FOREIGN KEY (buyer_username) REFERENCES users (username)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

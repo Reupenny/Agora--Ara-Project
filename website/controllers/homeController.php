@@ -16,8 +16,8 @@ class HomeController extends AbstractController {
 		// Load featured products (limit to 4)
 		$model->loadFeaturedProducts(4);
 		
-		// Load featured businesses (limit to 3)
-		$model->loadFeaturedBusinesses(3);
+		// Load featured businesses (limit to 4)
+		$model->loadFeaturedBusinesses(4);
 		
 		// Create view
 		$view = new HomeView();

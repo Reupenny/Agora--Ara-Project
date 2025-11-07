@@ -10,20 +10,20 @@
                 <div class="name-grid">
                     <div class="form-group">
                         <label for="first-name">First Name</label>
-                        <input type="text" placeholder="Jane" name="first-name" required>
+                        <input type="text" value="##first_name_value##" name="first-name" required>
                     </div>
                     <div class="form-group">
                         <label for="last-name">Last Name</label>
-                        <input type="text" placeholder="Doe" name="last-name" required>
+                        <input type="text" value="##last_name_value##" name="last-name" required>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="email">Email Address</label>
-                    <input type="email" placeholder="jane.doe@email.com" name="email" required>
+                    <input type="email" value="##email_value##" name="email" required>
                 </div>
                 <div class="form-group">
                     <label for="username">Username</label>
-                    <input type="text" placeholder="jane.doe" name="username" readonly>
+                    <input type="text" value="##username_value##" name="username" contenteditable="false" readonly>
                     <small>Username cannot be changed</small>
                 </div>
             </div>
@@ -61,6 +61,7 @@
                     </div>
                     <div class="wysiwyg-editor additional-info" contenteditable="true" id="user-bio-editor"
                         data-placeholder="Tell others about yourself, your interests, why you love the business you work for...">
+                        ##profile_description##
                     </div>
                     <textarea name="user-bio" id="user-bio-hidden" style="display: none;"></textarea>
                 </div>
@@ -94,15 +95,15 @@
                 <div class="stats-list">
                     <div class="stat-item">
                         <span class="stat-label">Member Since:</span>
-                        <span class="stat-value">Jan 2024</span>
+                        <span class="stat-value">##join_date##</span>
                     </div>
                     <div class="stat-item">
                         <span class="stat-label">Total Orders:</span>
-                        <span class="stat-value">12</span>
+                        <span class="stat-value">##total_orders##</span>
                     </div>
                     <div class="stat-item">
                         <span class="stat-label">Account Type:</span>
-                        <span class="stat-value">Seller</span>
+                        <span class="stat-value">##account_type##</span>
                     </div>
                 </div>
                 <br />
@@ -114,6 +115,10 @@
 
             <div class="sidebar-card">
                 <h3>Profile Image</h3>
+                <div class="profile-image-preview">
+                    <img src="##profile_image_url##" alt="Profile Picture" class="profile-pic-display"
+                        style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover; margin: 0 auto 15px; display: block;">
+                </div>
                 <div class="image-upload-area">
                     <input type="file" name="profile-image" accept="image/*" id="profile-image" class="file-input">
                     <label for="profile-image" class="file-upload-label">
@@ -128,45 +133,7 @@
         </div>
     </form>
 </div>
-
-<div class="order-history-section">
-    <h2>Recent Orders</h2>
-    <div class="orders-grid">
-        <div class="order-card">
-            <div class="order-header">
-                <h3>Order #12345</h3>
-                <span class="order-status delivered">Delivered</span>
-            </div>
-            <div class="order-details">
-                <p>Date: January 15, 2024</p>
-                <p>Total: $89.97</p>
-                <p>Items: 3</p>
-            </div>
-        </div>
-        <div class="order-card">
-            <div class="order-header">
-                <h3>Order #12344</h3>
-                <span class="order-status shipped">Shipped</span>
-            </div>
-            <div class="order-details">
-                <p>Date: January 10, 2024</p>
-                <p>Total: $45.50</p>
-                <p>Items: 2</p>
-            </div>
-        </div>
-        <div class="order-card">
-            <div class="order-header">
-                <h3>Order #12343</h3>
-                <span class="order-status pending">Pending</span>
-            </div>
-            <div class="order-details">
-                <p>Date: January 8, 2024</p>
-                <p>Total: $125.00</p>
-                <p>Items: 1</p>
-            </div>
-        </div>
-    </div>
-</div>
+##Orders##
 
 <!-- Font Awesome for Editor Icons -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">

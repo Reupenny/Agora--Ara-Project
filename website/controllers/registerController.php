@@ -4,46 +4,67 @@
 	Handles new user registration
 */
 
-include 'models/static.php';
-include 'views/static.php';
+include_once 'models/register.php';
+include_once 'models/user.php';
+include_once 'views/register.php';
 
 class RegisterController extends AbstractController {
 	
 	protected function getView($isPostback) {
+		// Check if user is already logged in
+		$user = new User($this->getContext());
+		if ($user->isLoggedIn()) {
+			$this->redirectTo('profile', '');
+			return null;
+		}
+		
 		// If POST request, handle registration
 		if ($isPostback) {
 			return $this->handleRegistration();
 		}
 		
 		// Otherwise, show registration form
-		$model = new StaticModel($this->getDB());
-		$model->setPageName('register');
-		
-		$view = new StaticView();
-		$view->setModel($model);
+		$view = new RegisterView();
+		$view->setErrorMessages([]);
 		
 		return $view;
 	}
 	
 	private function handleRegistration() {
-		// TODO: Implement registration logic
-		// 1. Get form data from $_POST (username, email, password, etc.)
-		// 2. Validate input (check required fields, password strength)
-		// 3. Check if username/email already exists
-		// 4. Hash password
-		// 5. Insert new user into database
-		// 6. Create session and log user in
-		// 7. Redirect to profile/home
-		// 8. Show errors if validation fails
+		// Get form data from POST
+		$data = [
+			'username' => $_POST['username'] ?? '',
+			'email' => $_POST['email'] ?? '',
+			'first_name' => $_POST['First-Name'] ?? '',
+			'last_name' => $_POST['Last-Name'] ?? '',
+			'password' => $_POST['password'] ?? '',
+			'password_confirm' => $_POST['password-conf'] ?? '',
+			'account_type' => ucfirst($_POST['Account-Type'] ?? '')
+		];
 		
-		// For now, just show the registration form again
-		$model = new StaticModel($this->getDB());
-		$model->setPageName('register');
+		// Attempt to register user
+		$model = new RegisterModel($this->getDB());
 		
-		$view = new StaticView();
-		$view->setModel($model);
-		
-		return $view;
+		if ($model->registerUser($data)) {
+			// Create user session
+			$user = new User($this->getContext());
+			$user->createSession($model->getUsername());
+			
+			// Redirect based on account type
+			if ($data['account_type'] === 'Seller') {
+				$this->redirectTo('profile', 'Registration successful! As a seller, you need to create or join a business before adding products.');
+			} else {
+				$this->redirectTo('', 'Welcome to Agora, ' . $data['first_name'] . '!');
+			}
+			return null;
+		} else {
+			// Show errors on registration form
+			$view = new RegisterView();
+			$view->setErrorMessages($model->getErrorMessages());
+			$view->setFormData($data);
+			
+			return $view;
+		}
 	}
 }
 ?>

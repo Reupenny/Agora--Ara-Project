@@ -1,0 +1,156 @@
+##status_message##
+
+<h1>##page_title##</h1>
+
+<div class="business-layout">
+    <form action="" method="post" enctype="multipart/form-data">
+
+        <!-- Left Column - Main Content -->
+        <div class="main-column">
+            <div class="form-section">
+                <label for="business-name">Business Name *</label>
+                <input type="text" placeholder="Enter your business name..." name="business-name" class="title-input"
+                    value="##business_name##" required>
+                <br /><br />
+
+                <label for="business-location">Location *</label>
+                <input type="text" placeholder="123 Main Street, City, State" name="business-location"
+                    class="location-input" value="##business_location##" required>
+                <br /><br />
+
+                <label for="business-email">Email</label>
+                <input type="email" placeholder="Enter your business email..." name="business-email" class="email-input"
+                    value="##business_email##">
+                <br /><br />
+
+                <label for="business-phone">Phone</label>
+                <input type="tel" placeholder="(123) 456-7890" name="business-phone" class="phone-input"
+                    value="##business_phone##">
+                <br /><br />
+
+                <label for="business-short-description">Short Description</label>
+                <input type="text" placeholder="Enter a short description..." name="business-short-description"
+                    class="short-description-input" value="##short_description##" maxlength="500">
+                <br /><br />
+
+                <label for="details">Description</label>
+                <div class="wysiwyg-container">
+                    <div class="wysiwyg-toolbar">
+                        <button type="button" class="toolbar-btn" onclick="execCmd('bold')" title="Bold">
+                            <i class="fas fa-bold"></i>
+                        </button>
+                        <button type="button" class="toolbar-btn" onclick="execCmd('italic')" title="Italic">
+                            <i class="fas fa-italic"></i>
+                        </button>
+                        <button type="button" class="toolbar-btn" onclick="execCmd('underline')" title="Underline">
+                            <i class="fas fa-underline"></i>
+                        </button>
+                        <button type="button" class="toolbar-btn" onclick="execCmd('insertUnorderedList')"
+                            title="Bullet List">
+                            <i class="fas fa-list-ul"></i>
+                        </button>
+                        <button type="button" class="toolbar-btn" onclick="execCmd('insertOrderedList')"
+                            title="Numbered List">
+                            <i class="fas fa-list-ol"></i>
+                        </button>
+                        <button type="button" class="toolbar-btn" onclick="execCmd('justifyLeft')" title="Align Left">
+                            <i class="fas fa-align-left"></i>
+                        </button>
+                        <button type="button" class="toolbar-btn" onclick="execCmd('justifyCenter')" title="Center">
+                            <i class="fas fa-align-center"></i>
+                        </button>
+                        <button type="button" class="toolbar-btn" onclick="execCmd('justifyRight')" title="Align Right">
+                            <i class="fas fa-align-right"></i>
+                        </button>
+                    </div>
+                    <div class="wysiwyg-editor description" contenteditable="true" id="details-editor"
+                        data-placeholder="Tell customers about your business, your story, what makes you special...">
+                        ##business_details##</div>
+                    <textarea name="details" id="details-hidden" style="display: none;"></textarea>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Column - Sidebar -->
+        <div class="sidebar-column">
+            <div class="sidebar-card">
+                <h3>Business Stats</h3>
+                <div class="stats-list">
+                    <div class="stat-item">
+                        <span class="stat-label">Account Status:</span>
+                        <span class="stat-value">##approval_status##</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Account Age:</span>
+                        <span class="stat-value">##account_age##</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Total Orders:</span>
+                        <span class="stat-value">##total_orders##</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Total Products:</span>
+                        <span class="stat-value">##total_products##</span>
+                    </div>
+                </div>
+                <br />
+                <div class="publish-actions">
+                    <button type="submit" name="action" value="save" class="btn-primary">##submit_button_text##</button>
+                    <a href="##site##business/##business_id##" class="btn-secondary">View
+                        Business</a>
+                </div>
+            </div>
+
+            <div class="sidebar-card">
+                <h3>Business Logo</h3>
+                <div class="image-upload-area">
+                    <input type="file" name="business-logo" accept="image/*" id="business-logo" class="file-input">
+                    <label for="business-logo" class="file-upload-label">
+                        <div class="upload-placeholder">
+                            ##logo_preview##
+                            <p>Upload Business Logo</p>
+                            <small>Recommended: Square, 300x300px</small>
+                        </div>
+                    </label>
+                </div>
+            </div>
+
+            <div class="sidebar-card">
+                <h3>Banner Image</h3>
+                <div class="image-upload-area">
+                    <input type="file" name="business-banner" accept="image/*" id="business-banner" class="file-input">
+                    <label for="business-banner" class="file-upload-label">
+                        <div class="upload-placeholder">
+                            ##banner_preview##
+                            <p>Upload Banner Image</p>
+                            <small>Recommended: 1200x400px</small>
+                        </div>
+                    </label>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+##business_roles_section##
+
+<!-- Font Awesome for Editor Icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<link rel="stylesheet" href="##site##assets/css/wysiwyg.css">
+<script src="##site##assets/js/wysiwyg.js"></script>
+<script>
+    // Initialize the WYSIWYG editor content on page load
+    document.addEventListener('DOMContentLoaded', function () {
+        const editor = document.getElementById('details-editor');
+        const hiddenField = document.getElementById('details-hidden');
+
+        // Sync existing content from editor to hidden field
+        if (editor && hiddenField) {
+            // If editor has content (from ##business_details## token), sync it
+            const content = editor.innerHTML.trim();
+            if (content && !content.includes('data-placeholder')) {
+                hiddenField.value = content;
+            }
+        }
+    });
+</script>

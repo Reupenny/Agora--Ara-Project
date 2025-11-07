@@ -1,13 +1,13 @@
 USE agora_db;
 
 -- Insert Sample Users
-INSERT INTO users (username, email, first_name, last_name, password_hash, salt, account_type)
+INSERT INTO users (username, email, first_name, last_name, password_hash, account_type)
 VALUES
-('alice_buyer', 'alice@example.com', 'Alice', 'Smith', 'hashed_pass_1', 'salt_1', 'Buyer'),
-('bob_seller', 'bob@example.com', 'Bob', 'Jones', 'hashed_pass_2', 'salt_2', 'Seller'),
-('bob_buyer', 'bob@example.com', 'Bob', 'Jones', 'hashed_pass_3', 'salt_3', 'Buyer'),
-('charlie_seller', 'charlie@example.com', 'Charlie', 'Brown', 'hashed_pass_4', 'salt_4', 'Seller'),
-('diana_admin', 'diana@example.com', 'Diana', 'Prince', 'hashed_pass_5', 'salt_5', 'Agora Admin');
+('alice_buyer', 'alice@example.com', 'Alice', 'Smith', 'hashed_pass_1', 'Buyer'),
+('bob_seller', 'bob@example.com', 'Bob', 'Jones', 'hashed_pass_2', 'Seller'),
+('bob_buyer', 'bob@example.com', 'Bob', 'Jones', 'hashed_pass_3', 'Buyer'),
+('charlie_seller', 'charlie@example.com', 'Charlie', 'Brown', 'hashed_pass_4', 'Seller'),
+('diana_admin', 'diana@example.com', 'Diana', 'Prince', 'hashed_pass_5', 'Agora Admin');
 
 -- Insert Sample Businesses
 INSERT INTO businesses (business_name, business_location, details, is_active)
@@ -37,10 +37,12 @@ VALUES
 ((SELECT business_id FROM businesses WHERE business_name = 'Canvas & Clay Gallery'), 'Abstract Oil Painting', 'A large original abstract painting on canvas.', 500.00, 1, 'True');
 
 -- Insert Sample Categories
-INSERT INTO categories
+INSERT INTO categories (category_name)
 VALUES
-('vintage'), ('mid-century'), ('teak'), ('art deco'), ('glassware'),
-('plants'), ('rare'), ('bonsai'), ('art'), ('oil painting'), ('abstract');
+('plants'), ('ceramic'), ('indoor'), ('outdoor'), ('decorative'), 
+('functional'), ('modern'), ('vintage'), ('handmade'), ('eco-friendly'),
+('mid-century'), ('teak'), ('art-deco'), ('glassware'),
+('rare'), ('bonsai'), ('art'), ('oil-painting'), ('abstract');
 
 -- Insert Product Categories (junction table)
 -- Associate the Vintage Armchair with tags

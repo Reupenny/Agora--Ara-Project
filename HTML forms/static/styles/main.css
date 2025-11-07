@@ -931,12 +931,6 @@ h1 {
   color: var(--text-color);
 }
 
-.roles-form {
-  background: var(--foreground);
-  padding: var(--global-padding);
-  border-radius: var(--border-radius);
-  border: var(--border);
-}
 
 /* ==============================================
    HOMEPAGE STYLES - Index/Home Page

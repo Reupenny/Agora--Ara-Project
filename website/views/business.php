@@ -6,14 +6,29 @@
 
 class BusinessView extends AbstractView {
 	
+	private $canEdit = false;
+	
+	public function setCanEdit($canEdit)
+	{
+		$this->canEdit = $canEdit;
+	}
+	
 	public function prepare() {
 		$model = $this->getModel();
 		
 		// Set page title
-		$this->setTemplateField('pagename', $model->getBusinessName() . ' - Agora');
+		$this->setTemplateField('pagename', $model->getBusinessName() . ' - Business');
 		
 		// Load the business detail template
 		$content = file_get_contents('html/business-detail.html');
+		
+		// Add edit button for administrators at the top
+		if ($this->canEdit) {
+			$editButton = '<div style="margin-bottom: 20px; text-align: right;">
+				<a href="##site##business-manage" class="btn-primary">Edit Business</a>
+			</div>';
+			$content = $editButton . $content;
+		}
 		
 		// Replace business information tokens
 		$content = str_replace('##business_url##', $model->getBusinessId(), $content);
@@ -32,8 +47,8 @@ class BusinessView extends AbstractView {
 		$content = str_replace('##business_location##', $location, $content);
 		
 		// Business contact info (placeholders for now - these fields don't exist in the database yet)
-		$content = str_replace('##business_email##', 'contact@' . strtolower(str_replace(' ', '', $model->getBusinessName())) . '.co.nz', $content);
-		$content = str_replace('##business_phone##', '+64 3 123 4567', $content);
+		$content = str_replace('##business_email##',strtolower($model->getBusinessEmail()), $content);
+		$content = str_replace('##business_phone##', strtolower($model->getBusinessPhone()), $content);
 		
 		// Generate product cards dynamically using template
 		$products = $model->getProducts();
@@ -44,15 +59,22 @@ class BusinessView extends AbstractView {
 			$cardTemplate = file_get_contents('html/sections/product_card.html');
 			
 			foreach ($products as $product) {
-				// Get first image or use default
-				$imageUrl = 'assets/images/tile.webp';
+				// Get image URLs or use defaults
+				$blurImage = '##site##assets/images/tile.webp';
+				$thumbImage = '##site##assets/images/tile.webp';
+				
 				if (isset($product['images']) && count($product['images']) > 0) {
-					$imageUrl = $product['images'][0]['url'];
+					if (!empty($product['images'][0]['blur'])) {
+						$blurImage = '##site##' . $product['images'][0]['blur'];
+					}
+					if (!empty($product['images'][0]['thumb'])) {
+						$thumbImage = '##site##' . $product['images'][0]['thumb'];
+					}
 				}
 				
 				// Determine availability
-				$availabilityClass = ($product['isActive'] === 'True') ? 'available' : 'unavailable';
-				$availabilityText = ($product['isActive'] === 'True') ? 'Available' : 'Out of Stock';
+				$availabilityClass = ($product['stockQuantity'] > 0) ? 'available' : 'unavailable';
+			$availabilityText = ($product['stockQuantity'] > 0)  ? 'Available' : 'Out of Stock';
 				
 				// Replace tokens in template for each product
 				$cardHtml = str_replace('##product_url##', $product['id'], $cardTemplate);
@@ -62,9 +84,8 @@ class BusinessView extends AbstractView {
 				$cardHtml = str_replace('##availability_class##', $availabilityClass, $cardHtml);
 				$cardHtml = str_replace('##product_availability##', htmlspecialchars($availabilityText), $cardHtml);
 				$cardHtml = str_replace('##product_categories##', '', $cardHtml); // Categories can be added later
-				
-				// Replace the image path
-				$cardHtml = str_replace('##site##assets/images/products/##product_url##/feature.webp', '##site##' . $imageUrl, $cardHtml);
+				$cardHtml = str_replace('##blur_image##', $blurImage, $cardHtml);
+				$cardHtml = str_replace('##thumb_image##', $thumbImage, $cardHtml);
 				
 				$productsHtml .= $cardHtml . "\n";
 			}

@@ -19,7 +19,8 @@
         </div>
 
         <!-- Add to Cart Form -->
-        <form class="add-to-cart-form" action="cart.php" method="POST">
+        <form class="add-to-cart-form" method="POST">
+            <input type="hidden" name="action" value="add-to-cart">
             <div class="quantity-selector">
                 <label for="quantity">Quantity:</label>
                 <div class="quantity-controls">
@@ -62,7 +63,22 @@
     // Image Gallery Functions
     function changeImage(thumbnail) {
         const mainImage = document.getElementById('main-product-image');
-        mainImage.src = thumbnail.src;
+        const fullImageUrl = thumbnail.getAttribute('data-full');
+        const blurImageUrl = thumbnail.getAttribute('data-blur');
+
+        // If we have a blur image, show it first while loading the full image
+        if (blurImageUrl) {
+            mainImage.src = blurImageUrl;
+            mainImage.classList.remove('loaded');
+        }
+
+        // Load the full image
+        const tempImg = new Image();
+        tempImg.onload = function () {
+            mainImage.src = fullImageUrl || thumbnail.src;
+            mainImage.classList.add('loaded');
+        };
+        tempImg.src = fullImageUrl || thumbnail.src;
 
         // Update active thumbnail
         document.querySelectorAll('.thumbnail').forEach(thumb => {

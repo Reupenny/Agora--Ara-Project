@@ -12,7 +12,6 @@ CREATE TABLE users
   first_name VARCHAR(255) NOT NULL,
   last_name VARCHAR(255) NOT NULL,
   password_hash VARCHAR(255) NOT NULL,
-  salt VARCHAR(255) NOT NULL,
   account_type ENUM('Buyer', 'Seller', 'Agora Admin') NOT NULL,
   created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (username),

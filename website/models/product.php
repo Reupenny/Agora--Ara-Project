@@ -126,7 +126,15 @@ class ProductModel extends AbstractModel {
 		               (SELECT pi.image_url FROM product_images pi 
 		                WHERE pi.product_id = p.product_id 
 		                ORDER BY pi.sort_order ASC, pi.image_id ASC 
-		                LIMIT 1) as first_image
+		                LIMIT 1) as first_image,
+		               (SELECT pi.thumb_url FROM product_images pi 
+		                WHERE pi.product_id = p.product_id 
+		                ORDER BY pi.sort_order ASC, pi.image_id ASC 
+		                LIMIT 1) as first_thumb,
+		               (SELECT pi.blur_url FROM product_images pi 
+		                WHERE pi.product_id = p.product_id 
+		                ORDER BY pi.sort_order ASC, pi.image_id ASC 
+		                LIMIT 1) as first_blur
 		        FROM products p
 		        INNER JOIN businesses b ON p.business_id = b.business_id
 		        INNER JOIN product_categories pc ON p.product_id = pc.product_id
@@ -144,8 +152,8 @@ class ProductModel extends AbstractModel {
 			if (!empty($row['first_image'])) {
 				$images[] = [
 					'url' => $row['first_image'],
-					'thumb' => $row['first_image'],
-					'blur' => $row['first_image']
+					'thumb' => !empty($row['first_thumb']) ? $row['first_thumb'] : $row['first_image'],
+					'blur' => !empty($row['first_blur']) ? $row['first_blur'] : $row['first_image']
 				];
 			}
 			

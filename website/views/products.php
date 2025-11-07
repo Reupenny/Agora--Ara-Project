@@ -44,15 +44,22 @@ class ProductsView extends AbstractView {
 		// Load the product card template
 		$cardTemplate = file_get_contents('html/sections/product_card.html');
 		
-		// Get first image or use default
-		$imageUrl = 'assets/images/tile.webp';
+		// Get image URLs or use defaults
+		$blurImage = '##site##assets/images/tile.webp';
+		$thumbImage = '##site##assets/images/tile.webp';
+		
 		if (isset($product['images']) && count($product['images']) > 0) {
-			$imageUrl = $product['images'][0]['url'];
+			if (!empty($product['images'][0]['blur'])) {
+				$blurImage = '##site##' . $product['images'][0]['blur'];
+			}
+			if (!empty($product['images'][0]['thumb'])) {
+				$thumbImage = '##site##' . $product['images'][0]['thumb'];
+			}
 		}
 		
 		// Determine availability
-		$availabilityClass = ($product['isActive'] === 'True') ? 'available' : 'unavailable';
-		$availabilityText = ($product['isActive'] === 'True') ? 'Available' : 'Out of Stock';
+		$availabilityClass = ($product['stockQuantity'] > 0) ? 'available' : 'unavailable';
+			$availabilityText = ($product['stockQuantity'] > 0)  ? 'Available' : 'Out of Stock';
 		
 		// Replace tokens in template
 		$cardHtml = str_replace('##product_url##', $product['id'], $cardTemplate);
@@ -62,9 +69,8 @@ class ProductsView extends AbstractView {
 		$cardHtml = str_replace('##availability_class##', $availabilityClass, $cardHtml);
 		$cardHtml = str_replace('##product_availability##', htmlspecialchars($availabilityText), $cardHtml);
 		$cardHtml = str_replace('##product_categories##', '', $cardHtml); // Categories can be added later
-		
-		// Replace the image separately to handle the full path
-		$cardHtml = str_replace('##site##assets/images/products/##product_url##/feature.webp', '##site##' . $imageUrl, $cardHtml);
+		$cardHtml = str_replace('##blur_image##', $blurImage, $cardHtml);
+		$cardHtml = str_replace('##thumb_image##', $thumbImage, $cardHtml);
 		
 		return $cardHtml;
 	}
