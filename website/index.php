@@ -30,7 +30,7 @@ function getController($uri) {
 		case 'about':
 		case 'contact':
 		case 'privacy':
-			$uri->prependPart($part);  // Put it back for the controller to use
+			$uri->prependPart($part);
 			return 'Static';
 			
 		case 'login':
@@ -98,7 +98,7 @@ try {
 	// Create context from configuration
 	$context = Context::createFromConfigurationFile('website.conf');
 	
-	// Initialize user from session
+	// Initialise user from session
 	include_once 'models/UserModel.php';
 	$user = new User($context);
 	$context->setUser($user);

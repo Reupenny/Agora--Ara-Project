@@ -1,8 +1,8 @@
 <?php
 /*
-    Admin Panel Controller
-    Handles admin functions like business approval
-*/
+ * Admin Panel Controller
+ * Handles administration functions, such as business approvals.
+ */
 
 include_once 'models/UserModel.php';
 include_once 'models/BusinessManagerModel.php';
@@ -22,7 +22,7 @@ class AdminPanelController extends AbstractController
             return null;
         }
         
-        // Initialize business manager
+        // Initialise business manager
         $this->businessManager = new BusinessManagerModel($this->getDB());
         
         // If POST request, handle actions

@@ -1,8 +1,8 @@
 <?php
 /*
-	Product Model
-	Handles product data from the database
-*/
+ * Product Model
+ * This model is responsible for handling product data from the database.
+ */
 
 class ProductModel extends AbstractModel {
 	
@@ -26,7 +26,7 @@ class ProductModel extends AbstractModel {
 		$this->productId = $productId;
 		
 		// Query to get product with business info
-		$sql = "SELECT p.*, b.business_name, b.business_location, b.details, b.is_active
+		$sql = "SELECT p.*, b.business_name, b.business_location, b.short_description, b.is_active
 		        FROM products p
 		        INNER JOIN businesses b ON p.business_id = b.business_id
 		        WHERE p.product_id = ?";
@@ -45,10 +45,10 @@ class ProductModel extends AbstractModel {
 		$this->businessId = $row['business_id'];
 		$this->businessName = $row['business_name'];
 		$this->businessLocation = $row['business_location'];
-		$this->businessDescription = $row['details'];
+		$this->businessDescription = $row['short_description'];
 		$this->isActive = $row['is_active'];
 		$this->isAvailable = $row['is_available'];
-		$this->createdAt = null; // Not in schema
+		$this->createdAt = null;
 		
 		// Load categories
 		$this->loadCategories();

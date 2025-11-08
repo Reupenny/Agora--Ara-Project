@@ -1,8 +1,8 @@
 <?php
 /*
-	Product Controller
-	Handles individual product detail pages
-*/
+ * Product Controller
+ * This controller is responsible for handling the display of individual product detail pages.
+ */
 
 include 'models/ProductModel.php';
 include 'models/OrderManagerModel.php';
@@ -80,7 +80,7 @@ class ProductController extends AbstractController {
 			}
 			
 			// Add to cart
-			$orderManager = new OrderManager($this->getDB());
+			$orderManager = new OrderManagerModel($this->getDB());
 			$orderManager->addToCart($user->getUsername(), $productId, $quantity);
 			
 			// Redirect to cart

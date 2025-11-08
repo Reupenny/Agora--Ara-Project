@@ -1,8 +1,8 @@
 <?php
 /*
-	Register Model
-	Handles new user registration
-*/
+ * Register Model
+ * This model is responsible for handling new user registration.
+ */
 
 class RegisterModel extends AbstractModel {
 	
@@ -28,7 +28,7 @@ class RegisterModel extends AbstractModel {
 			return false;
 		}
 		
-		// Hash password using PHP's password_hash (automatically generates salt)
+		// Hash password
 		$passwordHash = password_hash($data['password'], PASSWORD_DEFAULT);
 		
 		// Insert into database

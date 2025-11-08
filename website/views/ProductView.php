@@ -1,8 +1,8 @@
 <?php
 /*
-	Product View
-	Displays individual product detail page
-*/
+ * Product View
+ * This view is responsible for displaying the individual product detail page.
+ */
 
 class ProductView extends AbstractView {
 	
@@ -44,7 +44,7 @@ class ProductView extends AbstractView {
 		
 		// Add error message if present
 		if (!empty($this->errorMessage)) {
-			$errorHtml = '<div class="status-box status-inactive" style="margin-bottom: 20px;">
+			$errorHtml = '<div class="status-box status-inactive">
 				<strong>Error:</strong> ' . htmlspecialchars($this->errorMessage) . '
 			</div>';
 			$content = $errorHtml . $content;
@@ -89,7 +89,7 @@ class ProductView extends AbstractView {
 		// Max quantity in form
 		$content = str_replace('##max_quantity##', $model->getStockQuantity(), $content);
 		
-		// Generate product images gallery (do this before replacing availability tokens)
+		// Generate product images gallery
 		$images = $model->getImages();
 		$imagesHtml = $this->renderProductImages($images, $model->getProductId(), $availabilityClass, $availabilityText);
 		$content = str_replace('##product_images##', $imagesHtml, $content);
@@ -107,8 +107,7 @@ class ProductView extends AbstractView {
 			$content = str_replace('##product_categories##', '<span class="category">No categories</span>', $content);
 		}
 		
-		// Related products section - placeholder for now (could be enhanced to show actual related products)
-		// For now, just show empty or a message
+		// Related products section
 		$relatedProducts = $model->getRelatedProducts(3);
 		$relatedProductsHtml = $this->renderRelatedProducts($relatedProducts);
 		$content = str_replace('##related_products##', $relatedProductsHtml, $content);
@@ -165,7 +164,7 @@ class ProductView extends AbstractView {
 		return $html;
 	}
 	
-	// Render product images gallery (main image + thumbnails)
+	// Render product images gallery
 	private function renderProductImages($images, $productId, $availabilityClass, $availabilityText) {
 		$defaultImage = '##site##assets/images/tile.webp';
 		
@@ -175,7 +174,7 @@ class ProductView extends AbstractView {
 			$mainImageFull = $defaultImage;
 			$thumbnails = '<img src="' . $defaultImage . '" alt="Product Image" class="thumbnail active" onclick="changeImage(this)" data-full="' . $defaultImage . '">';
 		} else {
-			// First image: blur as initial src, full as data-src
+			// First image
 			$mainImageBlur = '##site##' . htmlspecialchars($images[0]['blur'] ?? $images[0]['url']);
 			$mainImageFull = '##site##' . htmlspecialchars($images[0]['url']);
 			
@@ -191,7 +190,7 @@ class ProductView extends AbstractView {
 			$thumbnails = rtrim($thumbnails);
 		}
 		
-		// Build the gallery HTML with lazy loading
+		// Build the gallery
 		$html = '<div class="main-image">' . "\n";
 		$html .= '            <img src="' . $mainImageBlur . '" data-src="' . $mainImageFull . '" alt="Product Main Image" id="main-product-image" class="lazy-load product-main-image">' . "\n";
 		$html .= '            <span class="product-status-badge ' . $availabilityClass . '">' . htmlspecialchars($availabilityText) . '</span>' . "\n";

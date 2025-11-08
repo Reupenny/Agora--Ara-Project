@@ -1,8 +1,8 @@
 <?php
 /*
-    Cart Controller
-    Handles shopping cart operations
-*/
+ * Cart Controller
+ * This controller manages all shopping cart operations.
+ */
 
 include_once 'models/UserModel.php';
 include_once 'models/OrderManagerModel.php';
@@ -22,7 +22,7 @@ class CartController extends AbstractController
             return null;
         }
         
-        // Initialize order manager
+        // Initialise order manager
         $this->orderManager = new OrderManagerModel($this->getDB());
         
         // Handle POST actions

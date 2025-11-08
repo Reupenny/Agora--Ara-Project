@@ -1,8 +1,8 @@
 <?php
 /*
-    Add/Edit Product Controller
-    Handles product creation and editing
-*/
+ * Add/Edit Product Controller
+ * This controller is responsible for handling the creation and editing of products.
+ */
 
 include_once 'models/UserModel.php';
 include_once 'models/ProductManagerModel.php';
@@ -30,17 +30,16 @@ class ProductAddController extends AbstractController
             return null;
         }
         
-        // Initialize product manager
+        // Initialise product manager
         $this->productManager = new ProductManagerModel($this->getDB());
         
-        // Check if editing existing product - check both URI and GET parameter
         $this->productId = null;
         
         // Try to get ID from URI first (e.g., /product-edit/5)
         try {
             $this->productId = $this->getURI()->getID();
         } catch (InvalidRequestException $e) {
-            // No ID in URI, that's fine for creating new product
+            // No ID in URI
             $this->productId = null;
         }
         
@@ -87,8 +86,24 @@ class ProductAddController extends AbstractController
             $price = floatval($_POST['price'] ?? 0);
             $quantity = intval($_POST['quantity'] ?? 0);
             $isAvailable = $_POST['is-available'] ?? 'False';
-            $tags = $_POST['tags'] ?? [];
+            $categories = $_POST['categories'] ?? [];
             $action = $_POST['action'] ?? 'save';
+
+            // Handle delete action
+            if ($action === 'delete') {
+                if (!$this->productId) {
+                    throw new Exception('Product ID is missing.');
+                }
+                if (!$this->productManager->userCanEditProduct($user->getUsername(), $this->productId)) {
+                    throw new Exception('You do not have permission to delete this product.');
+                }
+                
+                $this->productManager->deleteProduct($this->productId);
+                
+                // Redirect to business management page with a success message
+                $this->redirectTo('business-manage', 'Product has been successfully deleted.');
+                return null;
+            }
             
             // Validate required fields
             if (empty($productName)) {
@@ -140,8 +155,8 @@ class ProductAddController extends AbstractController
                 $message = 'Product created successfully!';
             }
             
-            // Update tags
-            $this->productManager->addProductTags($productId, $tags);
+            // Update categories
+            $this->productManager->addProductCategories($productId, $categories);
             
             // Handle featured image upload
             if (isset($_FILES['featured-image']) && $_FILES['featured-image']['error'] === UPLOAD_ERR_OK) {

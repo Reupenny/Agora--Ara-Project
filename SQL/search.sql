@@ -5,13 +5,13 @@ SELECT DISTINCT
 FROM products p
 JOIN businesses b
   ON p.business_id = b.business_id
-LEFT JOIN product_tags pt
+LEFT JOIN product_categories pt
   ON p.product_id = pt.product_id
 WHERE
   p.is_available = 'True' -- Only available products
   AND
   (
-    pt.tag_name LIKE '%armchair%' -- Search by tag
+    pt.category_name LIKE '%armchair%' -- Search by category
     OR p.product_name LIKE '%armchair%' -- Search product name
     OR p.description LIKE '%armchair%' -- Search product description
   )

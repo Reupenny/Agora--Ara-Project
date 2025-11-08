@@ -1,8 +1,8 @@
 <?php
 /*
-	Register View
-	Displays the registration form
-*/
+ * Register View
+ * This view is responsible for displaying the registration form.
+ */
 
 class RegisterView extends AbstractView {
 	
@@ -33,7 +33,7 @@ class RegisterView extends AbstractView {
 		
 		// Set error messages if present
 		if (!empty($this->errorMessages)) {
-			$errorHtml = '<div class="error-message" style="background-color: #fee; border: 1px solid #fcc; padding: 10px; margin-bottom: 20px; border-radius: 4px; color: #c00;"><ul style="margin: 0; padding-left: 20px;">';
+			$errorHtml = '<div class="error-message"><ul style="margin: 0; padding-left: 20px;">';
 			foreach ($this->errorMessages as $error) {
 				$errorHtml .= '<li>' . htmlspecialchars($error) . '</li>';
 			}

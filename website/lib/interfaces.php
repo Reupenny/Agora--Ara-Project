@@ -1,11 +1,8 @@
 <?php
 /*
-   A PHP framework for web site
-   
-   custom exceptions and common interfaces
-   =======================================
-   
-*/
+ * Custom Exceptions and Common Interfaces
+ * This file defines custom exception classes and common interfaces used throughout the application.
+ */
 
 class DatabaseException extends Exception {}
 class InvalidRequestException extends Exception {}

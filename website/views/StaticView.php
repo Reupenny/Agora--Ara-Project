@@ -1,8 +1,8 @@
 <?php
 /*
-	Static Page View
-	Renders static pages using the master template
-*/
+ * Static Page View
+ * This view is responsible for rendering static pages using the master template.
+ */
 
 class StaticView extends AbstractView {
 	

@@ -1,8 +1,9 @@
 <?php
 /*
-	This is just a thin wrapper over the PHP session
-	Other implementations might store state on a database
-*/
+ * Session Management
+ * This class is a thin wrapper around the PHP session management functions.
+ * It provides a simple interface for setting, getting, and unsetting session variables.
+ */
 class Session implements ISession {
 	function __construct() {
 		session_start();

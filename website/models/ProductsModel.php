@@ -1,8 +1,8 @@
 <?php
 /*
-	Products Model
-	Handles product listing data
-*/
+ * Products Model
+ * This model is responsible for handling product listing data.
+ */
 
 class ProductsModel extends AbstractModel {
 	

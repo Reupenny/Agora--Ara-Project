@@ -1,8 +1,8 @@
 <?php
 /*
-	Home Controller
-	Handles the home page
-*/
+ * Home Controller
+ * This controller is responsible for handling the home page.
+ */
 
 include 'models/HomeModel.php';
 include 'views/HomeView.php';

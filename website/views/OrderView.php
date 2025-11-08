@@ -1,8 +1,8 @@
 <?php
 /*
-    Order View
-    Displays individual order details with edit capability
-*/
+ * Order View
+ * This view is responsible for displaying individual order details with editing capabilities.
+ */
 
 class OrderView extends AbstractView
 {

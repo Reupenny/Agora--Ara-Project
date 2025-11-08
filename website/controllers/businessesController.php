@@ -1,8 +1,8 @@
 <?php
 /*
-	Businesses Controller
-	Handles businesses listing/directory page
-*/
+ * Businesses Controller
+ * This controller handles the display of the business listing/directory page.
+ */
 
 include 'models/BusinessesModel.php';
 include 'views/BusinessesView.php';

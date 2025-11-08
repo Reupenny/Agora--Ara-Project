@@ -1,8 +1,8 @@
 <?php
 /*
-    Admin Panel View
-    Shows pending business approvals and admin functions
-*/
+ * Admin Panel View
+ * This view is responsible for displaying pending business approvals and other administration functions.
+ */
 
 class AdminPanelView extends AbstractView
 {
@@ -41,11 +41,7 @@ class AdminPanelView extends AbstractView
         $allBusinesses = $this->businessManager->getAllBusinesses();
         
         
-        // Pending approvals section
         $htmlContent .= '<div class="content-section">';
-        
-        
-        // All businesses section
         $htmlContent .= '<div><h2>All Businesses</h2>';
         if (empty($pendingBusinesses)) {
             $htmlContent .= '<p>No businesses pending approval.</p>';

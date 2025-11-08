@@ -1,8 +1,8 @@
 <?php
 /*
-	Products View
-	Displays product listing/shop page
-*/
+ * Products View
+ * This view is responsible for displaying the product listing/shop page.
+ */
 
 class ProductsView extends AbstractView {
 	
@@ -18,7 +18,6 @@ class ProductsView extends AbstractView {
 		}
 		$this->setTemplateField('pagename', $pageTitle . ' - Agora');
 		
-		// For now, create a simple product listing page
 		$content = '<div class="products-section">';
 		$content .= '<h1>' . htmlspecialchars($pageTitle) . '</h1>';
 		

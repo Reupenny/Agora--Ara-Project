@@ -1,8 +1,8 @@
 <?php
 /*
-	Business Model
-	Handles business data from the database
-*/
+ * Business Model
+ * This model is responsible for handling business data from the database.
+ */
 
 class BusinessModel extends AbstractModel {
 	

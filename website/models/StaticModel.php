@@ -1,8 +1,8 @@
 <?php
 /*
-	Static Page Model
-	Simple model for static pages (no database interaction needed)
-*/
+ * Static Page Model
+ * This is a simple model for static pages that do not require any database interaction.
+ */
 
 class StaticModel extends AbstractModel {
 	

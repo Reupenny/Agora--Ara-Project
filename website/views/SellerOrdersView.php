@@ -1,8 +1,8 @@
 <?php
 /*
-    Seller Orders View
-    Displays all orders for seller's products
-*/
+ * Seller Orders View
+ * This view is responsible for displaying all orders for a seller's products.
+ */
 
 class SellerOrdersView extends AbstractView
 {

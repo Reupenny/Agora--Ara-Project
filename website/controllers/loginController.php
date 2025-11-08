@@ -1,8 +1,8 @@
 <?php
 /*
-	Login Controller
-	Handles user authentication
-*/
+ * Login Controller
+ * This controller is responsible for handling user authentication.
+ */
 
 include_once 'models/LoginModel.php';
 include_once 'models/UserModel.php';

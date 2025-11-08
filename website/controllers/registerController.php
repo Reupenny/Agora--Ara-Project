@@ -1,8 +1,8 @@
 <?php
 /*
-	Register Controller
-	Handles new user registration
-*/
+ * Register Controller
+ * This controller is responsible for handling new user registration.
+ */
 
 include_once 'models/RegisterModel.php';
 include_once 'models/UserModel.php';

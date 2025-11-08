@@ -1,8 +1,8 @@
 <?php
 /*
-    Seller Order View
-    Displays order details for seller with status update form
-*/
+ * Seller Order View
+ * This view is responsible for displaying order details for a seller, including a form to update the order status.
+ */
 
 class SellerOrderView extends AbstractView
 {
@@ -104,7 +104,7 @@ class SellerOrderView extends AbstractView
             </form>';
         } else {
             $content .= '<div class="status-box status-inactive">
-                <strong>⚠️ Limited Access</strong><br>
+                <strong>Limited Access</strong><br>
                 <span>You can only manage orders for products from businesses where you are a Seller.</span>
             </div>';
         }

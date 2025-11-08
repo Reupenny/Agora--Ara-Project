@@ -1,8 +1,8 @@
 <?php
 /*
-    Orders View
-    Displays user's order history
-*/
+ * Orders View
+ * This view is responsible for displaying the user's order history.
+ */
 
 class OrdersView extends AbstractView
 {

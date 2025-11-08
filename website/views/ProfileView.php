@@ -1,8 +1,8 @@
 <?php
 /*
-	Profile View
-	Displays the user profile page
-*/
+ * Profile View
+ * This view is responsible for displaying the user profile page.
+ */
 
 class ProfileView extends AbstractView {
 	
@@ -45,7 +45,7 @@ class ProfileView extends AbstractView {
 		$model = $this->getModel();
 		$userData = $model->getUserData();
 		
-		// Use form data if available (for repopulation after error), otherwise use DB data
+		// Use form data if available
 		$firstName = $this->formData['first_name'] ?? $userData['first_name'];
 		$lastName = $this->formData['last_name'] ?? $userData['last_name'];
 		$email = $this->formData['email'] ?? $userData['email'];
@@ -61,7 +61,7 @@ class ProfileView extends AbstractView {
 		$profileContent = str_replace('##join_date##', htmlspecialchars($memberSince), $profileContent);
 		$profileContent = str_replace('##total_orders##', $model->getTotalOrders($username), $profileContent);
 		$profileContent = str_replace('##account_type##', htmlspecialchars($accountType), $profileContent);
-		$profileContent = str_replace('##profile_description##', '', $profileContent); // TODO: Add bio field to database
+		$profileContent = str_replace('##profile_description##', '', $profileContent);
 		
 		// Generate orders section (buyers only)
 		$ordersHtml = '';
@@ -112,25 +112,12 @@ class ProfileView extends AbstractView {
 			}
 		}
 
-		// Ensure any '##site##' tokens inside the dynamically generated orders HTML are replaced
 		if (!empty($ordersHtml)) {
 			$ordersHtml = str_replace('##site##', $this->getSiteURL(), $ordersHtml);
 		}
-		
-		// Replace or remove the orders section in the template
-		if (strpos($profileContent, '<div class="order-history-section">') !== false) {
-			// Replace the existing static orders section with dynamic content
-			$profileContent = preg_replace(
-				'/<div class="order-history-section">.*?<\/div>\s*<\/div>/s',
-				$ordersHtml,
-				$profileContent
-			);
-		} else {
-			// Append orders section if not in template
+	
 			$profileContent .= $ordersHtml;
-		}
 
-		// Remove any leftover placeholder tag markers like ##Orders## (safety fallback)
 		$profileContent = str_replace('##Orders##', '', $profileContent);
 		
 		// Get profile image URL
@@ -145,7 +132,7 @@ class ProfileView extends AbstractView {
 		
 		// Add error messages if present
 		if (!empty($this->errorMessages)) {
-			$errorHtml = '<div class="error-message" style="background-color: #fee; border: 1px solid #fcc; padding: 10px; margin-bottom: 20px; border-radius: 4px; color: #c00;"><ul style="margin: 0; padding-left: 20px;">';
+			$errorHtml = '<div class="error-message"><ul style="margin: 0; padding-left: 20px;">';
 			foreach ($this->errorMessages as $error) {
 				$errorHtml .= '<li>' . htmlspecialchars($error) . '</li>';
 			}

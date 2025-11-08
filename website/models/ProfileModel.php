@@ -1,8 +1,8 @@
 <?php
 /*
-	Profile Model
-	Handles user profile data and updates
-*/
+ * Profile Model
+ * This model is responsible for handling user profile data and updates.
+ */
 
 class ProfileModel extends AbstractModel {
 	
@@ -117,10 +117,10 @@ class ProfileModel extends AbstractModel {
 			return false;
 		}
 		
-		// Hash new password using password_hash
+		// Hash new password using
 		$newPasswordHash = password_hash($newPassword, PASSWORD_DEFAULT);
 		
-		// Update password (no salt needed)
+		// Update password
 		$sql = "UPDATE users SET password_hash = ? WHERE username = ?";
 		$this->getDB()->executePrepared($sql, [$newPasswordHash, $username]);
 		

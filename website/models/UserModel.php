@@ -1,8 +1,8 @@
 <?php
 /*
-	User Model
-	Manages user state and authentication
-*/
+ * User Model
+ * This model is responsible for managing user state and authentication.
+ */
 
 class User {
 	private $context;

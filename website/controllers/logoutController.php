@@ -1,8 +1,8 @@
 <?php
 /*
-	Logout Controller
-	Handles user logout
-*/
+ * Logout Controller
+ * This controller is responsible for handling user logout.
+ */
 
 include_once 'models/UserModel.php';
 

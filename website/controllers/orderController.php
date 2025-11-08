@@ -1,8 +1,8 @@
 <?php
 /*
-    Order Controller  
-    Handles individual order view and editing
-*/
+ * Order Controller
+ * This controller is responsible for handling the viewing and editing of individual orders.
+ */
 
 include_once 'models/UserModel.php';
 include_once 'models/OrderManagerModel.php';
@@ -29,7 +29,7 @@ class OrderController extends AbstractController
             throw new InvalidRequestException('Order ID is required');
         }
         
-        // Initialize order manager
+        // Initialise order manager
         $this->orderManager = new OrderManagerModel($this->getDB());
         
         // Get order

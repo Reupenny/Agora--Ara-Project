@@ -1,8 +1,8 @@
 <?php
 /*
-	Static Page Controller
-	Handles home, about, contact, privacy pages
-*/
+ * Static Page Controller
+ * This controller is responsible for handling static pages such as the home, about, contact, and privacy pages.
+ */
 
 include 'models/StaticModel.php';
 include 'views/StaticView.php';

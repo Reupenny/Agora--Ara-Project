@@ -3,7 +3,6 @@
 <div class="product-layout">
     <form action="" method="post" enctype="multipart/form-data">
 
-        <!-- Left Column - Main Content -->
         <div class="main-column">
             <div class="form-section">
                 <label for="product-name">Product Title</label>
@@ -59,7 +58,6 @@
             </div>
         </div>
 
-        <!-- Right Column - Sidebar -->
         <div class="sidebar-column">
 
             <div class="sidebar-card">
@@ -73,6 +71,7 @@
                 </div>
                 <div class="publish-actions">
                     <button type="submit" name="action" value="save" class="btn-primary">##submit_button_text##</button>
+                    ##delete_button##
                 </div>
             </div>
 
@@ -102,9 +101,9 @@
                 </div>
             </div>
             <div class="sidebar-card">
-                <h3>Tags</h3>
+                <h3>Categories</h3>
                 <div class="scrollable-checkbox-list">
-                    ##tags_checkboxes##
+                    ##categories_checkboxes##
                 </div>
             </div>
 
@@ -118,3 +117,19 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 <link rel="stylesheet" href="##site##assets/css/wysiwyg.css">
 <script src="##site##assets/js/wysiwyg.js"></script>
+<script>
+    // Initialise the WYSIWYG editor content on page load
+    document.addEventListener('DOMContentLoaded', function () {
+        const editor = document.getElementById('description-editor');
+        const hiddenField = document.getElementById('description-hidden');
+
+        // Sync existing content from editor to hidden field
+        if (editor && hiddenField) {
+            // If editor has content (from ##business_details## token), sync it
+            const content = editor.innerHTML.trim();
+            if (content && !content.includes('data-placeholder')) {
+                hiddenField.value = content;
+            }
+        }
+    });
+</script>

@@ -1,8 +1,8 @@
 <?php
 /*
-    Cart View
-    Displays shopping cart
-*/
+ * Cart View
+ * This view is responsible for displaying the shopping cart.
+ */
 
 class CartView extends AbstractView
 {
@@ -71,9 +71,9 @@ class CartView extends AbstractView
                         <p class="item-price">$' . number_format($item['item_price'], 2) . '</p>';
                 
                 if (!$isAvailable) {
-                    $content .= '<p class="item-warning">⚠️ No longer available</p>';
+                    $content .= '<p class="item-warning">No longer available</p>';
                 } elseif (!$inStock) {
-                    $content .= '<p class="item-warning">⚠️ Insufficient stock (only ' . $item['stock_quantity'] . ' available)</p>';
+                    $content .= '<p class="item-warning"> Insufficient stock (only ' . $item['stock_quantity'] . ' available)</p>';
                 }
                 
                 $content .= '</div>

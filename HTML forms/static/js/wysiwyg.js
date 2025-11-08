@@ -54,7 +54,7 @@ function handlePlaceholder(editor) {
     }
 }
 
-// Initialize WYSIWYG editors when page loads
+// Initialise WYSIWYG editors when page loads
 document.addEventListener('DOMContentLoaded', function () {
     const editors = document.querySelectorAll('.wysiwyg-editor');
 

@@ -1,8 +1,8 @@
 <?php
 /*
-	Businesses Model
-	Handles loading businesses for listing page
-*/
+ * Businesses Model
+ * This model is responsible for loading businesses for the listing page.
+ */
 
 class BusinessesModel extends AbstractModel {
 	

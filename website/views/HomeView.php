@@ -1,8 +1,8 @@
 <?php
 /*
-	Home View
-	Renders the home page with featured products and businesses
-*/
+ * Home View
+ * This view is responsible for rendering the home page with featured products and businesses.
+ */
 
 class HomeView extends AbstractView {
 	
@@ -65,7 +65,7 @@ class HomeView extends AbstractView {
 			$cardHtml = str_replace('##product_price##', htmlspecialchars($product['formattedPrice']), $cardHtml);
 			$cardHtml = str_replace('##availability_class##', $availabilityClass, $cardHtml);
 			$cardHtml = str_replace('##product_availability##', htmlspecialchars($availabilityText), $cardHtml);
-			$cardHtml = str_replace('##product_categories##', '', $cardHtml); // No categories on home page
+			$cardHtml = str_replace('##product_categories##', '', $cardHtml);
 			$cardHtml = str_replace('##blur_image##', $blurImage, $cardHtml);
 			$cardHtml = str_replace('##thumb_image##', $thumbImage, $cardHtml);
 			

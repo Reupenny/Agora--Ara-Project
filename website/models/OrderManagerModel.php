@@ -1,14 +1,12 @@
 <?php
 /*
-    Order Manager Model
-    Handles cart and order operations
-*/
+ * Order Manager Model
+ * This model is responsible for handling cart and order operations.
+ */
 
 class OrderManagerModel extends AbstractModel
 {
-    /**
-     * Get or create cart for user
-     */
+    // Get or create cart for user
     public function getCart($username)
     {
         // Look for any existing carts for this user (ordered by newest first)
@@ -16,7 +14,7 @@ class OrderManagerModel extends AbstractModel
         $results = $this->getDB()->queryPrepared($query, [$username]);
 
         if (!empty($results)) {
-            // If multiple carts exist (legacy bug), merge items into the newest cart and remove duplicates
+            // If multiple carts exist, merge items into the newest cart and remove duplicates
             $mainCart = $results[0];
             $mainOrderId = $mainCart['order_id'];
 
@@ -57,7 +55,7 @@ class OrderManagerModel extends AbstractModel
         }
 
         // No cart found — create a new one
-        $query = "INSERT INTO orders (buyer_username, status, order_date) VALUES (?, 'Cart', NOW())";
+        $query = "INSERT INTO orders (buyer_username, status, order_date, total_amount) VALUES (?, 'Cart', NOW(), 0)";
         $this->getDB()->executePrepared($query, [$username]);
 
         return [
@@ -68,9 +66,7 @@ class OrderManagerModel extends AbstractModel
         ];
     }
     
-    /**
-     * Get cart items with product details
-     */
+    // Get cart items with product details
     public function getCartItems($orderId)
     {
         $query = "SELECT oi.*, p.product_name, p.price, p.quantity as stock_quantity, 
@@ -88,9 +84,7 @@ class OrderManagerModel extends AbstractModel
         return $this->getDB()->queryPrepared($query, [$orderId]);
     }
     
-    /**
-     * Add item to cart
-     */
+    // Add item to cart
     public function addToCart($username, $productId, $quantity = 1)
     {
         // Get or create cart
@@ -134,9 +128,7 @@ class OrderManagerModel extends AbstractModel
         }
     }
     
-    /**
-     * Update cart item quantity
-     */
+    // Update cart item quantity
     public function updateCartItem($orderId, $productId, $quantity)
     {
         if ($quantity <= 0) {
@@ -155,18 +147,14 @@ class OrderManagerModel extends AbstractModel
         return $this->getDB()->executePrepared($query, [$quantity, $orderId, $productId]);
     }
     
-    /**
-     * Remove item from cart
-     */
+    // Remove item from cart
     public function removeCartItem($orderId, $productId)
     {
         $query = "DELETE FROM order_items WHERE order_id = ? AND product_id = ?";
         return $this->getDB()->executePrepared($query, [$orderId, $productId]);
     }
     
-    /**
-     * Calculate cart total
-     */
+    // Calculate cart total
     public function calculateCartTotal($orderId)
     {
         $query = "SELECT SUM(quantity * item_price) as total FROM order_items WHERE order_id = ?";
@@ -175,9 +163,7 @@ class OrderManagerModel extends AbstractModel
         return $result[0]['total'] ?? 0;
     }
     
-    /**
-     * Checkout - convert cart to pending order
-     */
+    // Checkout - convert cart to pending order
     public function checkout($orderId)
     {
         // Calculate total
@@ -204,14 +190,12 @@ class OrderManagerModel extends AbstractModel
             $this->getDB()->executePrepared($updateStockQuery, [$item['quantity'], $item['product_id']]);
         }
         
-        // Update order status to Pending (can be edited) and set total
+        // Update order status to Pending and set total
         $query = "UPDATE orders SET status = 'Pending', total_amount = ?, order_date = NOW() WHERE order_id = ?";
         return $this->getDB()->executePrepared($query, [$total, $orderId]);
     }
     
-    /**
-     * Get user's orders
-     */
+    // Get user's orders
     public function getUserOrders($username, $excludeCart = true)
     {
         $query = "SELECT o.*, COUNT(oi.product_id) as item_count
@@ -228,9 +212,7 @@ class OrderManagerModel extends AbstractModel
         return $this->getDB()->queryPrepared($query, [$username]);
     }
     
-    /**
-     * Get order details
-     */
+    // Get order details
     public function getOrder($orderId)
     {
         $query = "SELECT * FROM orders WHERE order_id = ?";
@@ -239,17 +221,13 @@ class OrderManagerModel extends AbstractModel
         return !empty($result) ? $result[0] : null;
     }
     
-    /**
-     * Get order items with details
-     */
+    // Get order items with details
     public function getOrderItems($orderId)
     {
         return $this->getCartItems($orderId); // Same query works for both
     }
     
-    /**
-     * Check if user can modify order
-     */
+    // Check if user can modify order
     public function canModifyOrder($orderId, $username)
     {
         $order = $this->getOrder($orderId);

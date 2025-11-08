@@ -1,8 +1,8 @@
 <?php
 /*
-	Businesses View
-	Displays listing of all active businesses
-*/
+ * Businesses View
+ * This view is responsible for displaying a listing of all active businesses.
+ */
 
 class BusinessesView extends AbstractView {
 	
@@ -21,7 +21,7 @@ class BusinessesView extends AbstractView {
 		if ($businessCount > 0) {
 			$content .= '<p style="margin-bottom: 30px; color: #666;">' . $businessCount . ' business' . ($businessCount != 1 ? 'es' : '') . ' available</p>';
 			
-			// Load the business card template once
+			// Load the business card template 
 			$cardTemplate = file_get_contents('html/sections/business-card.html');
 			
 			$content .= '<div class="businesses-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 30px; margin-bottom: 40px;">';
@@ -34,7 +34,7 @@ class BusinessesView extends AbstractView {
 				
 				// If no short description, use truncated details
 				if (empty($description) && !empty($business['details'])) {
-					$details = strip_tags($business['details']);
+					$details = strip_categories($business['details']);
 					$description = strlen($details) > 100 ? substr($details, 0, 100) . '...' : $details;
 				}
 				

@@ -1,8 +1,8 @@
 <?php
 /*
-	Login Model
-	Handles user authentication
-*/
+ * Login Model
+ * This model is responsible for handling user authentication.
+ */
 
 class LoginModel extends AbstractModel {
 	

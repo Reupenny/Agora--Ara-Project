@@ -1,14 +1,12 @@
 <?php
 /*
-    Business Manager Model
-    Handles business creation, updates, and associations
-*/
+ * Business Manager Model
+ * This model is responsible for handling the creation, updating, and association of businesses.
+ */
 
 class BusinessManagerModel extends AbstractModel
 {
-    /**
-     * Create a new business
-     */
+// Create a new business
     public function createBusiness($businessName, $businessLocation, $details, $creatorUsername, $email = null, $phone = null, $shortDescription = null)
     {
         // Create the business (initially inactive, pending admin approval)
@@ -28,10 +26,8 @@ class BusinessManagerModel extends AbstractModel
         
         return false;
     }
-    
-    /**
-     * Update business details
-     */
+
+    // Update business details
     public function updateBusiness($businessId, $businessName, $businessLocation, $details, $email = null, $phone = null, $shortDescription = null)
     {
         $query = "UPDATE businesses 
@@ -40,28 +36,22 @@ class BusinessManagerModel extends AbstractModel
         
         return $this->getDB()->executePrepared($query, [$businessName, $businessLocation, $email, $phone, $shortDescription, $details, $businessId]);
     }
-    
-    /**
-     * Approve a business (admin only)
-     */
+
+    // Approve a business (admin only)
     public function approveBusiness($businessId)
     {
         $query = "UPDATE businesses SET is_active = 'True' WHERE business_id = ?";
         return $this->getDB()->executePrepared($query, [$businessId]);
     }
-    
-    /**
-     * Deactivate a business (admin only)
-     */
+
+    // Deactivate a business (admin only)
     public function deactivateBusiness($businessId)
     {
         $query = "UPDATE businesses SET is_active = 'False' WHERE business_id = ?";
         return $this->getDB()->executePrepared($query, [$businessId]);
     }
     
-    /**
-     * Get business by ID
-     */
+    // Get business by ID
     public function getBusiness($businessId)
     {
         $query = "SELECT * FROM businesses WHERE business_id = ?";
@@ -73,10 +63,8 @@ class BusinessManagerModel extends AbstractModel
         
         return null;
     }
-    
-    /**
-     * Get user's business (if they have one)
-     */
+
+    // Get user's business (if they have one)
     public function getUserBusiness($username)
     {
         $query = "SELECT b.*, ba.role_name, ba.is_active as association_active
@@ -94,9 +82,7 @@ class BusinessManagerModel extends AbstractModel
         return null;
     }
     
-    /**
-     * Associate user with a business
-     */
+    // Associate user with a business
     public function associateUserWithBusiness($username, $businessId, $role = 'Seller', $isActive = 'True')
     {
         $query = "INSERT INTO business_association (username, business_id, role_name, is_active) 
@@ -105,9 +91,7 @@ class BusinessManagerModel extends AbstractModel
         return $this->getDB()->executePrepared($query, [$username, $businessId, $role, $isActive]);
     }
     
-    /**
-     * Check if user can edit business
-     */
+    // Check if user can edit business
     public function userCanEditBusiness($username, $businessId)
     {
         $query = "SELECT * FROM business_association 
@@ -119,9 +103,7 @@ class BusinessManagerModel extends AbstractModel
         return !empty($result);
     }
     
-    /**
-     * Get all businesses (for admin)
-     */
+    // Get all businesses (for admin)
     public function getAllBusinesses($activeOnly = false)
     {
         if ($activeOnly) {
@@ -133,9 +115,7 @@ class BusinessManagerModel extends AbstractModel
         return $this->getDB()->query($query);
     }
     
-    /**
-     * Get pending businesses (awaiting approval)
-     */
+    // Get pending businesses (awaiting approval)
     public function getPendingBusinesses()
     {
         $query = "SELECT b.*, 
@@ -151,9 +131,7 @@ class BusinessManagerModel extends AbstractModel
         return $this->getDB()->query($query);
     }
     
-    /**
-     * Get business members
-     */
+    // Get business members
     public function getBusinessMembers($businessId)
     {
         $query = "SELECT ba.*, u.first_name, u.last_name, u.email
@@ -165,9 +143,7 @@ class BusinessManagerModel extends AbstractModel
         return $this->getDB()->queryPrepared($query, [$businessId]);
     }
     
-    /**
-     * Check if business name already exists
-     */
+    // Check if business name already exists
     public function businessNameExists($businessName, $excludeBusinessId = null)
     {
         if ($excludeBusinessId) {
@@ -181,18 +157,13 @@ class BusinessManagerModel extends AbstractModel
         return !empty($result);
     }
     
-    /**
-     * Get business stats
-     */
+    // Get business stats
     public function getBusinessStats($businessId)
     {
         // Get total products
         $productQuery = "SELECT COUNT(*) as total_products FROM products WHERE business_id = ?";
         $productResult = $this->getDB()->queryPrepared($productQuery, [$businessId]);
         $totalProducts = $productResult[0]['total_products'] ?? 0;
-        
-        // Get total orders (if orders table has business_id or through products)
-        // For now, return placeholder
         $totalOrders = 0;
         
         // Get business creation date
@@ -206,9 +177,7 @@ class BusinessManagerModel extends AbstractModel
         ];
     }
     
-    /**
-     * Update or add business member role
-     */
+    // Update or add business member role
     public function updateBusinessMember($username, $businessId, $role, $isActive)
     {
         // Check if association exists
@@ -225,9 +194,7 @@ class BusinessManagerModel extends AbstractModel
         }
     }
     
-    /**
-     * Remove business member
-     */
+    // Remove business member
     public function removeBusinessMember($username, $businessId)
     {
         $query = "DELETE FROM business_association WHERE username = ? AND business_id = ?";

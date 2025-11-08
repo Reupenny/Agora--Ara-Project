@@ -1,8 +1,8 @@
 <?php
 /*
-    Business Management Controller
-    Handles business creation and management for sellers
-*/
+ * Business Management Controller
+ * This controller handles the creation and management of businesses by sellers.
+ */
 
 include_once 'models/UserModel.php';
 include_once 'models/BusinessManagerModel.php';
@@ -28,7 +28,7 @@ class BusinessManageController extends AbstractController
             return null;
         }
         
-        // Initialize business manager
+        // Initialise business manager
         $this->businessManager = new BusinessManagerModel($this->getDB());
         
         // Check if user already has a business
@@ -40,6 +40,9 @@ class BusinessManageController extends AbstractController
             $action = $_POST['action'] ?? '';
             if ($action === 'manage-member' && $existingBusiness) {
                 return $this->handleMemberManagement($user, $existingBusiness);
+            }
+            if ($action === 'remove-member' && $existingBusiness) {
+                return $this->handleRemoveMember($user, $existingBusiness);
             }
             
             return $this->handleFormSubmission($user, $existingBusiness);
@@ -126,8 +129,6 @@ class BusinessManageController extends AbstractController
                     $shortDescription
                 );
                 
-                // Build success message - don't fail if update returns false (no rows changed)
-                // as images may have been successfully uploaded
                 if (!empty($imageMessages)) {
                     // If we have image messages, show them
                     $message = 'Business updated successfully! ' . implode(' ', $imageMessages);
@@ -396,6 +397,46 @@ class BusinessManageController extends AbstractController
             $view = new BusinessManageView();
             $view->setBusinessManager($this->businessManager);
             $view->setExistingBusiness($existingBusiness);
+            $view->setUser($user);
+            $view->setErrorMessage($e->getMessage());
+            return $view;
+        }
+    }
+
+    private function handleRemoveMember($user, $existingBusiness)
+    {
+        try {
+            // Only administrators can remove members
+            if ($existingBusiness['role_name'] !== 'Administrator') {
+                throw new Exception('Only business administrators can remove members.');
+            }
+
+            $memberUsername = $_POST['username'] ?? '';
+
+            if (empty($memberUsername)) {
+                throw new Exception('Username is required.');
+            }
+
+            // Prevent admin from removing themselves
+            if ($memberUsername === $user->getUsername()) {
+                throw new Exception('Administrators cannot remove themselves.');
+            }
+
+            // Remove member
+            $this->businessManager->removeBusinessMember(
+                $memberUsername,
+                $existingBusiness['business_id']
+            );
+
+            // Redirect back with success message
+            $this->redirectTo('business-manage', 'Business member removed successfully!');
+            return null;
+
+        } catch (Exception $e) {
+            // On error, show the view with error message
+            $view = new BusinessManageView();
+            $view->setBusinessManager($this->businessManager);
+            $view->setExistingBusiness($this->businessManager->getUserBusiness($user->getUsername()));
             $view->setUser($user);
             $view->setErrorMessage($e->getMessage());
             return $view;

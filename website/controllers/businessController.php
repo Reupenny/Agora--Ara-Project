@@ -1,8 +1,8 @@
 <?php
 /*
-	Business Controller
-	Handles business detail pages
-*/
+ * Business Controller
+ * This controller handles the display of business detail pages.
+ */
 
 include 'models/BusinessModel.php';
 include 'views/BusinessView.php';
@@ -21,7 +21,7 @@ class BusinessController extends AbstractController {
 		$model = new BusinessModel($this->getDB());
 		$model->load($businessId);
 		
-		// Only allow viewing approved businesses (unless user is admin or business owner)
+		// Only allow viewing approved businesses (unless user is admin)
 		$user = $this->getContext()->getUser();
 		$isOwner = false;
 		$canEdit = false;
@@ -39,7 +39,7 @@ class BusinessController extends AbstractController {
 			}
 		}
 		
-		// If business is not active and user is not admin or owner, deny access
+		// If business is not active and user is not admin, deny access
 		if ($model->getIsActive() !== 'True' && 
 		    (!$user || !$user->isAdmin()) && 
 		    !$isOwner) {

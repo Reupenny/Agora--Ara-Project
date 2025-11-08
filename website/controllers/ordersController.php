@@ -1,8 +1,8 @@
 <?php
 /*
-    Orders Controller
-    Handles user's order history listing
-*/
+ * Orders Controller
+ * This controller is responsible for handling the listing of a user's order history.
+ */
 
 include_once 'models/UserModel.php';
 include_once 'models/OrderManagerModel.php';
@@ -20,7 +20,7 @@ class OrdersController extends AbstractController
             return null;
         }
         
-        // Initialize order manager
+        // Initialise order manager
         $orderManager = new OrderManagerModel($this->getDB());
         
         // Get user's orders (exclude cart)

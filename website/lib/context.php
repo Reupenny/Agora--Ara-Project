@@ -1,11 +1,8 @@
 <?php
 /*
-	A PHP framework for web site
-
-	Context management
-	==================
-	
-*/
+ * Context Management
+ * This file is responsible for managing the application context.
+ */
 include 'lib/interfaces.php';
 include 'lib/uri.php';
 include 'lib/database.php';
@@ -81,7 +78,7 @@ class Context implements IContext{
 		$dbPassword=$dbNode['dbPassword'];
 		$dbDatabase=$dbNode['dbDatabase'];
 		$db=new Database($dbHost, $dbUser, $dbPassword, $dbDatabase);
-		unset ($config['db']);  // let's consume this
+		unset ($config['db']); 
 		$uri=URI::createFromRequest();
 		
 		$session=new Session();

@@ -960,13 +960,13 @@ h1 {
   color: var(--text-color);
 }
 
-/* Featured Tags Section */
-.featured-tags {
+/* Featured Categories Section */
+.featured-categories {
   padding: 2em var(--global-margin);
   margin: var(--global-margin);
 }
 
-.featured-tags h2 {
+.featured-categories h2 {
   color: var(--heading-color);
   font-family: 'NohemiMed', sans-serif;
   font-size: 2em;
@@ -974,7 +974,7 @@ h1 {
   text-align: center;
 }
 
-.tag-buttons {
+.category-buttons {
   display: flex;
   flex-wrap: wrap;
   gap: 0.75em;
@@ -1129,25 +1129,25 @@ h1 {
   font-size: 0.9em;
 }
 
-/* Product Tags & Tags (Consolidated) */
-.product-tags,
-.product-tags-detail,
-.specialty-tags {
+/* Product Categories & Categories (Consolidated) */
+.product-categories,
+.product-categories-detail,
+.specialty-categories {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5em;
   margin-top: 0.75em;
 }
 
-.product-tags-detail {
+.product-categories-detail {
   gap: 0.75em;
   margin-top: 0;
 }
 
-.product-tags .tag,
-.product-tags-detail .tag,
-.specialty-tags .tag,
-.tag {
+.product-categories .category,
+.product-categories-detail .category,
+.specialty-categories .category,
+.category {
   display: inline-block;
   padding: 0.3em 0.7em;
   background: var(--tertiary);
@@ -1156,13 +1156,13 @@ h1 {
   font-size: 0.8em;
 }
 
-.product-tags-detail .tag {
+.product-categories-detail .category {
   padding: 0.6em 1.2em;
   font-size: 0.9em;
   transition: all var(--transition-ease);
 }
 
-.product-tags-detail .tag:hover {
+.product-categories-detail .category:hover {
   background: var(--primary);
   color: var(--white);
   transform: translateY(-2px);
@@ -2008,16 +2008,16 @@ footer {
     height: 200px;
   }
 
-  .featured-tags h2,
+  .featured-categories h2,
   .products-section h2 {
     font-size: 1.5em;
   }
 
-  .tag-buttons {
+  .category-buttons {
     gap: 0.5em;
   }
 
-  .tag-button {
+  .category-button {
     font-size: 0.85em;
     padding: 0.5em 1em;
   }

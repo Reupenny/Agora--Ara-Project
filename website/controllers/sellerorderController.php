@@ -1,8 +1,8 @@
 <?php
 /*
-	Seller Order Controller
-	Allows sellers to view and update order status
-*/
+ * Seller Order Controller
+ * This controller allows sellers to view and update the status of an order.
+ */
 
 include 'models/SellerOrderModel.php';
 include 'views/SellerOrderView.php';

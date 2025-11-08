@@ -1,8 +1,8 @@
 <?php
 /*
-	Home Model
-	Handles data for the home page
-*/
+ * Home Model
+ * This model is responsible for handling data for the home page.
+ */
 
 class HomeModel extends AbstractModel {
 	
@@ -61,7 +61,7 @@ class HomeModel extends AbstractModel {
 	
 	// Load featured businesses (random selection)
 	public function loadFeaturedBusinesses($limit = 4) {
-		$sql = "SELECT business_id, business_name, business_location, details
+		$sql = "SELECT business_id, business_name, business_location, short_description
 		        FROM businesses
 		        WHERE is_active = 'True'
 		        ORDER BY RAND()
@@ -75,7 +75,7 @@ class HomeModel extends AbstractModel {
 				'id' => $row['business_id'],
 				'name' => $row['business_name'],
 				'location' => $row['business_location'],
-				'description' => $row['details']
+				'description' => $row['short_description']
 			];
 		}
 	}

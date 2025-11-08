@@ -1,8 +1,8 @@
 <?php
 /*
-    Product Add/Edit View
-    Renders the product creation/editing form
-*/
+ * Product Add/Edit View
+ * This view is responsible for rendering the product creation/editing form.
+ */
 
 class ProductAddView extends AbstractView
 {
@@ -45,9 +45,9 @@ class ProductAddView extends AbstractView
         // Load product management content
         $htmlContent = file_get_contents('html/product.html');
         
-        // Get all available tags
-        $allTags = $this->productManager->getAllTags();
-        $selectedTags = [];
+        // Get all available categories
+        $allCategories = $this->productManager->getAllCategories();
+        $selectedCategories = [];
         
         // Populate form with existing data if editing
         $productName = '';
@@ -59,6 +59,7 @@ class ProductAddView extends AbstractView
         $submitButtonText = 'Publish Product';
         $featuredImagePreview = '';
         $productIdHidden = '';
+        $deleteButton = '';
         
         if ($this->productId && $this->productData) {
             $productName = htmlspecialchars($this->productData['product_name']);
@@ -69,8 +70,11 @@ class ProductAddView extends AbstractView
             $pageTitle = 'Edit Product: ' . htmlspecialchars($this->productData['product_name']);
             $submitButtonText = 'Update Product';
             
-            // Get selected tags
-            $selectedTags = $this->productManager->getProductTags($this->productId);
+            // Add delete button
+            $deleteButton = '<button type="submit" name="action" value="delete" class="button secondary" onclick="return confirm(\'Are you sure you want to permanently delete this product? This cannot be undone.\')">Delete Product</button>';
+
+            // Get selected categories
+            $selectedCategories = $this->productManager->getProductCategories($this->productId);
             
             // Get featured image
             $featuredImage = $this->productManager->getFeaturedImage($this->productId);
@@ -84,21 +88,21 @@ class ProductAddView extends AbstractView
             $productIdHidden = '<input type="hidden" name="product_id" value="' . $this->productId . '">';
         }
         
-        // Generate tags checkboxes
-        $tagsHtml = '';
-        foreach ($allTags as $tag) {
-            $checked = in_array($tag, $selectedTags) ? 'checked' : '';
-            $tagLabel = ucwords(str_replace('-', ' ', $tag));
-            $tagsHtml .= '<label><input type="checkbox" name="tags[]" value="' . htmlspecialchars($tag) . '" ' . $checked . '> ' . htmlspecialchars($tagLabel) . '</label>' . "\n";
+        // Generate categories checkboxes
+        $categoriesHtml = '';
+        foreach ($allCategories as $category) {
+            $checked = in_array($category, $selectedCategories) ? 'checked' : '';
+            $categoryLabel = ucwords(str_replace('-', ' ', $category));
+            $categoriesHtml .= '<label><input type="checkbox" name="categories[]" value="' . htmlspecialchars($category) . '" ' . $checked . '> ' . htmlspecialchars($categoryLabel) . '</label>' . "\n";
         }
         
-        // If no tags exist yet, show default ones
-        if (empty($tagsHtml)) {
-            $defaultTags = ['plants', 'ceramic', 'indoor', 'outdoor', 'decorative', 'functional', 'modern', 'vintage', 'handmade', 'eco-friendly'];
-            foreach ($defaultTags as $tag) {
-                $checked = in_array($tag, $selectedTags) ? 'checked' : '';
-                $tagLabel = ucwords(str_replace('-', ' ', $tag));
-                $tagsHtml .= '<label><input type="checkbox" name="tags[]" value="' . htmlspecialchars($tag) . '" ' . $checked . '> ' . htmlspecialchars($tagLabel) . '</label>' . "\n";
+        // If no categories exist yet, show default ones
+        if (empty($categoriesHtml)) {
+            $defaultCategories = ['plants', 'ceramic', 'indoor', 'outdoor', 'decorative', 'functional', 'modern', 'vincategorye', 'handmade', 'eco-friendly'];
+            foreach ($defaultCategories as $category) {
+                $checked = in_array($category, $selectedCategories) ? 'checked' : '';
+                $categoryLabel = ucwords(str_replace('-', ' ', $category));
+                $categoriesHtml .= '<label><input type="checkbox" name="categories[]" value="' . htmlspecialchars($category) . '" ' . $checked . '> ' . htmlspecialchars($categoryLabel) . '</label>' . "\n";
             }
         }
         
@@ -109,7 +113,7 @@ class ProductAddView extends AbstractView
         // Error message display
         $errorHtml = '';
         if (!empty($this->errorMessage)) {
-            $errorHtml = '<div class="error-message" style="background: #fee; border: 1px solid #fcc; padding: 10px; margin-bottom: 20px; border-radius: 4px; color: #c00;">' . htmlspecialchars($this->errorMessage) . '</div>';
+            $errorHtml = '<div class="error-message">' . htmlspecialchars($this->errorMessage) . '</div>';
         }
         
         // Replace template tokens
@@ -121,8 +125,9 @@ class ProductAddView extends AbstractView
         $htmlContent = str_replace('##available_selected##', $availableSelected, $htmlContent);
         $htmlContent = str_replace('##draft_selected##', $draftSelected, $htmlContent);
         $htmlContent = str_replace('##submit_button_text##', $submitButtonText, $htmlContent);
+        $htmlContent = str_replace('##delete_button##', $deleteButton, $htmlContent);
         $htmlContent = str_replace('##featured_image_preview##', $featuredImagePreview, $htmlContent);
-        $htmlContent = str_replace('##tags_checkboxes##', $tagsHtml, $htmlContent);
+        $htmlContent = str_replace('##categories_checkboxes##', $categoriesHtml, $htmlContent);
         $htmlContent = str_replace('##product_id_hidden##', $productIdHidden, $htmlContent);
         
         // Set content in master page

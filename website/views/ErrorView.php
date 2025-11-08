@@ -1,8 +1,8 @@
 <?php
 /*
-	Error View
-	Renders error pages using the master template
-*/
+ * Error View
+ * This view is responsible for rendering error pages using the master template.
+ */
 
 class ErrorView extends AbstractView {
 	

@@ -1,8 +1,8 @@
 <?php
 /*
-	Products Controller
-	Handles product listing/shop pages
-*/
+ * Products Controller
+ * This controller is responsible for handling the product listing and shop pages.
+ */
 
 include 'models/ProductsModel.php';
 include 'views/ProductsView.php';

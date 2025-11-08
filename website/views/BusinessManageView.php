@@ -1,8 +1,8 @@
 <?php
 /*
-    Business Manage View
-    Renders the business creation/editing form
-*/
+ * Business Manage View
+ * This view is responsible for rendering the business creation/editing form.
+ */
 
 class BusinessManageView extends AbstractView
 {
@@ -158,6 +158,7 @@ class BusinessManageView extends AbstractView
                             <th>Email</th>
                             <th>Role</th>
                             <th>Status</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>';
@@ -173,6 +174,17 @@ class BusinessManageView extends AbstractView
                 <td>' . htmlspecialchars($member['email']) . '</td>
                 <td>' . htmlspecialchars($member['role_name']) . '</td>
                 <td>' . $statusBadge . '</td>
+                <td>';
+
+            if ($this->user->getUsername() !== $member['username']) {
+                $html .= '<form action="" method="post" onsubmit="return confirm(\'Are you sure you want to remove this member?\');">
+                    <input type="hidden" name="action" value="remove-member">
+                    <input type="hidden" name="username" value="' . htmlspecialchars($member['username']) . '">
+                    <button type="submit" class="button secondary">Remove</button>
+                </form>';
+            }
+
+            $html .= '</td>
             </tr>';
         }
         

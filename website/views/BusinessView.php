@@ -1,8 +1,8 @@
 <?php
 /*
-	Business View
-	Displays business detail page
-*/
+ * Business View
+ * This view is responsible for displaying the business detail page.
+ */
 
 class BusinessView extends AbstractView {
 	
@@ -46,11 +46,10 @@ class BusinessView extends AbstractView {
 			: 'Location not available';
 		$content = str_replace('##business_location##', $location, $content);
 		
-		// Business contact info (placeholders for now - these fields don't exist in the database yet)
+		// Business contact info
 		$content = str_replace('##business_email##',strtolower($model->getBusinessEmail()), $content);
 		$content = str_replace('##business_phone##', strtolower($model->getBusinessPhone()), $content);
 		
-		// Generate product cards dynamically using template
 		$products = $model->getProducts();
 		$productsHtml = '';
 		

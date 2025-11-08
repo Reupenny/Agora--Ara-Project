@@ -1,11 +1,8 @@
 <?php
 /*
-	A PHP framework for web site
-
-	URI management
-	==============
-	
-*/
+ * URI Management
+ * This class is responsible for parsing and managing the application's URIs.
+ */
 
 class URI implements IUri {
 

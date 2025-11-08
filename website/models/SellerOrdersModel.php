@@ -1,8 +1,8 @@
 <?php
 /*
-    Seller Orders Model
-    Displays all orders containing products from businesses where user is a seller
-*/
+ * Seller Orders Model
+ * This model is responsible for displaying all orders containing products from businesses where the user is a seller.
+ */
 
 class SellerOrdersModel extends AbstractModel
 {

@@ -1,11 +1,8 @@
 <?php
 /*
-   A PHP framework for web site
-
-   Database Connection Class using mysqli
-   ======================================
-   
-*/
+ * Database Connection Class
+ * This class provides a simple interface for interacting with a MySQL database using the mysqli extension.
+ */
 
 class Database implements IDatabase
 {

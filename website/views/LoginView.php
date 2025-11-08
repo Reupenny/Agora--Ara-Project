@@ -1,8 +1,8 @@
 <?php
 /*
-	Login View
-	Displays the login form
-*/
+ * Login View
+ * This view is responsible for displaying the login form.
+ */
 
 class LoginView extends AbstractView {
 	
@@ -36,7 +36,7 @@ class LoginView extends AbstractView {
 		
 		// Set error message if present
 		if (!empty($this->errorMessage)) {
-			$errorHtml = '<div class="error-message" style="background-color: #fee; border: 1px solid #fcc; padding: 10px; margin-bottom: 20px; border-radius: 4px; color: #c00;">' 
+			$errorHtml = '<div class="error-message">' 
 			           . htmlspecialchars($this->errorMessage) 
 			           . '</div>';
 			$loginContent = str_replace('##error##', $errorHtml, $loginContent);

@@ -3,7 +3,6 @@
 <div class="profile-layout">
     <form action="" method="post" enctype="multipart/form-data">
 
-        <!-- Left Column - Main Content -->
         <div class="main-column">
             <div class="form-section">
                 <h2>Personal Information</h2>
@@ -87,7 +86,6 @@
             </div>
         </div>
 
-        <!-- Right Column - Sidebar -->
         <div class="sidebar-column">
 
             <div class="sidebar-card">
@@ -139,3 +137,19 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 <link rel="stylesheet" href="##site##assets/css/wysiwyg.css">
 <script src="##site##assets/js/wysiwyg.js"></script>
+<script>
+    // Initialise the WYSIWYG editor content on page load
+    document.addEventListener('DOMContentLoaded', function () {
+        const editor = document.getElementById('user-bio-editor');
+        const hiddenField = document.getElementById('user-bio-hidden');
+
+        // Sync existing content from editor to hidden field
+        if (editor && hiddenField) {
+            // If editor has content (from ##business_details## token), sync it
+            const content = editor.innerHTML.trim();
+            if (content && !content.includes('data-placeholder')) {
+                hiddenField.value = content;
+            }
+        }
+    });
+</script>

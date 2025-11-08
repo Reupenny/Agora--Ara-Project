@@ -1993,12 +1993,18 @@ footer {
   margin: 0.5em 0;
 }
 
+.status-box,
 .error-message {
   font-size: 1.1em;
-  color: var(--text-color);
   line-height: 1.6;
   margin: 1.5em 0;
   opacity: 0.9;
+
+  border: 1px solid var(--status-error-color);
+  padding: 10px;
+  margin-bottom: 20px;
+  border-radius: var(--border-radius);
+  color: var(--status-error-color);
 }
 
 .error-actions {
@@ -2340,32 +2346,22 @@ footer {
   color: var(--primary);
 }
 
-.status-box {
-  padding: 15px 20px;
-  margin-bottom: 20px;
-  border-radius: var(--border-radius);
-}
-
 .status-box.status-active {
-  background: var(--light);
   border-color: var(--status-success-color);
   color: var(--status-success-color);
 }
 
 .status-box.status-inactive {
-  background: var(--light);
   border-color: var(--status-error-color);
   color: var(--status-error-color);
 }
 
 .status-box.status-warning {
-  background: var(--light);
   border-color: var(--status-warning-color);
   color: var(--status-warning-color);
 }
 
 .status-box.status-info {
-  background: var(--light);
   border-color: var(--status-active-color);
   color: var(--status-active-color);
 }

@@ -6,7 +6,6 @@
 	Access via: http://localhost:8000/setup_database.php
 */
 
-// Database connection settings
 
 $configText = file_get_contents('config/website.conf');
 $config = json_decode($configText, true);
@@ -20,7 +19,6 @@ echo "<h1>Agora Database Setup</h1>";
 echo "<pre>";
 
 try {
-	// First, connect without selecting a database
 	echo "Connecting to MySQL...\n";
 	$conn = new mysqli($host, $user, $password);
 	
@@ -29,7 +27,6 @@ try {
 	}
 	echo "✓ Connected to MySQL successfully\n\n";
 	
-	// Create database if it doesn't exist
 	echo "Creating database '$database'...\n";
 	$sql = "CREATE DATABASE IF NOT EXISTS $database";
 	if ($conn->query($sql) === TRUE) {
@@ -38,11 +35,9 @@ try {
 		throw new Exception("Error creating database: " . $conn->error);
 	}
 	
-	// Select the database
 	$conn->select_db($database);
 	echo "Using database '$database'\n\n";
 	
-	// Read the SQL file
 	$sqlFile = 'config/createDatabase.sql';
 	if (!file_exists($sqlFile)) {
 		throw new Exception("SQL file not found: $sqlFile");
@@ -51,27 +46,21 @@ try {
 	echo "Reading SQL file: $sqlFile\n";
 	$sqlContent = file_get_contents($sqlFile);
 	
-	// Remove comment lines first
 	$lines = explode("\n", $sqlContent);
 	$cleanedLines = array();
 	foreach ($lines as $line) {
 		$line = trim($line);
-		// Skip empty lines and full comment lines
 		if (empty($line) || substr($line, 0, 2) === '--') continue;
 		$cleanedLines[] = $line;
 	}
 	$sqlContent = implode("\n", $cleanedLines);
 	
-	// Split by semicolons to get individual statements
 	$statements = explode(';', $sqlContent);
 	
-	// Filter out empty statements and unwanted commands
 	$validStatements = array();
 	foreach ($statements as $statement) {
 		$statement = trim($statement);
-		// Skip empty statements
 		if (empty($statement)) continue;
-		// Skip DROP DATABASE, CREATE DATABASE, and USE commands (we already did those)
 		if (preg_match('/^(drop database|CREATE DATABASE|USE)\s+/i', $statement)) continue;
 		
 		$validStatements[] = $statement;
@@ -80,12 +69,10 @@ try {
 	
 	echo "Found " . count($statements) . " SQL statements to execute\n\n";
 	
-	// Execute each statement
 	$successCount = 0;
 	foreach ($statements as $index => $statement) {
 		if (empty(trim($statement))) continue;
 		
-		// Get table name for display
 		if (preg_match('/CREATE TABLE\s+(\w+)/i', $statement, $matches)) {
 			$tableName = $matches[1];
 			echo "Creating table: $tableName...";
@@ -98,7 +85,6 @@ try {
 				echo "  Error: " . $conn->error . "\n";
 			}
 		} else {
-			// Execute other statements without displaying
 			if ($conn->query($statement) === TRUE) {
 				$successCount++;
 			}
@@ -111,7 +97,6 @@ try {
 	echo "$successCount statements executed\n";
 	echo "=========================================\n\n";
 	
-	// Show created tables
 	echo "Tables in database:\n";
 	$result = $conn->query("SHOW TABLES");
 	while ($row = $result->fetch_array()) {

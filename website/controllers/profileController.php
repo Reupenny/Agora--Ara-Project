@@ -1,8 +1,8 @@
 <?php
 /*
-	Profile Controller
-	Handles user profile viewing and editing
-*/
+ * Profile Controller
+ * This controller is responsible for handling the viewing and editing of user profiles.
+ */
 
 include_once 'models/UserModel.php';
 include_once 'models/ProfileModel.php';

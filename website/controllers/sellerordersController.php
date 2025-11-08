@@ -1,8 +1,8 @@
 <?php
 /*
-	Seller Orders Controller
-	Shows all orders containing products from seller's businesses
-*/
+ * Seller Orders Controller
+ * This controller displays all orders that contain products from the seller's businesses.
+ */
 
 include 'models/SellerOrdersModel.php';
 include 'views/SellerOrdersView.php';

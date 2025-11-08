@@ -12,7 +12,7 @@ This project is for the Best Programming Practices - Server-Side Programming (BC
 
 ## Project Overview
 
-Agora is a B2C e-commerce platform for New Zealand specialising in curated items like Art, Vintage Goods, and Collectibles.
+Agora is a B2C e-commerce platform for New Zealand specialising in curated items like Art, Vincategorye Goods, and Collectibles.
 The website is designed around a seller hierarchy to maintain a professional marketplace: an individual must first register a Seller Account, and this account must be attached to a Business before any items can be listed.
 
 ## Key Features
@@ -21,7 +21,7 @@ The website is designed around a seller hierarchy to maintain a professional mar
 - **Gated Selling:** Product listings are exclusively tied to a Business Account.
 - **Dual Business Roles:** Within a Business, users are either a listing-focused Seller or a management-focused Administrator (cannot list products).
 - **Central Data Integrity:** The database enforces that one Seller Account can only be associated with one Business at a time.
-- **Catalogue Optimisation:** Products feature Tags for detailed search and dedicated fields for image versions (thumb_url, blur_url) to ensure fast loading speeds.
+- **Catalogue Optimisation:** Products feature Categories for detailed search and dedicated fields for image versions (thumb_url, blur_url) to ensure fast loading speeds.
 
 ## Running the website
 

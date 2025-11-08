@@ -1,8 +1,8 @@
 <?php
 /*
-    Seller Order Model
-    Shows order details for seller with ability to update status
-*/
+ * Seller Order Model
+ * This model is responsible for showing order details for a seller, with the ability to update the status.
+ */
 
 class SellerOrderModel extends AbstractModel
 {
