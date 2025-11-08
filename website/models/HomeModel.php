@@ -27,7 +27,7 @@ class HomeModel extends AbstractModel {
 		                LIMIT 1) as first_blur
 		        FROM products p
 		        INNER JOIN businesses b ON p.business_id = b.business_id
-		        WHERE p.is_available = 'True'
+		        WHERE p.is_available = 'True' AND b.is_active = 'True'
 		        ORDER BY RAND()
 		        LIMIT ?";
 		

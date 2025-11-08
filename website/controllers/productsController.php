@@ -4,8 +4,8 @@
 	Handles product listing/shop pages
 */
 
-include 'models/products.php';
-include 'views/products.php';
+include 'models/ProductsModel.php';
+include 'views/ProductsView.php';
 
 class ProductsController extends AbstractController {
 	

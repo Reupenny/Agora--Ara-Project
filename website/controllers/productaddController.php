@@ -4,9 +4,9 @@
     Handles product creation and editing
 */
 
-include_once 'models/user.php';
-include_once 'models/productManager.php';
-include_once 'views/productAdd.php';
+include_once 'models/UserModel.php';
+include_once 'models/ProductManagerModel.php';
+include_once 'views/ProductAddView.php';
 
 class ProductAddController extends AbstractController
 {
@@ -31,7 +31,7 @@ class ProductAddController extends AbstractController
         }
         
         // Initialize product manager
-        $this->productManager = new ProductManager($this->getDB());
+        $this->productManager = new ProductManagerModel($this->getDB());
         
         // Check if editing existing product - check both URI and GET parameter
         $this->productId = null;

@@ -4,9 +4,9 @@
     Handles business creation and management for sellers
 */
 
-include_once 'models/user.php';
-include_once 'models/businessManager.php';
-include_once 'views/businessManage.php';
+include_once 'models/UserModel.php';
+include_once 'models/BusinessManagerModel.php';
+include_once 'views/BusinessManageView.php';
 
 class BusinessManageController extends AbstractController
 {
@@ -29,7 +29,7 @@ class BusinessManageController extends AbstractController
         }
         
         // Initialize business manager
-        $this->businessManager = new BusinessManager($this->getDB());
+        $this->businessManager = new BusinessManagerModel($this->getDB());
         
         // Check if user already has a business
         $existingBusiness = $this->businessManager->getUserBusiness($user->getUsername());

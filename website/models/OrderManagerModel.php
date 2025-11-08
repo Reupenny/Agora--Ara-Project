@@ -4,7 +4,7 @@
     Handles cart and order operations
 */
 
-class OrderManager extends AbstractModel
+class OrderManagerModel extends AbstractModel
 {
     /**
      * Get or create cart for user

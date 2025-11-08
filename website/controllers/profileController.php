@@ -4,9 +4,9 @@
 	Handles user profile viewing and editing
 */
 
-include_once 'models/user.php';
-include_once 'models/profile.php';
-include_once 'views/profile.php';
+include_once 'models/UserModel.php';
+include_once 'models/ProfileModel.php';
+include_once 'views/ProfileView.php';
 
 class ProfileController extends AbstractController {
 	

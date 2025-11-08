@@ -4,8 +4,8 @@
 	Handles the home page
 */
 
-include 'models/home.php';
-include 'views/home.php';
+include 'models/HomeModel.php';
+include 'views/HomeView.php';
 
 class HomeController extends AbstractController {
 	

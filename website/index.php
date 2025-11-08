@@ -56,7 +56,7 @@ function getController($uri) {
 			return 'ProductAdd';
 			
 		case 'product-edit':
-			return 'ProductAdd';  // Reuse ProductAddController for editing
+			return 'ProductAdd';
 			
 		case 'business':
 			return 'Business';
@@ -99,7 +99,7 @@ try {
 	$context = Context::createFromConfigurationFile('website.conf');
 	
 	// Initialize user from session
-	include_once 'models/user.php';
+	include_once 'models/UserModel.php';
 	$user = new User($context);
 	$context->setUser($user);
 	
@@ -124,35 +124,35 @@ try {
 	
 } catch (ConfigurationException $e) {
 	http_response_code(500);
-	include_once 'views/error.php';
+	include_once 'views/ErrorView.php';
 	$errorView = new ErrorView(500, 'Configuration Error', $e->getMessage(), $context ?? null);
 	$errorView->prepare();
 	$errorView->render();
 	
 } catch (DatabaseException $e) {
 	http_response_code(500);
-	include_once 'views/error.php';
+	include_once 'views/ErrorView.php';
 	$errorView = new ErrorView(500, 'Database Error', $e->getMessage(), $context ?? null);
 	$errorView->prepare();
 	$errorView->render();
 	
 } catch (UnauthorizedException $e) {
 	http_response_code(403);
-	include_once 'views/error.php';
+	include_once 'views/ErrorView.php';
 	$errorView = new ErrorView(403, 'Access Denied', $e->getMessage(), $context ?? null);
 	$errorView->prepare();
 	$errorView->render();
 	
 } catch (InvalidRequestException $e) {
 	http_response_code(404);
-	include_once 'views/error.php';
+	include_once 'views/ErrorView.php';
 	$errorView = new ErrorView(404, 'Page Not Found', $e->getMessage(), $context ?? null);
 	$errorView->prepare();
 	$errorView->render();
 	
 } catch (Exception $e) {
 	http_response_code(500);
-	include_once 'views/error.php';
+	include_once 'views/ErrorView.php';
 	$errorView = new ErrorView(500, 'An Error Occurred', $e->getMessage(), $context ?? null);
 	$errorView->prepare();
 	$errorView->render();

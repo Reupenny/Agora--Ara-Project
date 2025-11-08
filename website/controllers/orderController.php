@@ -4,9 +4,9 @@
     Handles individual order view and editing
 */
 
-include_once 'models/user.php';
-include_once 'models/orderManager.php';
-include_once 'views/order.php';
+include_once 'models/UserModel.php';
+include_once 'models/OrderManagerModel.php';
+include_once 'views/OrderView.php';
 
 class OrderController extends AbstractController
 {
@@ -30,7 +30,7 @@ class OrderController extends AbstractController
         }
         
         // Initialize order manager
-        $this->orderManager = new OrderManager($this->getDB());
+        $this->orderManager = new OrderManagerModel($this->getDB());
         
         // Get order
         $order = $this->orderManager->getOrder($orderId);

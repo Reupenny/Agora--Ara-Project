@@ -4,7 +4,7 @@
     Handles business creation, updates, and associations
 */
 
-class BusinessManager extends AbstractModel
+class BusinessManagerModel extends AbstractModel
 {
     /**
      * Create a new business

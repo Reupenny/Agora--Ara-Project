@@ -4,8 +4,8 @@
 	Handles businesses listing/directory page
 */
 
-include 'models/businesses.php';
-include 'views/businesses.php';
+include 'models/BusinessesModel.php';
+include 'views/BusinessesView.php';
 
 class BusinessesController extends AbstractController {
 	

@@ -4,8 +4,8 @@
 	Shows all orders containing products from seller's businesses
 */
 
-include 'models/sellerOrders.php';
-include 'views/sellerOrders.php';
+include 'models/SellerOrdersModel.php';
+include 'views/SellerOrdersView.php';
 
 class SellerOrdersController extends AbstractController {
 	

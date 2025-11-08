@@ -4,9 +4,9 @@
 	Handles new user registration
 */
 
-include_once 'models/register.php';
-include_once 'models/user.php';
-include_once 'views/register.php';
+include_once 'models/RegisterModel.php';
+include_once 'models/UserModel.php';
+include_once 'views/RegisterView.php';
 
 class RegisterController extends AbstractController {
 	

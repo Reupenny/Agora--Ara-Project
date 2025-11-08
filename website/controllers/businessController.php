@@ -4,8 +4,8 @@
 	Handles business detail pages
 */
 
-include 'models/business.php';
-include 'views/business.php';
+include 'models/BusinessModel.php';
+include 'views/BusinessView.php';
 
 class BusinessController extends AbstractController {
 	

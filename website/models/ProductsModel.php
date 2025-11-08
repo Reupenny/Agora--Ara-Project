@@ -53,7 +53,7 @@ class ProductsModel extends AbstractModel {
 		
 		$sql .= " FROM products p
 		        INNER JOIN businesses b ON p.business_id = b.business_id
-		        WHERE (p.is_available = 'True'";
+		        WHERE b.is_active = 'True' AND (p.is_available = 'True'";
 		
 		// Include draft products if user is a seller
 		if ($this->username) {

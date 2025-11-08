@@ -4,9 +4,9 @@
     Handles shopping cart operations
 */
 
-include_once 'models/user.php';
-include_once 'models/orderManager.php';
-include_once 'views/cart.php';
+include_once 'models/UserModel.php';
+include_once 'models/OrderManagerModel.php';
+include_once 'views/CartView.php';
 
 class CartController extends AbstractController
 {
@@ -23,7 +23,7 @@ class CartController extends AbstractController
         }
         
         // Initialize order manager
-        $this->orderManager = new OrderManager($this->getDB());
+        $this->orderManager = new OrderManagerModel($this->getDB());
         
         // Handle POST actions
         if ($isPostback) {

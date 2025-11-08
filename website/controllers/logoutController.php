@@ -4,7 +4,7 @@
 	Handles user logout
 */
 
-include_once 'models/user.php';
+include_once 'models/UserModel.php';
 
 class LogoutController extends AbstractController {
 	

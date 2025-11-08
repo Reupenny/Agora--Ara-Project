@@ -4,9 +4,9 @@
     Handles user's order history listing
 */
 
-include_once 'models/user.php';
-include_once 'models/orderManager.php';
-include_once 'views/orders.php';
+include_once 'models/UserModel.php';
+include_once 'models/OrderManagerModel.php';
+include_once 'views/OrdersView.php';
 
 class OrdersController extends AbstractController
 {
@@ -21,7 +21,7 @@ class OrdersController extends AbstractController
         }
         
         // Initialize order manager
-        $orderManager = new OrderManager($this->getDB());
+        $orderManager = new OrderManagerModel($this->getDB());
         
         // Get user's orders (exclude cart)
         $orders = $orderManager->getUserOrders($user->getUsername(), true);

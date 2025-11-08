@@ -4,9 +4,9 @@
 	Handles individual product detail pages
 */
 
-include 'models/product.php';
-include 'models/orderManager.php';
-include 'views/product.php';
+include 'models/ProductModel.php';
+include 'models/OrderManagerModel.php';
+include 'views/ProductView.php';
 
 class ProductController extends AbstractController {
 	
@@ -28,6 +28,11 @@ class ProductController extends AbstractController {
 		// Create model and load product data
 		$model = new ProductModel($this->getDB());
 		$model->load($productId);
+
+		// If business is not active, then product should not be visible
+		if (!$model->isBusinessActive()) {
+			throw new InvalidRequestException('Product not found');
+		}
 		
 		// Check if user can edit this product (only sellers of the business)
 		$canEdit = false;

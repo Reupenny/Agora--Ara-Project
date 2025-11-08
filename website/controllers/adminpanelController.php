@@ -4,9 +4,9 @@
     Handles admin functions like business approval
 */
 
-include_once 'models/user.php';
-include_once 'models/businessManager.php';
-include_once 'views/adminPanel.php';
+include_once 'models/UserModel.php';
+include_once 'models/BusinessManagerModel.php';
+include_once 'views/AdminPanelView.php';
 
 class AdminPanelController extends AbstractController
 {
@@ -23,7 +23,7 @@ class AdminPanelController extends AbstractController
         }
         
         // Initialize business manager
-        $this->businessManager = new BusinessManager($this->getDB());
+        $this->businessManager = new BusinessManagerModel($this->getDB());
         
         // If POST request, handle actions
         if ($isPostback) {

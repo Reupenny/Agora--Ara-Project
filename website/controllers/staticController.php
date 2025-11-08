@@ -4,8 +4,8 @@
 	Handles home, about, contact, privacy pages
 */
 
-include 'models/static.php';
-include 'views/static.php';
+include 'models/StaticModel.php';
+include 'views/StaticView.php';
 
 class StaticController extends AbstractController {
 	

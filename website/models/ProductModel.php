@@ -16,6 +16,7 @@ class ProductModel extends AbstractModel {
 	private $businessLocation;
 	private $businessDescription;
 	private $isActive;
+	private $isAvailable;
 	private $createdAt;
 	private $categories = [];
 	private $images = [];
@@ -25,7 +26,7 @@ class ProductModel extends AbstractModel {
 		$this->productId = $productId;
 		
 		// Query to get product with business info
-		$sql = "SELECT p.*, b.business_name, b.business_location, b.details
+		$sql = "SELECT p.*, b.business_name, b.business_location, b.details, b.is_active
 		        FROM products p
 		        INNER JOIN businesses b ON p.business_id = b.business_id
 		        WHERE p.product_id = ?";
@@ -45,7 +46,8 @@ class ProductModel extends AbstractModel {
 		$this->businessName = $row['business_name'];
 		$this->businessLocation = $row['business_location'];
 		$this->businessDescription = $row['details'];
-		$this->isActive = $row['is_available'];
+		$this->isActive = $row['is_active'];
+		$this->isAvailable = $row['is_available'];
 		$this->createdAt = null; // Not in schema
 		
 		// Load categories
@@ -99,12 +101,14 @@ class ProductModel extends AbstractModel {
 	public function getBusinessLocation() { return $this->businessLocation; }
 	public function getBusinessDescription() { return $this->businessDescription; }
 	public function getIsActive() { return $this->isActive; }
+	public function isBusinessActive() { return $this->isActive === 'True'; }
+	public function getIsAvailable() { return $this->isAvailable; }
 	public function getCreatedAt() { return $this->createdAt; }
 	public function getCategories() { return $this->categories; }
 	public function getImages() { return $this->images; }
 	
 	public function isInStock() {
-		return $this->isActive === 'True' && $this->stockQuantity > 0;
+		return $this->isAvailable === 'True' && $this->stockQuantity > 0;
 	}
 	
 	public function getFormattedPrice() {
@@ -139,6 +143,7 @@ class ProductModel extends AbstractModel {
 		        INNER JOIN businesses b ON p.business_id = b.business_id
 		        INNER JOIN product_categories pc ON p.product_id = pc.product_id
 		        WHERE p.is_available = 'True'
+		          AND b.is_active = 'True'
 		          AND pc.category_name = ?
 		          AND p.product_id != ?
 		        ORDER BY RAND()

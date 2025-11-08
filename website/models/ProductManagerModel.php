@@ -4,7 +4,7 @@
     Handles product creation, update, and management operations
 */
 
-class ProductManager extends AbstractModel
+class ProductManagerModel extends AbstractModel
 {
     /**
      * Get all available tags/categories

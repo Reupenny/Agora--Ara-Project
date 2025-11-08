@@ -4,8 +4,8 @@
 	Allows sellers to view and update order status
 */
 
-include 'models/sellerOrder.php';
-include 'views/sellerOrder.php';
+include 'models/SellerOrderModel.php';
+include 'views/SellerOrderView.php';
 
 class SellerOrderController extends AbstractController {
 	

@@ -4,9 +4,9 @@
 	Handles user authentication
 */
 
-include_once 'models/login.php';
-include_once 'models/user.php';
-include_once 'views/login.php';
+include_once 'models/LoginModel.php';
+include_once 'models/UserModel.php';
+include_once 'views/LoginView.php';
 
 class LoginController extends AbstractController {
 	

@@ -15,7 +15,7 @@ CREATE TABLE users
   account_type ENUM('Buyer', 'Seller', 'Agora Admin') NOT NULL,
   created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (username),
-  UNIQUE KEY unique_email_account (email, account_type)
+  UNIQUE KEY unique_email_account (email, account_type, username)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- BUSINESSES
